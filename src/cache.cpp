@@ -47,3 +47,10 @@ void Cache::remove(string url){
 int main(){
 
 }
+
+//to do
+/**
+ * 1.cache-control in different type
+ * 2.receive/store type
+ * 3.revalid
+ * /
