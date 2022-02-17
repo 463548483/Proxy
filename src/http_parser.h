@@ -28,14 +28,16 @@ private:
   // check Content_Length, parse cache field
   void parse_response_headers(HttpResponse* response);
   // parse header into lines of header fields
-  void parse_header_fields(std::vector<char>* header, std::vector<std::vector<char>>* header_fields);
+  void parse_header_fields(const std::vector<char>* header, std::vector<std::vector<char>>* header_fields);
   // will correct whitespace error,  otherwise throw exp
   // must have ":", can not start with " " or "\t"
-  void sanity_check_header_field(std::vector<char> * header_fields);
+  void sanity_check_header_field(std::vector<char> * header_field);
   // return 0 if field does not exist
-  bool get_header_field(std::vector<char>& field_name, std::vector<char>* field);
-  void parse_req_cache(std::vector<char>* field, ReqCacheControl* cache);
-  void parse_rsp_cache(std::vector<char>* field, RspCacheControl* cache);
+  bool get_header_field(const std::vector<char>& field_name, 
+      std::vector<std::vector<char>>* header_fields, 
+std::vector<char>* field);
+  void parse_req_cache(const::std::vector<char>* field, ReqCacheControl* cache);
+  void parse_rsp_cache(const std::vector<char>* field, RspCacheControl* cache);
 };
 
 #endif
