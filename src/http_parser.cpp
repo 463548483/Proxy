@@ -1,5 +1,7 @@
 #include "http_parser.h"
 
+#include <iostream>
+
 // size should exclude '\0', aka equals to strlen(input)
 HttpRequest HttpParser::parse_request(const char * input, size_t size) {
   HttpRequest req;
@@ -9,6 +11,10 @@ HttpRequest HttpParser::parse_request(const char * input, size_t size) {
     parse_request_headers(&req);
   }
   catch (HttpParserExc &e) {
+    throw HttpRequestExc(); 
+  }
+  catch (std::exception &e) {
+    std::cerr << "Unexpected exception when parsing request!\n";
     throw HttpRequestExc(); 
   }
   return req;
@@ -24,6 +30,10 @@ HttpResponse HttpParser::parse_response(const char * input, size_t size) {
   }
   catch (HttpParserExc &e) {
     throw HttpResponseExc();
+  }
+  catch (std::exception &e) {
+    std::cerr << "Unexpected exception when parsing response!\n";
+    throw HttpResponseExc(); 
   }
   return rsp;
 }
@@ -143,11 +153,74 @@ void HttpParser::parse_response_line(HttpResponse* response) {
   }
 }
 
+// check has "Host", edit "Host" field, parse cache field
 void HttpParser::parse_request_headers(HttpRequest* request) {
-  return;
+  std::vector<char>* field = nullptr;
+  if (get_header_field(std::string("Host"), &(request->header_fields), &field) == 0 || field == nullptr) {
+    // no "Host" field
+    throw HttpRequestExc();
+  }
+  // absolute-form URI, need to reconstruct "Host" field 
+  if (request->method == "POST" || request->method == "GET") {
+    field->resize(5);
+    field->push_back(' ');
+    field->reserve(7 + request->host.size() + request->port.size());
+    for (size_t i = 0; i < request->host.size(); ++i) {
+      field->push_back(request->host[i]);
+    }
+    field->push_back(':');
+    for (size_t i = 0; i < request->port.size(); ++i) {
+      field->push_back(request->port[i]);
+    }
+  }
+  parse_req_cache(request);
 }
 
+// check Content_Length, parse cache field
 void HttpParser::parse_response_headers(HttpResponse* response) {
+  // code != 304
+  // 1. if no transfer-encoding && if has content_length
+  // 2. multi content_length => throw
+  // 3. single content_length but not valid 1.not  >=0 2.a string of number =>throw
+  // 4. valid number but not match => throw
+  // 5. replace the valid number(in case the whole string is invalid)
+  
+  // if code=304, Content-Length might equal to the size of the original message body
+  if (response->code != std::string("304")) {
+    std::vector<char>* field = nullptr;
+    if (get_header_field(std::string("Transfer-Encoding"), &(response->header_fields), &field) == 0 || field == nullptr) {
+      field = nullptr;
+      size_t num_fields = 0;
+      if ((num_fields = get_header_field(std::string("Content-Length"), &(response->header_fields), &field)) > 0 && field != nullptr) {
+        // multi Content-Length field
+        if (num_fields > 1) {
+          throw HttpResponseExc();
+        }
+        auto iter = std::find(field->begin(), field->end(), ':');
+        if (iter == field->end()) {
+          throw HttpResponseExc();
+        }
+        std::string content_size_str = std::string(iter + 1, field->end());
+        long long content_size = 0;
+        try {
+          content_size = std::stoll(content_size_str, nullptr);
+        }
+        catch (std::exception &e) {
+          throw HttpResponseExc();
+        }
+        if (content_size < 0 || content_size != response->message_body.size()) {
+          throw HttpResponseExc();
+        }
+        field->resize(15);
+        field->push_back(' ');
+        std::string content_size_new = std::to_string(content_size);
+        for (size_t i = 0; i < content_size_new.size(); ++i) {
+          field->push_back(content_size_new[i]);
+        }
+      }
+    }
+  }
+  parse_rsp_cache(response);
 }
 
 void HttpParser::parse_header_fields(const std::vector<char>* header, std::vector<std::vector<char>>* header_fields) {
@@ -183,24 +256,40 @@ void HttpParser::sanity_check_header_field(std::vector<char> * header_field) {
   }
 }
 
-bool HttpParser::get_header_field(const std::vector<char>& field_name,
-    std::vector<std::vector<char>>* header_fields,
-    std::vector<char>* field) {
+size_t HttpParser::get_header_field(const std::string& field_name,
+    std::vector<std::vector<char>>* header_fields, std::vector<char>** field) {
+  size_t num = 0;
   for (int i = 0; i < header_fields->size(); ++i) {
-    auto iter = std::search(header_fields->at(i).begin(), 
-                            header_fields->at(i).end(),
-                            field_name.begin(),
-                            field_name.end());
-    if (iter != header_fields->at(i).end()) {
-      field = &(header_fields->at(i));
-      return true;
+    // field_name is case insensitive
+    std::string field_name_lower = to_lower_case(field_name);
+    auto iter = std::find(header_fields->at(i).begin(), header_fields->at(i).end(), ':');
+    if (iter == header_fields->at(i).end()) {
+      throw HttpParserExc();
+    }
+    std::string name(header_fields->at(i).begin(), iter);
+    std::string name_lower = to_lower_case(name);
+    if (field_name_lower == name_lower) {
+      if (num == 0) {
+        *field = &(header_fields->at(i));
+      }
+      ++num;
     }
   }
-  return false;
+  return num;
 }
 
-void HttpParser::parse_req_cache(const std::vector<char>* field, ReqCacheControl* cache) {
+std::string HttpParser::to_lower_case(const std::string& str) {
+  std::string res = str;
+  for (size_t i = 0; i < str.size(); ++i) {
+    if (str[i] >= 'A' && str[i] <= 'Z') {
+      res[i] = str[i] -'A' + 'a';
+    }
+  }
+  return res;
 }
 
-void HttpParser::parse_rsp_cache(const std::vector<char>* field, RspCacheControl* cache) {
+void HttpParser::parse_req_cache(HttpRequest* request) {
+}
+
+void HttpParser::parse_rsp_cache(HttpResponse* response) {
 }

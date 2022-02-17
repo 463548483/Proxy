@@ -4,11 +4,12 @@
 #include "http_parser.h"
 #include <cstring>
 #include <string> 
+#include <fstream>
 
 TEST(http_request_test, POST) {
   const char * input = "POST  http://w3schools.com:a8/test/demo_form.php  HTTP/1.1\r\nHost : abc.com\r\nCache-Control  :no-cache, no-store \r\n\r\nname1=value1&name2=value2"; 
   const char * request_line = "POST  http://w3schools.com:a8/test/demo_form.php  HTTP/1.1";
-  const char * header1 = "Host: abc.com";
+  const char * header1 = "Host: w3schools.com:80";
   const char * header2 = "Cache-Control:no-cache, no-store ";
   const char * request_body = "name1=value1&name2=value2";
   size_t size = strlen(input) + 1;
@@ -66,10 +67,11 @@ TEST(http_request_test, CONNECT) {
 }
 
 TEST(http_response_test, test0) {
-  const char * input = "HTTP/1.1   200   OK\r\nHost : abc.com\r\nCache-Control  :no-cache, no-store \r\n\r\nname1=value1&name2=value2"; 
+  const char * input = "HTTP/1.1   200   OK\r\nHost : abc.com\r\nCache-Control  :no-cache, no-store \r\ncontent-length: 026e \r\n\r\nname1=value1&name2=value2"; 
   const char * rsp_line = "HTTP/1.1   200   OK";
   const char * header1 = "Host: abc.com";
   const char * header2 = "Cache-Control:no-cache, no-store ";
+  const char * header3 = "content-length: 26";
   const char * rsp_body = "name1=value1&name2=value2";
   size_t size = strlen(input) + 1;
   HttpParser parser;
@@ -78,7 +80,7 @@ TEST(http_response_test, test0) {
   start_line.push_back('\0');
   EXPECT_STREQ(start_line.data(), rsp_line);
   EXPECT_EQ(rsp.get_start_line().size(), strlen(rsp_line));
-  EXPECT_EQ(rsp.get_header().size(), 2);
+  EXPECT_EQ(rsp.get_header().size(), 3);
   std::vector<char> header_0 = rsp.get_header()[0];
   header_0.push_back('\0');
   EXPECT_STREQ(header_0.data(), header1);
@@ -87,11 +89,34 @@ TEST(http_response_test, test0) {
   header_1.push_back('\0');
   EXPECT_STREQ(header_1.data(), header2);
   EXPECT_EQ(rsp.get_header()[1].size(), strlen(header2));
+  std::vector<char> header_2 = rsp.get_header()[2];
+  header_2.push_back('\0');
+  EXPECT_STREQ(header_2.data(), header3);
+  EXPECT_EQ(rsp.get_header()[2].size(), strlen(header3));
   EXPECT_STREQ(rsp.get_message_body().data(), rsp_body);
   EXPECT_EQ(rsp.get_message_body().size(), strlen(rsp_body) + 1);
   EXPECT_EQ(rsp.get_code(), std::string("200"));
 }
 
+TEST(http_response_test, real_data) {
+  std::ifstream is ("Http_parse_data.txt", std::ifstream::binary);
+  is.seekg (0, is.end);
+  int length = is.tellg();
+  is.seekg (0, is.beg);
+  char * input = new char [length];
+  is.read (input,length);
+  is.close();
+  const char * rsp_line = "HTTP/1.1 200 OK";
+  size_t size = length;
+  HttpParser parser;
+  HttpResponse rsp = parser.parse_response(input, size);
+  std::vector<char> start_line = rsp.get_start_line();
+  start_line.push_back('\0');
+  EXPECT_STREQ(start_line.data(), rsp_line);
+  EXPECT_EQ(rsp.get_start_line().size(), strlen(rsp_line));
+  EXPECT_EQ(rsp.get_header().size(), 7);
+  EXPECT_EQ(rsp.get_code(), std::string("200"));
+}
 
 
 int main(int argc, char **argv)

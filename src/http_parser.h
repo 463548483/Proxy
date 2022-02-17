@@ -15,7 +15,7 @@ class HttpResponse;
 
 class HttpParser {
 public:
-  // size should exclude '\0', aka equals to strlen(input)
+  // these functions will only throw HttpRequestExc/HttpResponseExc
   HttpRequest parse_request(const char * input, size_t size);
   HttpResponse parse_response(const char * input, size_t size);
 private:
@@ -32,12 +32,12 @@ private:
   // will correct whitespace error,  otherwise throw exp
   // must have ":", can not start with " " or "\t"
   void sanity_check_header_field(std::vector<char> * header_field);
-  // return 0 if field does not exist
-  bool get_header_field(const std::vector<char>& field_name, 
-      std::vector<std::vector<char>>* header_fields, 
-std::vector<char>* field);
-  void parse_req_cache(const::std::vector<char>* field, ReqCacheControl* cache);
-  void parse_rsp_cache(const std::vector<char>* field, RspCacheControl* cache);
+  // return number of fields with the same field_name. field is the first field with the name
+  size_t get_header_field(const std::string& field_name, 
+      std::vector<std::vector<char>>* header_fields, std::vector<char>** field);
+  std::string to_lower_case(const std::string& str);
+  void parse_req_cache(HttpRequest* request);
+  void parse_rsp_cache(HttpResponse* response);
 };
 
 #endif
