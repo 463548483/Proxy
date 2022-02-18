@@ -208,7 +208,7 @@ void HttpParser::parse_response_headers(HttpResponse* response) {
         catch (std::exception &e) {
           throw HttpResponseExc();
         }
-        if (content_size < 0 || content_size != response->message_body.size()) {
+        if (content_size < 0 || (unsigned int)content_size != response->message_body.size()) {
           throw HttpResponseExc();
         }
         field->resize(15);
@@ -259,7 +259,7 @@ void HttpParser::sanity_check_header_field(std::vector<char> * header_field) {
 size_t HttpParser::get_header_field(const std::string& field_name,
     std::vector<std::vector<char>>* header_fields, std::vector<char>** field) {
   size_t num = 0;
-  for (int i = 0; i < header_fields->size(); ++i) {
+  for (size_t i = 0; i < header_fields->size(); ++i) {
     // field_name is case insensitive
     std::string field_name_lower = to_lower_case(field_name);
     auto iter = std::find(header_fields->at(i).begin(), header_fields->at(i).end(), ':');
