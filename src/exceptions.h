@@ -21,4 +21,16 @@ class HttpParserExc: public std::exception {
     return "Encounter an error when parsing headers fields in http\n";
   }
 };
+
+class SocketExc : public std::exception {
+  private:
+    std::string error;
+  public:
+  SocketExc(std::string s):error(s){}
+  virtual const char * what() const throw() {
+    return error.c_str();
+  }
+};
+
+
 #endif

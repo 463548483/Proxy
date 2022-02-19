@@ -5,7 +5,8 @@
 
 
 using namespace std;
-int ticket = 0;
+int MAX_THREADS=10;
+int MAX_TASKS=100;
 
 Threadpool * Threadpool::pool=NULL;
 mutex * Threadpool::mtx=new mutex();
@@ -14,7 +15,7 @@ Threadpool::Threadpool():max_threads(MAX_THREADS),max_tasks(MAX_TASKS),run_flag(
 
 Threadpool * Threadpool::get_pool(){
     if(pool==NULL){
-        lock_guard<mutex> lck(*mtx);
+        unique_lock<mutex> lck(*mtx);
         if (pool==NULL){
             pool=new Threadpool();
         }
@@ -26,14 +27,14 @@ Threadpool * Threadpool::get_pool(){
 
 void Threadpool::run_task(){
     while(run_flag==true||!m_tasks.empty()){
-        Task t;
+        function<void()> task;
         unique_lock<mutex> lck(m_lock);
         while(m_tasks.empty()){
             has_task.wait(lck);
         }
-        t=m_tasks.front();
+        task=m_tasks.front();
         m_tasks.pop();
-        t();
+        task();
     }
 }
 
@@ -44,7 +45,7 @@ bool Threadpool::init_threads(){
     return true;
 }
 
-bool Threadpool::init_pool(Task t){
+bool Threadpool::init_pool(function<void()> t){
     if (threads.size()==0){
         unique_lock<mutex> lck(m_lock);
         if (threads.size()==0){
@@ -67,13 +68,13 @@ bool Threadpool::init_pool(Task t){
 }
 
 Threadpool::~Threadpool(){
-    unique_lock<mutex> u_lock(m_lock);
-    run_flag=false;
+    {
+        unique_lock<mutex> u_lock(m_lock);
+        run_flag=false;
+    }
     has_task.notify_all();
     for (auto &t:threads){
         t.join();
     }
     threads.clear();
 }
-
-

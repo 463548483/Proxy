@@ -8,16 +8,14 @@
 #include <condition_variable>
 
 using namespace std;
-int MAX_THREADS=10;
-int MAX_TASKS=100;
 
-typedef function<void()> Task;
+
 
 class Threadpool
 {
 private:
-    vector<thread> threads;
-    queue<Task> m_tasks;
+    vector<std::thread> threads;
+    queue<function<void()> > m_tasks;
     int max_threads;
     int max_tasks;
     mutex m_lock;
@@ -27,9 +25,9 @@ private:
     static mutex * mtx;
 public:
     Threadpool();
-    bool init_pool(Task t);
+    bool init_pool(function<void()> t);
     static Threadpool * get_pool();
-    bool assign_task(Task task);
+    bool assign_task(function<void()> task);
     ~Threadpool();
 private:
     bool init_threads();

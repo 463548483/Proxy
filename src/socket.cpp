@@ -6,12 +6,12 @@
 #include <unistd.h>
 #include "socket.h"
 #include <csignal>
-#include "http_parser.h"
+#include "exceptions.h"
 
 using namespace std;
+int MAXLINE=4096;
 
-
-int Socket::init_server(const char * port){
+int Serversocket::init_server(const char * port){
     int status;
     int socket_fd;
     struct addrinfo host_info;
@@ -26,7 +26,7 @@ int Socket::init_server(const char * port){
 
     status = getaddrinfo(hostname, port, &host_info, &host_info_list);
     if (status != 0) {
-        cerr << "Error: cannot get address info for host" << endl;
+        throw SocketExc("Error: cannot get address info for host");
         cerr << "  (" << hostname << "," << port << ")" << endl;
         exit(EXIT_FAILURE);;
     } 
@@ -40,23 +40,23 @@ int Socket::init_server(const char * port){
                 host_info_list->ai_socktype, 
                 host_info_list->ai_protocol);
     if (socket_fd == -1) {
-        cerr << "Error: cannot create socket" << endl;
+        throw SocketExc("Error: cannot create socket");
         cerr << "  (" << hostname << "," << port << ")" << endl;
         exit(EXIT_FAILURE);;
-    } //if
+    } 
 
     int yes = 1;
     status = setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
     status = bind(socket_fd, host_info_list->ai_addr, host_info_list->ai_addrlen);
     if (status == -1) {
-        cerr << "Error: cannot bind socket" << endl;
+        throw SocketExc("Error: cannot bind socket");
         cerr << "  (" << hostname << "," << port << ")" << endl;
         exit(EXIT_FAILURE);;
     } //if
 
     status = listen(socket_fd, 100);
     if (status == -1) {
-        cerr << "Error: cannot listen on socket" << endl; 
+        throw SocketExc("Error: cannot listen on socket"); 
         cerr << "  (" << hostname << "," << port << ")" << endl;
         exit(EXIT_FAILURE);;
     } 
@@ -64,20 +64,20 @@ int Socket::init_server(const char * port){
     cout << "Waiting for connection on port " << port << endl;
 
     freeaddrinfo(host_info_list);
-    request_fd=socket_fd;
+    listenfd=socket_fd;
     return socket_fd;
     }
 
 
-int Socket::server_accept(char * client_hostname){
+int Serversocket::server_accept(){
     socklen_t clientlen;
     struct sockaddr_storage clientaddr; /* Enough space for any address */
     //char client_hostname[MAXLINE], client_port[MAXLINE];
 
     clientlen = sizeof(struct sockaddr_storage);
-    int connfd = accept(request_fd, (struct sockaddr *)&clientaddr, &clientlen);
+    int connfd = accept(listenfd, (struct sockaddr *)&clientaddr, &clientlen);
     if (connfd == -1) {
-        cerr << "Error: cannot accept connection on socket" << endl;
+        throw SocketExc("Error: cannot accept connection on socket");
         exit(EXIT_FAILURE);
     }
 
@@ -87,31 +87,44 @@ int Socket::server_accept(char * client_hostname){
     getnameinfo((struct sockaddr *) &clientaddr, clientlen, host, MAXLINE,
     service, MAXLINE, 0);
 
-    memcpy(client_hostname,host,MAXLINE);
-    
+    //memcpy(client_hostname,host,MAXLINE);
+    this->connfd=connfd;
     return connfd;
     
 }
 
-pair<char *, int> Socket::recv_buffer(int connfd){
-    char * buffer=new char[MAXLINE]{0};
-    int byte=recv(connfd,buffer,MAXLINE,0);
-    //cout<<byte<<endl;
+pair<const char *, int> Socket::recv_buffer(int connfd){
+    string data="";
+    int total_byte=0;
+    while(true){
+        char * buffer=new char[MAXLINE]{0};
+        int byte=recv(connfd,buffer,MAXLINE,0);
+        if (byte==-1){
+            throw SocketExc("Error Receive");
+        }
+        else if (byte==0){
+            break;
+        }
+        data.append(buffer);
+        total_byte+=byte;
+    }
     cout<<"socket receive: "<<endl;
-    cout<<buffer<<endl;
-    return pair<char *, int>(buffer,byte);  
+    cout<<data<<endl;
+    const char * buffer=data.c_str();
+    return pair<const char *, int>(buffer,total_byte);  
 }
 
 void Socket::send_buffer(int connfd,const char * buffer){
-    send(response_fd,buffer,MAXLINE,0);
+    int byte=send(connfd,buffer,MAXLINE,0);
+    if (byte==-1){
+        throw SocketExc("Error Send");
+    }
     cout<<"socket send:"<<endl;
     cout<<buffer<<endl;
 }
 
 
-int Socket::init_client(const char * hostname, const char * port) {
-    server_host=hostname;
-    server_port=port;
+int Clientsocket::init_client(const char * hostname, const char * port) {
     int status;
     int socket_fd;
     struct addrinfo host_info;
@@ -123,35 +136,31 @@ int Socket::init_client(const char * hostname, const char * port) {
 
     status = getaddrinfo(hostname, port, &host_info, &host_info_list);
     if (status != 0) {
-        cerr << "Error: cannot get address info for host" << endl;
+        throw SocketExc("Error: cannot get address info for host");
         cerr << "  (" << hostname << "," << port << ")" << endl;
         exit(EXIT_FAILURE);
-    }  //if
+    }  
 
     socket_fd = socket(host_info_list->ai_family,
                         host_info_list->ai_socktype,
                         host_info_list->ai_protocol);
     if (socket_fd == -1) {
-        cerr << "Error: cannot create socket" << endl;
+        throw SocketExc("Error: cannot create socket");
         cerr << "  (" << hostname << "," << port << ")" << endl;
         exit(EXIT_FAILURE);;
-    }  //if
+    }  
 
     cout << "Connecting to " << hostname << " on port " << port << "..." << endl;
 
     status = connect(socket_fd, host_info_list->ai_addr, host_info_list->ai_addrlen);
     if (status == -1) {
-        cerr << "Error: cannot connect to socket" << endl;
+        throw SocketExc("Error: cannot connect to socket");
         cerr << "  (" << hostname << "," << port << ")" << endl;
         exit(EXIT_FAILURE);;
-    }  //if
-
-    // const char * message = "hi there!";
-    // send(socket_fd, message, strlen(message), 0);
+    }  
 
     freeaddrinfo(host_info_list);
-    // close(socket_fd);
-    response_fd=socket_fd;
+    this->connfd=socket_fd;
     return socket_fd;
     }
 
@@ -159,43 +168,7 @@ int Socket::init_client(const char * hostname, const char * port) {
 
     }
 
-    void sigchld_handler(int sig) {
-        while (waitpid(-1, 0, WNOHANG) > 0) ;
-        return;
-}
 
-int main(int argc, char **argv) {
-    
-    if (argc != 2) {
-        fprintf(stderr, "usage: %s <port>\n", argv[0]); 
-        exit(0);
-    }
-    Socket socket;
-    const char * port=argv[1];
-    char * client_hostname=new char[MAXLINE]{0};;
-    int listenfd, connfd;  
-    signal(SIGCHLD, sigchld_handler); 
-    listenfd = socket.init_server(port);
-    //int socket_server_fd;
-    //while (1) { 
-        connfd = socket.server_accept(client_hostname); 
-        if (fork() == 0) {
-            close(listenfd); /* Child closes its listening socket */ 
-            pair<char *,int> request_buffer=socket.recv_buffer(connfd); /* Child services client */
-            HttpParser parser;
-            HttpRequest req=parser.parse_request(request_buffer.first,request_buffer.second);
-            int socket_server_fd=socket.init_client(req.get_URI().c_str(),req.get_port().c_str());
-            socket.send_buffer(socket_server_fd,request_buffer.first);
-            pair<char *,int> response_buffer=socket.recv_buffer(socket.response_fd);
-            socket.send_buffer(socket.request_fd,response_buffer.first);
-            close(socket_server_fd);
-            close(connfd); /* Child closes connection with client */ 
-            exit(0);/* Child exits */ 
-        } 
-    close(connfd); /* Parent closes connected socket (important!) */ 
-    //}
-    return 0;
-}
 
 
 
