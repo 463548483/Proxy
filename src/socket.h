@@ -17,7 +17,7 @@ class Socket{
     Socket():request_fd(0),server_host(NULL),server_port(NULL),response_fd(0){}
     int init_server(const char * self_port);
     int server_accept(char * client_hostname);
-    char * recv_buffer(int connfd);
+    pair<char *,int> recv_buffer(int connfd);
     void send_buffer(int connfd,const char * buffer);
     int init_client(const char * hostname, const char * port);
 

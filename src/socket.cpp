@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include "socket.h"
 #include <csignal>
+#include "http_parser.h"
 
 using namespace std;
 
@@ -64,7 +65,6 @@ int Socket::init_server(const char * port){
 
     freeaddrinfo(host_info_list);
     request_fd=socket_fd;
-
     return socket_fd;
     }
 
@@ -93,13 +93,13 @@ int Socket::server_accept(char * client_hostname){
     
 }
 
-char * Socket::recv_buffer(int connfd){
+pair<char *, int> Socket::recv_buffer(int connfd){
     char * buffer=new char[MAXLINE]{0};
     int byte=recv(connfd,buffer,MAXLINE,0);
-    cout<<byte<<endl;
+    //cout<<byte<<endl;
     cout<<"socket receive: "<<endl;
     cout<<buffer<<endl;
-    return buffer;  
+    return pair<char *, int>(buffer,byte);  
 }
 
 void Socket::send_buffer(int connfd,const char * buffer){
@@ -177,21 +177,23 @@ int main(int argc, char **argv) {
     signal(SIGCHLD, sigchld_handler); 
     listenfd = socket.init_server(port);
     //int socket_server_fd;
-    while (1) { 
+    //while (1) { 
         connfd = socket.server_accept(client_hostname); 
         if (fork() == 0) {
             close(listenfd); /* Child closes its listening socket */ 
-            char * request_buffer=socket.recv_buffer(connfd); /* Child services client */
-            int socket_server_fd=socket.init_client("www.baidu.com","80");
-            socket.send_buffer(socket_server_fd,request_buffer);
-            char * response_buffer=socket.recv_buffer(socket.response_fd);
-            socket.send_buffer(socket.request_fd,response_buffer);
+            pair<char *,int> request_buffer=socket.recv_buffer(connfd); /* Child services client */
+            HttpParser parser;
+            HttpRequest req=parser.parse_request(request_buffer.first,request_buffer.second);
+            int socket_server_fd=socket.init_client(req.get_URI().c_str(),req.get_port().c_str());
+            socket.send_buffer(socket_server_fd,request_buffer.first);
+            pair<char *,int> response_buffer=socket.recv_buffer(socket.response_fd);
+            socket.send_buffer(socket.request_fd,response_buffer.first);
             close(socket_server_fd);
             close(connfd); /* Child closes connection with client */ 
             exit(0);/* Child exits */ 
         } 
     close(connfd); /* Parent closes connected socket (important!) */ 
-    }
+    //}
     return 0;
 }
 
