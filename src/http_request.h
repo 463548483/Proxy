@@ -12,6 +12,11 @@
 class HttpRequest : public HttpBase {
   friend class HttpParser;
 public:
+  // add default constructor
+  HttpRequest(): HttpBase() {}
+  // this is only use for regenerating revalidation request
+  // need to insure that etag and last_modified is not both empty(this case should not revalidate)
+  std::vector<char> get_revalidate_req(const std::string& URI, const std::string& etag, const std::string& last_modified);
   std::string get_host() {return host;}
   std::string get_port() {return port;}
   std::string get_URI() {return URI;}

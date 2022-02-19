@@ -14,6 +14,8 @@ class HttpResponse : public HttpBase {
 public:
   std::string get_code() {return code;}
   RspCacheControl get_cache() {return cache;}
+  // also need to replace cache_control accordingly
+  void replace_header_fields(const HttpResponse* rsp);
 private:
   std::string code;
   RspCacheControl cache;

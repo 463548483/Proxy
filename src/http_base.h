@@ -14,9 +14,12 @@ public:
   std::vector<char> get_start_line() {return start_line;}
   std::vector<std::vector<char>> get_header() {return header_fields;}
   std::vector<char> get_message_body() {return message_body;}
+  // no sanity check, have to guarentee field have correct format
+  // not change any field tags specific to request or response
+  // Do not add \r\n in the end
+  // Correct Eg. add_header_field(std::string("NewField: new"));
   void add_header_field(const std::string & field);
-  void replace_header_fields(const std::vector<std::vector<char>> & fields);
-private:
+protected:
   // excludes '\0' in all vectors
   std::vector<char> start_line;
   std::vector<std::vector<char>> header_fields;

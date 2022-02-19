@@ -13,6 +13,9 @@ HttpRequest HttpParser::parse_request(const char * input, size_t size) {
   catch (HttpParserExc &e) {
     throw HttpRequestExc(); 
   }
+  catch (HttpRequestExc &e) {
+    throw;
+  }
   catch (std::exception &e) {
     std::cerr << "Unexpected exception when parsing request!\n";
     throw HttpRequestExc(); 
@@ -30,6 +33,9 @@ HttpResponse HttpParser::parse_response(const char * input, size_t size) {
   }
   catch (HttpParserExc &e) {
     throw HttpResponseExc();
+  }
+  catch (HttpResponseExc &e) {
+    throw;
   }
   catch (std::exception &e) {
     std::cerr << "Unexpected exception when parsing response!\n";

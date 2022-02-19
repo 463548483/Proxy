@@ -118,6 +118,47 @@ TEST(http_response_test, real_data) {
   EXPECT_EQ(rsp.get_code(), std::string("200"));
 }
 
+TEST(http_base_test, reconstruct_and_add_line) {
+  const char * input = "POST  http://w3schools.com:a8/test/demo_form.php  HTTP/1.1\r\nHost : abc.com\r\nCache-Control  :no-cache, no-store \r\n\r\nname1=value1&name2=value2"; 
+  size_t size = strlen(input);
+  const char * output = "POST  http://w3schools.com:a8/test/demo_form.php  HTTP/1.1\r\nHost: w3schools.com:80\r\nCache-Control:no-cache, no-store \r\nNewField: add new\r\n\r\nname1=value1&name2=value2"; 
+  HttpParser parser;
+  HttpRequest req = parser.parse_request(input, size);
+  std::string field = "NewField: add new";
+  req.add_header_field(field);
+  std::vector<char> rec_req = req.reconstruct();
+  size_t rec_size = rec_req.size();
+  rec_req.push_back('\0');
+  EXPECT_STREQ(rec_req.data(), output);
+  EXPECT_EQ(rec_size, strlen(output));
+}
+
+TEST(http_request_test, get_revalidate_req) {
+  const char * output = "GET http://w3schools.com:a8/test/demo_form.php HTTP/1.1\r\nHost: w3schools.com:a8\r\nIf-None-Match: abc\r\nIf-Modified-Since: def\r\n\r\n"; 
+  std::string URI = "http://w3schools.com:a8/test/demo_form.php";
+  std::string etag = "abc";
+  std::string last_modified = "def";
+  HttpRequest req;
+  std::vector<char> output_vec = req.get_revalidate_req(URI, etag, last_modified);
+  size_t size_vec = output_vec.size();
+  output_vec.push_back('\0');
+  EXPECT_STREQ(output_vec.data(), output);
+  EXPECT_EQ(size_vec, strlen(output));
+}
+TEST(http_response_test, replace_header_fields) {
+  const char * input1 = "HTTP/1.1   200   OK\r\nHost : abc.com\r\nCache-Control  :no-cache, no-store \r\ncontent-length: 025e \r\n\r\nname1=value1&name2=value2"; 
+  const char * input2 = "HTTP/1.1   305   OK\r\nHost : def.com\r\nCache  :no-cache, no-store \r\n\r\nname1=value1";
+  const char * output = "HTTP/1.1   200   OK\r\nHost: def.com\r\nCache:no-cache, no-store \r\n\r\nname1=value1&name2=value2";
+  HttpParser parser;
+  HttpResponse rsp1 = parser.parse_response(input1, strlen(input1));
+  HttpResponse rsp2 = parser.parse_response(input2, strlen(input2));
+  rsp1.replace_header_fields(&rsp2);
+  std::vector<char> out_vec = rsp1.reconstruct();
+  size_t size_vec = out_vec.size();
+  out_vec.push_back('\0');
+  EXPECT_STREQ(out_vec.data(), output);
+  EXPECT_EQ(size_vec, strlen(output));
+}
 
 int main(int argc, char **argv)
 {
