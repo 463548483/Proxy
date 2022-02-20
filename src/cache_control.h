@@ -17,7 +17,8 @@ typedef struct RspCacheControl_type {
   int64_t max_age; // If does not have max-age, max-age=negative
 
   // Other field related to Cache
-  struct tm expires; // If does not have Expires field or the field is invalid, Expires=NULL
+  bool has_expires; //default: false
+  time_t expires; // If does not have Expires field or the field is invalid, Expires=-1
   uint64_t age; // If does not have a valid Age field=>Age=0
   std::string etag; // default empty string
   std::string last_modified; // default empty string
