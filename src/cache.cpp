@@ -2,27 +2,48 @@
 using namespace std;
 
 
-//search
-//expire
-//revalid
-//send back
-
-Record::Record(string uri,HttpResponse response){
+Record::Record(string uri,HttpResponse response,time_t expire_time,string Etag,string last_modify){
     URI=uri;
     http_response=response;
-    
+    this->expire_time=expire_time;
+    this->Etag=Etag;
+    this->last_modified=last_modify;
 }
 
 HttpResponse Record::get_response(){
     return http_response;
 }
 
+time_t Record::get_expire(){
+    return expire_time;
+}
+
+string Record::get_Etag(){
+    return Etag;
+}
+
+string Record::get_last_modify(){
+    return last_modified;
+}
+
 //return 0 if could not find, else check the status of record
 string Cache::search_record(string uri){
-    map<string,Record>::iterator it;
+    unordered_map<string,Record>::iterator it;
     it=record_lib.find(uri);
     if (it!=record_lib.end()){
-        return "";//check(record_lib.at(uri));
+        Record r=record_lib.at(uri);
+        bool status=check_time_valid(r);//true fresh,false staled
+        if (status==false){
+            if (!check_tag_valid(r)){
+                return "in cache, cache, but expired at ?time";
+            }
+            else{
+                return "in cache, requires validation";
+            }
+        }
+        else{
+            return "in cache, valid";
+        }
     }
     else{
         return "not in cache";
@@ -34,7 +55,7 @@ HttpResponse Cache::send_response(string uri){
 }
 
 void Cache::remove_record(string uri){
-    map<string,Record>::iterator it;
+    unordered_map<string,Record>::iterator it;
     it=record_lib.find(uri);
     if (it!=record_lib.end()){
         record_lib.erase(it);
@@ -42,14 +63,61 @@ void Cache::remove_record(string uri){
 }
 
 void Cache::store_record(string uri,HttpResponse response){
-    Record new_record(uri,response);
-    record_lib.insert(pair<string,Record>(uri,new_record));
+    RspCacheControl cache=response.get_cache();
+    if (!check_store_valid(cache)){
+        return;
+    }
+    else{
+        Record new_record(uri,response,parse_time(cache),cache.etag,cache.last_modified);
+        if (record_lib.size()==1000){
+            record_lib.erase(record_lib.begin());
+        }
+        record_lib.insert(pair<string,Record>(uri,new_record));
+    }
 }
 
 
+bool check_store_valid(RspCacheControl cache){
+    if (cache.is_private==true or cache.no_store==true or (cache.max_age==-1 and cache.has_expires==true and cache.expires==-1)){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
 
-//to do
-/**
- * 1.cache-control in different type
- * 3.revalid
- * /
+time_t parse_time(RspCacheControl cache){
+    if (cache.no_cache==true or cache.max_age==0){
+        return time(0);
+    }
+    else if (cache.max_age<0 and cache.has_expires==false){
+        return NULL;
+    }
+    else if (cache.max_age>0){
+        return time(0)+((uint64_t)cache.max_age-cache.age);
+    }
+    else{
+        return cache.expires;
+    }
+}
+
+bool Cache::check_time_valid(Record r){
+    time_t now=time(0);
+    if ((difftime(r.get_expire(),now))>0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Cache::check_tag_valid(Record r){
+    if (r.get_Etag().empty() and r.get_last_modify().empty()){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+

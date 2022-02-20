@@ -11,7 +11,14 @@ int MAX_TASKS=100;
 Threadpool * Threadpool::pool=NULL;
 mutex * Threadpool::mtx=new mutex();
 
-Threadpool::Threadpool():max_threads(MAX_THREADS),max_tasks(MAX_TASKS),run_flag(true){}
+Threadpool::Threadpool():max_threads(MAX_THREADS),max_tasks(MAX_TASKS),run_flag(true){
+    if (threads.size()==0){
+        unique_lock<mutex> lck(m_lock);
+        if (threads.size()==0){
+            init_threads();
+        }
+    }
+}
 
 Threadpool * Threadpool::get_pool(){
     if(pool==NULL){
@@ -45,15 +52,7 @@ bool Threadpool::init_threads(){
     return true;
 }
 
-bool Threadpool::init_pool(function<void()> t){
-    if (threads.size()==0){
-        unique_lock<mutex> lck(m_lock);
-        if (threads.size()==0){
-            if(!init_threads()){
-                return false;
-            }
-        }
-    }
+bool Threadpool::assign_task(function<void()> t){
     {
         unique_lock<mutex> lck(m_lock);
         if (m_tasks.size()<(unsigned int)max_tasks){
@@ -69,7 +68,7 @@ bool Threadpool::init_pool(function<void()> t){
 
 Threadpool::~Threadpool(){
     {
-        unique_lock<mutex> u_lock(m_lock);
+        unique_lock<mutex> ul(m_lock);
         run_flag=false;
     }
     has_task.notify_all();

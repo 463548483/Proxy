@@ -14,8 +14,8 @@ class Socket{
     int connfd;//connfd to send/recv
     public:
     Socket(int connfd):connfd(connfd){}
-    pair<const char *,int> recv_buffer(int connfd);
-    void send_buffer(int connfd,const char * buffer);
+    pair<const char *,size_t> recv_buffer(int connfd);
+    void send_buffer(int connfd,const char * buffer,int length);
     ~Socket();
 };
 

@@ -14,16 +14,17 @@ void handle_request(void * ptr) {
     free(ptr);
     //receive from client and parse
     Socket socket(connfd);
-    pair<const char *,int> request_buffer=socket.recv_buffer(connfd); /* Child services client */
+    pair<const char *,int> request_buffer=socket.recv_buffer(connfd); //need free recv char*
+    cout<<"request first"<<request_buffer.first<<"second"<<request_buffer.second<<endl;
     HttpParser parser;
     HttpRequest req=parser.parse_request(request_buffer.first,request_buffer.second);
     //init connect to web server
     Clientsocket client_socket;
     int webserver_fd=client_socket.init_client(req.get_host().c_str(),req.get_port().c_str());
-    client_socket.send_buffer(webserver_fd,request_buffer.first);
-    pair<const char *,int> response_buffer=client_socket.recv_buffer(webserver_fd);
+    client_socket.send_buffer(webserver_fd,request_buffer.first,request_buffer.second);
+    pair<const char *,int> response_buffer=client_socket.recv_buffer(webserver_fd);//need free recv char *
     //send back to web client
-    socket.send_buffer(connfd,response_buffer.first);
+    socket.send_buffer(connfd,response_buffer.first,response_buffer.second);
     close(webserver_fd); 
     close(connfd);
     return;
@@ -44,7 +45,7 @@ int main(int argc, char **argv) {
     while (true) { 
         connfd_ptr=(int *)malloc(sizeof(int)); 
         *connfd_ptr= server_socket.server_accept(); 
-        pool->init_pool(bind(handle_request, connfd_ptr));
+        pool->assign_task(bind(handle_request, connfd_ptr));
     } 
     close(listenfd);    
     return 0;

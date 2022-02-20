@@ -7,9 +7,10 @@
 #include "socket.h"
 #include <csignal>
 #include "exceptions.h"
+#include <vector>
 
 using namespace std;
-int MAXLINE=4096;
+int MAXLINE=65536;
 
 int Serversocket::init_server(const char * port){
     int status;
@@ -81,8 +82,8 @@ int Serversocket::server_accept(){
         exit(EXIT_FAILURE);
     }
 
-    char * host=new char[MAXLINE]{0};
-    char * service=new char[MAXLINE]{0};
+    char * host=NULL;
+    char * service=NULL;
 
     getnameinfo((struct sockaddr *) &clientaddr, clientlen, host, MAXLINE,
     service, MAXLINE, 0);
@@ -93,29 +94,37 @@ int Serversocket::server_accept(){
     
 }
 
-pair<const char *, int> Socket::recv_buffer(int connfd){
-    string data="";
-    int total_byte=0;
+pair<const char *, size_t> Socket::recv_buffer(int connfd){
+    //char * recv_buffer=(char *)malloc(MAXLINE*sizeof(char));
+    vector<char> recv_buffer;
+    size_t total_byte=0;
     while(true){
         char * buffer=new char[MAXLINE]{0};
+        memset(buffer,0,sizeof(char)*MAXLINE);
         int byte=recv(connfd,buffer,MAXLINE,0);
         if (byte==-1){
             throw SocketExc("Error Receive");
         }
         else if (byte==0){
+            delete[] buffer; 
             break;
         }
-        data.append(buffer);
         total_byte+=byte;
+        recv_buffer.reserve(recv_buffer.size()+byte);
+        recv_buffer.insert(recv_buffer.end(),buffer,buffer+byte);
+        delete[] buffer;
+        //recv_buffer=(char *)realloc(recv_buffer,(total_byte+1)*sizeof(char));
+        //strcat(recv_buffer,buffer);
     }
     cout<<"socket receive: "<<endl;
-    cout<<data<<endl;
-    const char * buffer=data.c_str();
-    return pair<const char *, int>(buffer,total_byte);  
+    cout<<recv_buffer.data()<<endl;
+    char * total_buffer=new char[total_byte];
+    memcpy(total_buffer,recv_buffer.data(),total_byte);
+    return pair<const char *, size_t>(total_buffer,total_byte);  
 }
 
-void Socket::send_buffer(int connfd,const char * buffer){
-    int byte=send(connfd,buffer,MAXLINE,0);
+void Socket::send_buffer(int connfd,const char * buffer,int length=MAXLINE){
+    int byte=send(connfd,buffer,length,0);
     if (byte==-1){
         throw SocketExc("Error Send");
     }
