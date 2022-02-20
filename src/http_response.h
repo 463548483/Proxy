@@ -18,6 +18,7 @@ public:
   void replace_header_fields(const HttpResponse* rsp);
 private:
   std::string code;
+  // only use this if code="200"
   RspCacheControl cache;
 };
 

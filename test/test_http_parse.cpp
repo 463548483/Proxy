@@ -145,6 +145,7 @@ TEST(http_request_test, get_revalidate_req) {
   EXPECT_STREQ(output_vec.data(), output);
   EXPECT_EQ(size_vec, strlen(output));
 }
+
 TEST(http_response_test, replace_header_fields) {
   const char * input1 = "HTTP/1.1   200   OK\r\nHost : abc.com\r\nCache-Control  :no-cache, no-store \r\ncontent-length: 025e \r\n\r\nname1=value1&name2=value2"; 
   const char * input2 = "HTTP/1.1   305   OK\r\nHost : def.com\r\nCache  :no-cache, no-store \r\n\r\nname1=value1";
@@ -160,6 +161,76 @@ TEST(http_response_test, replace_header_fields) {
   EXPECT_EQ(size_vec, strlen(output));
 }
 
+TEST(http_request_test, parse_cache_ctl) {
+  const char * input1 = "GET http://w3schools.com:a8/test/demo_form.php HTTP/1.1\r\nHost : abc.com\r\nCache-Control  :no-cache, no-store \r\n\r\nname1=value1&name2=value2"; 
+  const char * input2 = "GET http://w3schools.com:a8/test/demo_form.php HTTP/1.1\r\nHost : abc.com\r\nCache-Control  : \r\ncontent-length: 025e \r\n\r\nname1=value1&name2=value2"; 
+  const char * input3 = "GET http://w3schools.com:a8/test/demo_form.php HTTP/1.1\r\nHost : abc.com\r\nCache-Control  :no-cache \r\ncache-control: no-store \r\ncontent-length: 025e \r\n\r\nname1=value1&name2=value2"; 
+  const char * input4 = "GET http://w3schools.com:a8/test/demo_form.php HTTP/1.1\r\nHost : abc.com\r\nCache-Control  :no-cache \r\ncontent-length: 025e \r\ncache-control: no-store\r\n\r\nname1=value1&name2=value2"; 
+  HttpParser parser;
+  HttpRequest req1 = parser.parse_request(input1, strlen(input1));
+  HttpRequest req2 = parser.parse_request(input2, strlen(input2));
+  HttpRequest req3 = parser.parse_request(input3, strlen(input3));
+  HttpRequest req4 = parser.parse_request(input4, strlen(input4));
+  ReqCacheControl_type ctl1 = req1.get_cache();
+  ReqCacheControl_type ctl2 = req2.get_cache();
+  ReqCacheControl_type ctl3 = req3.get_cache();
+  ReqCacheControl_type ctl4 = req4.get_cache();
+  EXPECT_EQ(ctl1.no_store, true);
+  EXPECT_EQ(ctl1.no_cache, true);
+  EXPECT_EQ(ctl2.no_store, false);
+  EXPECT_EQ(ctl2.no_cache, false);
+  EXPECT_EQ(ctl3.no_store, true);
+  EXPECT_EQ(ctl3.no_cache, true);
+  EXPECT_EQ(ctl4.no_store, true);
+  EXPECT_EQ(ctl4.no_cache, true);
+}
+
+
+TEST(http_response_test, parse_cache_ctl) {
+  const char * input1 = "HTTP/1.1   200   OK\r\nHost : abc.com\r\nCache-Control  : no-store \r\ncontent-length: 025 \r\nCache-control: private, max-age=1230\r\n\r\nname1=value1&name2=value2"; 
+  const char * input2 = "HTTP/1.1   200   OK\r\nHost : abc.com\r\nCache-Control  :no-cache \r\ncontent-length: 025 \r\nCache-control:  max-age=\"1230\"  \r\n\r\nname1=value1&name2=value2"; 
+  const char * input3 = "HTTP/1.1   200   OK\r\nHost : abc.com\r\nExpires:  Sun, 06 Nov 1994 08:49:37 GMT\r\nCache-Control  :no-cache \r\ncontent-length: 025 \r\nCache-control:  max-age=\"zx1230\"  \r\n\r\nname1=value1&name2=value2"; 
+  const char * input4 = "HTTP/1.1   200   OK\r\nHost : abc.com\r\nExpires:  Sun, 06 Nov 1994 8:49:37 GMT\r\nCache-Control  :no-cache \r\nAge: 432\a\r\ncontent-length: 025 \r\nCache-control:   \r\n\r\nname1=value1&name2=value2"; 
+  HttpParser parser;
+  HttpResponse req1 = parser.parse_response(input1, strlen(input1));
+  HttpResponse req2 = parser.parse_response(input2, strlen(input2));
+  HttpResponse req3 = parser.parse_response(input3, strlen(input3));
+  HttpResponse req4 = parser.parse_response(input4, strlen(input4));
+  RspCacheControl_type ctl1 = req1.get_cache();
+  RspCacheControl_type ctl2 = req2.get_cache();
+  RspCacheControl_type ctl3 = req3.get_cache();
+  RspCacheControl_type ctl4 = req4.get_cache();
+  EXPECT_EQ(ctl1.no_store, true);
+  EXPECT_EQ(ctl1.no_cache, false);
+  EXPECT_EQ(ctl1.is_private, true);
+  EXPECT_EQ(ctl1.max_age, 1230);
+  EXPECT_EQ(ctl1.has_expires, false);
+  EXPECT_EQ(ctl1.expires, -1);
+  EXPECT_EQ(ctl1.age, 0);
+  EXPECT_EQ(ctl2.no_store, false);
+  EXPECT_EQ(ctl2.no_cache, true);
+  EXPECT_EQ(ctl2.is_private, false);
+  EXPECT_EQ(ctl2.max_age, 1230);
+  EXPECT_EQ(ctl2.has_expires, false);
+  EXPECT_EQ(ctl2.expires, -1);
+  EXPECT_EQ(ctl2.age, 0);
+  EXPECT_EQ(ctl3.no_store, false);
+  EXPECT_EQ(ctl3.no_cache, true);
+  EXPECT_EQ(ctl3.is_private, false);
+  EXPECT_EQ(ctl3.max_age, 0);
+  EXPECT_EQ(ctl3.has_expires, true);
+  EXPECT_STREQ(ctime(&(ctl3.expires)), "Sun Nov  6 08:49:37 1994\n");
+  EXPECT_EQ(ctl3.age, 0);
+  EXPECT_EQ(ctl4.no_store, false);
+  EXPECT_EQ(ctl4.no_cache, true);
+  EXPECT_EQ(ctl4.is_private, false);
+  EXPECT_EQ(ctl4.max_age, -1);
+  EXPECT_EQ(ctl4.has_expires, true);
+  EXPECT_EQ(ctl4.expires, -1);
+  EXPECT_EQ(ctl4.age, 432);
+
+
+}
 int main(int argc, char **argv)
 {
   ::testing::InitGoogleTest(&argc, argv); 
