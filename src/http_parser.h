@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <ctime>
+#include <time.h>
 
 #include "http_request.h"
 #include "http_response.h"
@@ -34,7 +36,7 @@ private:
   void sanity_check_header_field(std::vector<char> * header_field);
   // return number of fields with the same field_name. field is the first field with the name
   size_t get_header_field(const std::string& field_name, 
-      std::vector<std::vector<char>>* header_fields, std::vector<char>** field);
+      const std::vector<std::vector<char>>* header_fields, size_t * field_id);
   std::string to_lower_case(const std::string& str);
   void parse_req_cache(HttpRequest* request);
   void parse_rsp_cache(HttpResponse* response);

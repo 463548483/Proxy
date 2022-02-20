@@ -30,6 +30,7 @@ private:
   std::string port;
   std::string URI;
   std::string method;
+  // Only will use this field if method=GET
   ReqCacheControl cache;
 };
 
