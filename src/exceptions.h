@@ -51,5 +51,17 @@ class SocketExc : public std::exception {
   }
 };
 
+class CacheExc: public std::exception {
+public:
+  CacheExc(std::string msg) {
+    err_msg = "Unexpected error in cache: " + msg + "\n";
+  }
+  virtual const char * what() const throw() {
+    return err_msg.c_str();
+  } 
+private:
+  std::string err_msg;
+};
+
 
 #endif
