@@ -8,6 +8,7 @@
 #include <cstring>
 #include <fstream>
 #include <string>
+#include <mutex>
 #include "http_response.h"
 using namespace std;
 
@@ -20,9 +21,10 @@ class Record {
   HttpResponse http_response;
   //string ETag;
   time_t expire_time;
+  time_t store_time;
 
   public:
-  Record(string uri,HttpResponse response,time_t expire_time);
+  Record(string uri,HttpResponse response,time_t expire_time,time_t store_time);
   HttpResponse * get_response();
   void replace();
   time_t get_expire();
@@ -33,6 +35,7 @@ class Record {
 class Cache{
 private:
   unordered_map<string,Record> record_lib;
+  mutex mtx;
 public:
   void remove_record(string uri);
   HttpResponse send_response(string uri);
@@ -46,6 +49,7 @@ public:
   bool check_tag_valid(string uri);//check if has Etag/last_modify
   bool store_record(string uri,HttpResponse & rsp);//store single record
   void revalidate(string uri,HttpResponse & rsp);//replace httpresponse and re-calculate time
+  time_t get_store_time(string uri);//return the time past since last stored  
 
 };
 

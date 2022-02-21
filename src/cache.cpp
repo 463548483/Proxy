@@ -2,10 +2,11 @@
 
 using namespace std;
 
-Record::Record(string uri, HttpResponse response, time_t expire_time) {
+Record::Record(string uri, HttpResponse response, time_t expire_time,time_t store_time) {
   URI = uri;
   http_response = response;
   this->expire_time = expire_time;
+  this->store_time=store_time;
 }
 
 void Record::replace_response(HttpResponse & rsp) {
@@ -37,6 +38,7 @@ void Cache::remove_record(string uri) {
   unordered_map<string, Record>::iterator it;
   it = record_lib.find(uri);
   if (it != record_lib.end()) {
+    std::lock_guard<std::mutex> lck(mtx);
     record_lib.erase(it);
   }
 }
@@ -72,7 +74,8 @@ bool Cache::store_record(string uri, HttpResponse & response) {
     return false;
   }
   else {
-    Record new_record(uri, response, parse_time(cache));
+    std::lock_guard<std::mutex> lck(mtx);
+    Record new_record(uri, response, parse_time(cache),time(0));
     if (record_lib.size() == 1000) {
       record_lib.erase(record_lib.begin());
     }
@@ -104,7 +107,14 @@ bool Cache::check_tag_valid(string uri) {
 }
 
 void Cache::revalidate(string uri, HttpResponse & rsp) {
+  std::lock_guard<std::mutex> lck(mtx);
   remove_record(uri);
   store_record(uri, rsp);
+}
+
+time_t Cache::get_store_time(string uri){
+  Record r = record_lib.at(uri);
+  time_t now = time(0);
+  return now-r.store_time;
 }
 
