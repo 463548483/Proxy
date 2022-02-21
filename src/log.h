@@ -15,6 +15,7 @@ public:
   Logger& operator << (const long long & msg);
   Logger& operator << (const unsigned int  & msg);
   Logger& operator << (const unsigned long long & msg);
+  Logger& operator << (const size_t & msg);
   ~Logger();
 private:
   std::string file_name;
