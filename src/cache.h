@@ -11,7 +11,7 @@ typedef struct tm tm;
 
 //expire
 class Record {
-  private:
+  public:
   string URI;
   HttpResponse http_response;
   //string ETag;
@@ -22,7 +22,7 @@ class Record {
   HttpResponse * get_response();
   void replace();
   time_t get_expire();
-  void replace_response(HttpResponse rsp);
+  void replace_response(HttpResponse & rsp);
 
 };
 

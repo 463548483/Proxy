@@ -13,8 +13,11 @@ Record::Record(string uri,HttpResponse response,time_t expire_time){
 
 }
 
+HttpResponse * Record::get_response(){
+    return &http_response;
+}
 
-void Record::replace_response(HttpResponse & rsp){
+void Record::replace_response(HttpResponse rsp){
     http_response=rsp;
 }
 
@@ -30,8 +33,7 @@ HttpResponse * Cache::search_record(string uri){
     it=record_lib.find(uri);
     if (it!=record_lib.end()){
         Record r=record_lib.at(uri);
-        HttpResponse * ptr=&r.http_response;
-        return ptr;
+        return r.get_response();
     }
     else{
         HttpResponse * ptr=NULL;
@@ -40,7 +42,7 @@ HttpResponse * Cache::search_record(string uri){
 }
 
 HttpResponse Cache::send_response(string uri){
-    return record_lib.at(uri).http_response;
+    return *record_lib.at(uri).get_response();
 }
 
 void Cache::remove_record(string uri){
@@ -106,7 +108,7 @@ bool Cache::check_time_valid(string uri){
 
 bool Cache::check_tag_valid(string uri){
     Record r=record_lib.at(uri);
-    RspCacheControl cache=(r.http_response).get_cache();
+    RspCacheControl cache=(*r.get_response()).get_cache();
     if (cache.etag.empty() and cache.last_modified.empty()){
         return false;
     }
