@@ -106,7 +106,7 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
             throw SocketExc("Error Receive");
         }
         total_byte+=byte;
-        recv_buffer.reserve(recv_buffer.size()+byte-1);
+        recv_buffer.reserve(total_byte);
         recv_buffer.insert(recv_buffer.end(),buffer,buffer+byte);
         delete[] buffer;
         if (byte==0){ 
@@ -141,7 +141,7 @@ pair<vector<char>, size_t> Socket::recv_request(int connfd){
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
-void Socket::send_buffer(int connfd,const char * buffer,int length=MAXLINE){
+void Socket::send_buffer(int connfd,const char * buffer,int length){
     int byte=send(connfd,buffer,length,0);
     if (byte==-1){
         throw SocketExc("Error Send");

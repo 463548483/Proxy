@@ -9,9 +9,6 @@ Record::Record(string uri, HttpResponse response, time_t expire_time,time_t stor
   this->store_time=store_time;
 }
 
-void Record::replace_response(HttpResponse & rsp) {
-  http_response = rsp;
-}
 
 time_t Record::get_expire() {
   return expire_time;
@@ -20,6 +17,7 @@ time_t Record::get_expire() {
 //return 0 if could not find, else check the status of record
 const HttpResponse * Cache::search_record(string uri) {
   unordered_map<string, Record>::iterator it;
+  shared_lock lck(mtx);
   it = record_lib.find(uri);
   if (it != record_lib.end()) {
     return &record_lib.at(uri).http_response;
@@ -31,14 +29,16 @@ const HttpResponse * Cache::search_record(string uri) {
 }
 
 HttpResponse Cache::send_response(string uri) {
+  shared_lock lck(mtx);
   return record_lib.at(uri).http_response;
 }
 
 void Cache::remove_record(string uri) {
   unordered_map<string, Record>::iterator it;
+  shared_lock lck(mtx);
   it = record_lib.find(uri);
   if (it != record_lib.end()) {
-    std::lock_guard<std::mutex> lck(mtx);
+    unique_lock lck(mtx);
     record_lib.erase(it);
   }
 }
@@ -74,7 +74,7 @@ bool Cache::store_record(string uri, const HttpResponse & response) {
     return false;
   }
   else {
-    std::lock_guard<std::mutex> lck(mtx);
+    unique_lock lck(mtx);
     Record new_record(uri, response, parse_time(cache),time(0));
     if (record_lib.size() == 1000) {
       record_lib.erase(record_lib.begin());
@@ -85,6 +85,7 @@ bool Cache::store_record(string uri, const HttpResponse & response) {
 }
 
 bool Cache::check_time_valid(string uri) {
+  shared_lock lck(mtx);
   Record r = record_lib.at(uri);
   time_t now = time(0);
   if ((difftime(r.get_expire(), now)) > 0) {
@@ -96,6 +97,7 @@ bool Cache::check_time_valid(string uri) {
 }
 
 bool Cache::check_tag_valid(string uri) {
+  shared_lock lck(mtx);
   Record r = record_lib.at(uri);
   RspCacheControl cache = (r.http_response).get_cache();
   if (cache.etag.empty() and cache.last_modified.empty()) {
@@ -107,18 +109,20 @@ bool Cache::check_tag_valid(string uri) {
 }
 
 void Cache::revalidate(string uri, const HttpResponse & rsp) {
-  std::lock_guard<std::mutex> lck(mtx);
+  unique_lock lck(mtx);
   remove_record(uri);
   store_record(uri, rsp);
 }
 
 time_t Cache::get_store_time(string uri){
+  shared_lock lck(mtx);
   Record r = record_lib.at(uri);
   time_t now = time(0);
   return now-r.store_time;
 }
 
 time_t Cache::get_expire_time(string uri){
+  shared_lock lck(mtx);
   Record r = record_lib.at(uri);
   return r.expire_time;
 }

@@ -8,6 +8,7 @@
 #include <cstring>
 #include <fstream>
 #include <string>
+#include <shared_mutex>
 #include <mutex>
 #include "http_response.h"
 using namespace std;
@@ -25,17 +26,14 @@ class Record {
 
   public:
   Record(string uri,HttpResponse response,time_t expire_time,time_t store_time);
-  HttpResponse * get_response();
-  void replace();
   time_t get_expire();
-  void replace_response(HttpResponse & rsp);
 
 };
 
 class Cache{
 private:
   unordered_map<string,Record> record_lib;
-  mutex mtx;
+  mutable shared_mutex mtx;
 public:
   void remove_record(string uri);
   HttpResponse send_response(string uri);
