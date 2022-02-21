@@ -26,8 +26,6 @@ http_parser.o: http_parser.cpp http_parser.h http_request.h http_response.h
 threadpool.o: threadpool.cpp threadpool.h 
 	g++ $(CFLAGS) -c  $<
 
-cache:http_parser.o cache.o 
-	g++ -o $@ $^ 
 
 cache.o: cache.cpp cache.h 
 	g++ $(CFLAGS) -c  $<
