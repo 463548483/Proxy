@@ -17,7 +17,7 @@ class Socket{
     Socket(int connfd):connfd(connfd){}
     pair<vector<char>, size_t> recv_response(int connfd);
     pair<vector<char>, size_t> recv_request(int connfd);
-    void send_buffer(int connfd,const char * buffer,int length);
+    void send_buffer(int connfd,const char * buffer,int length=65536);
     ~Socket();
 };
 
