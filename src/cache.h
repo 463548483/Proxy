@@ -50,6 +50,7 @@ public:
   bool store_record(string uri,HttpResponse & rsp);//store single record
   void revalidate(string uri,HttpResponse & rsp);//replace httpresponse and re-calculate time
   time_t get_store_time(string uri);//return the time past since last stored  
+  time_t get_expire_time(string uri);//return expire time of the record
 
 };
 

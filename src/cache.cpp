@@ -118,3 +118,8 @@ time_t Cache::get_store_time(string uri){
   return now-r.store_time;
 }
 
+time_t Cache::get_expire_time(string uri){
+  Record r = record_lib.at(uri);
+  return r.expire_time;
+}
+
