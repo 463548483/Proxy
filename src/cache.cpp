@@ -2,12 +2,11 @@
 using namespace std;
 
 
-Record::Record(string uri,HttpResponse response,time_t expire_time,string Etag,string last_modify){
+Record::Record(string uri,HttpResponse response,time_t expire_time){
     URI=uri;
     http_response=response;
     this->expire_time=expire_time;
-    this->Etag=Etag;
-    this->last_modified=last_modify;
+
 }
 
 HttpResponse Record::get_response(){
@@ -18,35 +17,18 @@ time_t Record::get_expire(){
     return expire_time;
 }
 
-string Record::get_Etag(){
-    return Etag;
-}
 
-string Record::get_last_modify(){
-    return last_modified;
-}
 
 //return 0 if could not find, else check the status of record
-string Cache::search_record(string uri){
+HttpResponse * Cache::search_record(string uri){
     unordered_map<string,Record>::iterator it;
     it=record_lib.find(uri);
     if (it!=record_lib.end()){
         Record r=record_lib.at(uri);
-        bool status=check_time_valid(r);//true fresh,false staled
-        if (status==false){
-            if (!check_tag_valid(r)){
-                return "in cache, cache, but expired at ?time";
-            }
-            else{
-                return "in cache, requires validation";
-            }
-        }
-        else{
-            return "in cache, valid";
-        }
+        return &r.get_response();
     }
     else{
-        return "not in cache";
+        return NULL;
     }
 }
 
@@ -68,7 +50,7 @@ void Cache::store_record(string uri,HttpResponse response){
         return;
     }
     else{
-        Record new_record(uri,response,parse_time(cache),cache.etag,cache.last_modified);
+        Record new_record(uri,response,parse_time(cache));
         if (record_lib.size()==1000){
             record_lib.erase(record_lib.begin());
         }
@@ -101,7 +83,8 @@ time_t parse_time(RspCacheControl cache){
     }
 }
 
-bool Cache::check_time_valid(Record r){
+bool Cache::check_time_valid(string uri){
+    Record r=record_lib.at(uri);
     time_t now=time(0);
     if ((difftime(r.get_expire(),now))>0){
         return true;
@@ -111,8 +94,10 @@ bool Cache::check_time_valid(Record r){
     }
 }
 
-bool Cache::check_tag_valid(Record r){
-    if (r.get_Etag().empty() and r.get_last_modify().empty()){
+bool Cache::check_tag_valid(string uri){
+    Record r=record_lib.at(uri);
+    RspCacheControl cache=r.get_response().get_cache();
+    if (cache.etag.empty() and cache.last_modified.empty()){
         return false;
     }
     else{

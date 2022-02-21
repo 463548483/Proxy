@@ -7,7 +7,7 @@
 #include "socket.h"
 #include <csignal>
 #include "exceptions.h"
-#include <vector>
+
 
 using namespace std;
 int MAXLINE=65536;
@@ -29,7 +29,7 @@ int Serversocket::init_server(const char * port){
     if (status != 0) {
         throw SocketExc("Error: cannot get address info for host");
         cerr << "  (" << hostname << "," << port << ")" << endl;
-        exit(EXIT_FAILURE);;
+        exit(EXIT_FAILURE);
     } 
 
     if (strcmp(port,"")==0){
@@ -43,7 +43,7 @@ int Serversocket::init_server(const char * port){
     if (socket_fd == -1) {
         throw SocketExc("Error: cannot create socket");
         cerr << "  (" << hostname << "," << port << ")" << endl;
-        exit(EXIT_FAILURE);;
+        exit(EXIT_FAILURE);
     } 
 
     int yes = 1;
@@ -52,14 +52,14 @@ int Serversocket::init_server(const char * port){
     if (status == -1) {
         throw SocketExc("Error: cannot bind socket");
         cerr << "  (" << hostname << "," << port << ")" << endl;
-        exit(EXIT_FAILURE);;
+        exit(EXIT_FAILURE);
     } //if
 
     status = listen(socket_fd, 100);
     if (status == -1) {
         throw SocketExc("Error: cannot listen on socket"); 
         cerr << "  (" << hostname << "," << port << ")" << endl;
-        exit(EXIT_FAILURE);;
+        exit(EXIT_FAILURE);
     } 
 
     cout << "Waiting for connection on port " << port << endl;
@@ -81,7 +81,7 @@ int Serversocket::server_accept(){
         throw SocketExc("Error: cannot accept connection on socket");
         exit(EXIT_FAILURE);
     }
-
+    cout<<"Accept listenfd"<<endl;
     char * host=NULL;
     char * service=NULL;
 
@@ -94,7 +94,7 @@ int Serversocket::server_accept(){
     
 }
 
-pair<const char *, size_t> Socket::recv_buffer(int connfd){
+pair<vector<char>, size_t> Socket::recv_response(int connfd){
     //char * recv_buffer=(char *)malloc(MAXLINE*sizeof(char));
     vector<char> recv_buffer;
     size_t total_byte=0;
@@ -105,22 +105,40 @@ pair<const char *, size_t> Socket::recv_buffer(int connfd){
         if (byte==-1){
             throw SocketExc("Error Receive");
         }
-        else if (byte==0){
-            delete[] buffer; 
-            break;
-        }
         total_byte+=byte;
-        recv_buffer.reserve(recv_buffer.size()+byte);
+        recv_buffer.reserve(recv_buffer.size()+byte-1);
         recv_buffer.insert(recv_buffer.end(),buffer,buffer+byte);
         delete[] buffer;
+        if (byte==0){ 
+            break;
+        }
+        
         //recv_buffer=(char *)realloc(recv_buffer,(total_byte+1)*sizeof(char));
         //strcat(recv_buffer,buffer);
     }
     cout<<"socket receive: "<<endl;
     cout<<recv_buffer.data()<<endl;
-    char * total_buffer=new char[total_byte];
-    memcpy(total_buffer,recv_buffer.data(),total_byte);
-    return pair<const char *, size_t>(total_buffer,total_byte);  
+    return pair<vector<char>, size_t>(recv_buffer,total_byte);  
+}
+
+pair<vector<char>, size_t> Socket::recv_request(int connfd){
+    //char * recv_buffer=(char *)malloc(MAXLINE*sizeof(char));
+    vector<char> recv_buffer;
+    size_t total_byte=0;
+    char * buffer=new char[MAXLINE]{0};
+    memset(buffer,0,sizeof(char)*MAXLINE);
+    int byte=recv(connfd,buffer,MAXLINE,0);
+    if (byte==-1){
+        throw SocketExc("Error Receive");
+    }
+    total_byte+=byte;
+    recv_buffer.reserve(recv_buffer.size()+byte-1);
+    recv_buffer.insert(recv_buffer.end(),buffer,buffer+byte);
+    delete[] buffer;
+
+    cout<<"socket receive: "<<endl;
+    cout<<recv_buffer.data()<<endl;
+    return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
 void Socket::send_buffer(int connfd,const char * buffer,int length=MAXLINE){
@@ -165,7 +183,7 @@ int Clientsocket::init_client(const char * hostname, const char * port) {
     if (status == -1) {
         throw SocketExc("Error: cannot connect to socket");
         cerr << "  (" << hostname << "," << port << ")" << endl;
-        exit(EXIT_FAILURE);;
+        exit(EXIT_FAILURE);
     }  
 
     freeaddrinfo(host_info_list);

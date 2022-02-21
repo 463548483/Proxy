@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <vector>
 
 using namespace std;
 
@@ -14,7 +15,8 @@ class Socket{
     int connfd;//connfd to send/recv
     public:
     Socket(int connfd):connfd(connfd){}
-    pair<const char *,size_t> recv_buffer(int connfd);
+    pair<vector<char>, size_t> recv_response(int connfd);
+    pair<vector<char>, size_t> recv_request(int connfd);
     void send_buffer(int connfd,const char * buffer,int length);
     ~Socket();
 };
