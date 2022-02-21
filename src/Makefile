@@ -10,7 +10,7 @@ all: $(TARGETS)
 clean:
 	rm -f $(TARGETS) *.o
 
-proxy: proxy.o http_parser.o socket.o threadpool.o log.o cache.o http_base.o http_request.o http_response.o
+proxy: proxy.o http_parser.o http_response.o http_request.o http_base.o socket.o threadpool.o log.o cache.o 
 	g++ -o $@ $^ -lpthread
 
 proxy.o: proxy.cpp 
@@ -19,7 +19,16 @@ proxy.o: proxy.cpp
 socket.o: socket.cpp socket.h 
 	g++ $(CFLAGS) -c  $<
 
-http_parser.o: http_parser.cpp http_parser.h http_request.h http_response.h
+http_parser.o: http_parser.cpp http_parser.h http_base.h http_request.h http_response.h
+	g++ $(CFLAGS) -c  $<
+
+http_base.o: http_base.cpp http_base.h
+	g++ $(CFLAGS) -c  $<
+
+http_request.o: http_request.cpp http_request.h http_base.h
+	g++ $(CFLAGS) -c  $<
+
+http_response.o: http_response.cpp http_response.h http_base.h
 	g++ $(CFLAGS) -c  $<
 
 threadpool.o: threadpool.cpp threadpool.h 

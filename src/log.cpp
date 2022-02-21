@@ -40,6 +40,14 @@ Logger& Logger::operator << (const unsigned int & msg) {
   return *this;
 }
 
+Logger& Logger::operator << (const size_t & msg) {
+  if (fs.is_open()) {
+    std::lock_guard<std::mutex> lck(mtx);
+    fs << msg;
+  }
+  return *this;
+}
+
 Logger::~Logger() {
   if (fs.is_open()) {
     fs.close();

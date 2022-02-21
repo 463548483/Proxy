@@ -45,8 +45,8 @@ public:
   const HttpResponse * search_record(string uri);
   bool check_time_valid(string uri);//check if fresh/expire
   bool check_tag_valid(string uri);//check if has Etag/last_modify
-  bool store_record(string uri,HttpResponse & rsp);//store single record
-  void revalidate(string uri,HttpResponse & rsp);//replace httpresponse and re-calculate time
+  bool store_record(string uri, const HttpResponse & rsp);//store single record
+  void revalidate(string uri,const HttpResponse & rsp);//replace httpresponse and re-calculate time
   time_t get_store_time(string uri);//return the time past since last stored  
   time_t get_expire_time(string uri);//return expire time of the record
 

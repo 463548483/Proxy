@@ -9,6 +9,8 @@
 #include "exceptions.h"
 #include "http_base.h"
 
+class HttpBase;
+
 class HttpRequest : public HttpBase {
   friend class HttpParser;
 public:

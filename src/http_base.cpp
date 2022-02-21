@@ -21,3 +21,4 @@ std::vector<char> HttpBase::reconstruct() const {
 void HttpBase::add_header_field(const std::string & field) {
   header_fields.push_back(std::vector<char>(field.begin(), field.end()));
 }
+

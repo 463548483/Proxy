@@ -6,6 +6,8 @@
 
 #include "cache_control.h"
 
+class HttpParser;
+
 class HttpBase {
   friend class HttpParser;
 public:
