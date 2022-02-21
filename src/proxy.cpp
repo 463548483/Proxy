@@ -40,7 +40,7 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
     close(webserver_fd);
     rsp = parser.parse_response(response_buffer.first.data(), response_buffer.second);
     if (rsp.get_code() == "200") {
-      cache.store_record(req.get_URI(), rsp);
+      cache.store_record(req.get_URI(), rsp,rid);
     }
   } else {
     if (rsp_ptr->get_code() != "200") {
@@ -64,10 +64,10 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
         // deal with revalidate response
         if (revalidate_rsp.get_code() == "304") { // replace header fields, store to cache
           rsp.replace_header_fields(&revalidate_rsp);
-          cache.revalidate(req.get_URI(), rsp);
+          cache.revalidate(req.get_URI(), rsp,rid);
         } else if (revalidate_rsp.get_code() == "200") { // replace all, store to cache     
           rsp = revalidate_rsp;
-          cache.revalidate(req.get_URI(), rsp);
+          cache.revalidate(req.get_URI(), rsp,rid);
         }
       } else {
         time_t expire_time = cache.get_expire_time(req.get_URI());
@@ -81,7 +81,7 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
         close(webserver_fd);
         rsp = parser.parse_response(response_buffer.first.data(), response_buffer.second);
         if (rsp.get_code() == "200") {
-          cache.revalidate(req.get_URI(), rsp);
+          cache.revalidate(req.get_URI(), rsp,rid);
         }
       }    
     } else {
@@ -100,23 +100,23 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
   close(connfd);
 }
 
-void handle_post(const HttpRequest & req, int connfd) {
+void handle_post(const HttpRequest & req, int connfd,size_t rid) {
     // send request to server
     Clientsocket client_socket;
     int webserver_fd=client_socket.init_client(req.get_host().c_str(),req.get_port().c_str());
     client_socket.send_buffer(webserver_fd,req.reconstruct().data());
     // log ID: Requesting "REQUEST" from SERVER
-    LOG << "id" << "Requesting "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
+    LOG << rid << ": Requesting "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
     // recv response from server
     pair<vector<char>,int> response_buffer=client_socket.recv_response(webserver_fd);
     HttpParser parse;
     HttpResponse rsp=parse.parse_response(response_buffer.first.data(),response_buffer.second);
     // log ID: Received "RESPONSE" from SERVER
-    LOG << "id" << "Received "<<rsp.get_start_line().data()<<" from "<<req.get_host().data()<<"\n";
+    LOG << rid << ": Received "<<rsp.get_start_line().data()<<" from "<<req.get_host().data()<<"\n";
     //send back to web client
     client_socket.send_buffer(connfd,response_buffer.first.data(),response_buffer.second);
     //log responding
-    LOG << "id" << "Responding "<<rsp.get_start_line().data()<<"\n";
+    LOG << rid << ": Responding "<<rsp.get_start_line().data()<<"\n";
     close(webserver_fd); 
     close(connfd);
 
@@ -128,11 +128,11 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
     int webserver_fd=client_socket.init_client(req.get_host().c_str(),req.get_port().c_str());
     client_socket.send_buffer(webserver_fd,req.reconstruct().data());
     // log ID: Requesting "REQUEST" from SERVER
-    LOG << "id" << "Requesting "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
+    LOG << rid << ": Requesting "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
     // response HTTP/1.1 200 OK\r\n\r\n
     // log ID: Received "RESPONSE" from SERVER
     client_socket.send_buffer(connfd,"HTTP/1.1 200 OK\r\n\r\n");
-    LOG << "id" << "Responding "<<"HTTP/1.1 200 OK"<<"\n";
+    LOG << rid << ": Responding "<<"HTTP/1.1 200 OK"<<"\n";
     
     vector<int> fds={connfd,webserver_fd};
     int numfds=connfd>webserver_fd?connfd:webserver_fd;
@@ -163,7 +163,7 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
         }
         
     }
-    LOG << "Tunnel closed\n";
+    LOG <<rid<< ": Tunnel closed\n";
     close(webserver_fd); 
     close(connfd);
 
@@ -176,7 +176,19 @@ void handle_request(int connfd, size_t rid) {
     //cout<<"request first"<<request_buffer.first.data()<<"second"<<request_buffer.second<<endl;
     HttpParser parser;
     HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
-    handle_connection(req,connfd, rid);
+    string method=req.get_method();
+    if (method=="GET"){
+      handle_get(req,connfd,rid);
+    }
+    else if (method=="POST"){
+      handle_post(req,connfd,rid);
+    }
+    else if (method=="CONNECT"){
+      handle_connection(req,connfd, rid);
+    }
+    else {
+      LOG<<rid<<": ERROR HTTP Method\n";
+    }
     return;
 }
 

@@ -11,9 +11,11 @@
 #include <shared_mutex>
 #include <mutex>
 #include "http_response.h"
+#include "log.h"
 using namespace std;
-
 typedef struct tm tm;
+
+extern Logger LOG;
 
 //expire
 class Record {
@@ -45,8 +47,8 @@ public:
   const HttpResponse * search_record(string uri);
   bool check_time_valid(string uri);//check if fresh/expire
   bool check_tag_valid(string uri);//check if has Etag/last_modify
-  bool store_record(string uri, const HttpResponse & rsp);//store single record
-  void revalidate(string uri,const HttpResponse & rsp);//replace httpresponse and re-calculate time
+  bool store_record(string uri, const HttpResponse & rsp,size_t rid);//store single record
+  void revalidate(string uri,const HttpResponse & rsp,size_t rid);//replace httpresponse and re-calculate time
   time_t get_store_time(string uri);//return the time past since last stored  
   time_t get_expire_time(string uri);//return expire time of the record
 

@@ -2,13 +2,7 @@
 
 using namespace std;
 
-Record::Record(string uri, HttpResponse response, time_t expire_time,time_t store_time) {
-  URI = uri;
-  http_response = response;
-  this->expire_time = expire_time;
-  this->store_time=store_time;
-}
-
+Record::Record(string uri, HttpResponse response, time_t expire_time,time_t store_time):URI(uri),http_response(response),expire_time(expire_time),store_time(store_time){}
 
 time_t Record::get_expire() {
   return expire_time;
@@ -68,9 +62,10 @@ time_t Cache::parse_time(RspCacheControl & cache) {
   }
 }
 
-bool Cache::store_record(string uri, const HttpResponse & response) {
+bool Cache::store_record(string uri, const HttpResponse & response,size_t rid) {
   RspCacheControl cache = response.get_cache();
   if (!check_store_valid(cache)) {
+    LOG<<rid<<": not cacheable because no" ;
     return false;
   }
   else {
@@ -80,6 +75,12 @@ bool Cache::store_record(string uri, const HttpResponse & response) {
       record_lib.erase(record_lib.begin());
     }
     record_lib.insert(pair<string, Record>(uri, new_record));
+    if (new_record.expire_time<=time(0)){
+      LOG<<rid<<": cached, but requires re-validation";
+    }
+    else{
+      LOG<<rid<<": cached, expires at "<<ctime(&new_record.expire_time);
+    }
     return true;
   }
 }
@@ -108,10 +109,10 @@ bool Cache::check_tag_valid(string uri) {
   }
 }
 
-void Cache::revalidate(string uri, const HttpResponse & rsp) {
+void Cache::revalidate(string uri, const HttpResponse & rsp,size_t rid) {
   unique_lock lck(mtx);
   remove_record(uri);
-  store_record(uri, rsp);
+  store_record(uri, rsp,rid);
 }
 
 time_t Cache::get_store_time(string uri){
