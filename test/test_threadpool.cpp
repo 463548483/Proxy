@@ -18,8 +18,9 @@ int main(){
     mutex *m = new mutex;
     int sum = 0;
     {
-    std::shared_ptr<Threadpool> pool(Threadpool::get_pool());
-    for(int i = 0; i < 100;i++){
+    Threadpool thread_pool;
+    Threadpool* pool = thread_pool.get_pool();
+    for(int i = 0; i < 200; i++){
         if(!pool->assign_task(bind(showTicket, m))){
             sum++;
         }

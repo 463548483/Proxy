@@ -10,7 +10,7 @@
 using namespace std;
 
 
-
+// a thread safe thread pool
 class Threadpool
 {
 private:
@@ -20,13 +20,12 @@ private:
     int max_tasks;
     mutex m_lock;
     condition_variable has_task;
+    // use to determine whether recieved a task or the treadpool is destructed
     bool run_flag;
-    static Threadpool * pool;
-    static mutex * mtx;
 public:
-    Threadpool();
+    Threadpool(int max_threads=10, int max_tasks=100);
     bool init_pool(function<void()> t);
-    static Threadpool * get_pool();
+    Threadpool * get_pool();
     bool assign_task(function<void()> task);
     ~Threadpool();
 private:

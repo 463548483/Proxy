@@ -3,15 +3,9 @@
 #include <memory>
 #define _CRTDBG_MAP_ALLOC
 
-
 using namespace std;
-int MAX_THREADS=10;
-int MAX_TASKS=100;
 
-Threadpool * Threadpool::pool=NULL;
-mutex * Threadpool::mtx=new mutex();
-
-Threadpool::Threadpool():max_threads(MAX_THREADS),max_tasks(MAX_TASKS),run_flag(true){
+Threadpool::Threadpool(int max_thds, int max_tasks):max_threads(max_thds),max_tasks(max_tasks),run_flag(true){
     if (threads.size()==0){
         unique_lock<mutex> lck(m_lock);
         if (threads.size()==0){
@@ -21,13 +15,7 @@ Threadpool::Threadpool():max_threads(MAX_THREADS),max_tasks(MAX_TASKS),run_flag(
 }
 
 Threadpool * Threadpool::get_pool(){
-    if(pool==NULL){
-        unique_lock<mutex> lck(*mtx);
-        if (pool==NULL){
-            pool=new Threadpool();
-        }
-    }
-    return pool;
+    return this;
 }
 
 
@@ -36,11 +24,18 @@ void Threadpool::run_task(){
     while(run_flag==true||!m_tasks.empty()){
         function<void()> task;
         unique_lock<mutex> lck(m_lock);
-        while(m_tasks.empty()){
+        if (run_flag == false && m_tasks.empty()) {
+          return;
+        }
+        while(m_tasks.empty() && run_flag != false){
             has_task.wait(lck);
+        }
+        if (m_tasks.empty()) {
+          return;
         }
         task=m_tasks.front();
         m_tasks.pop();
+        lck.unlock();
         task();
     }
 }
@@ -61,8 +56,9 @@ bool Threadpool::assign_task(function<void()> t){
         else{
             return false;
         }
+        has_task.notify_one();
     }
-    has_task.notify_one();
+    //has_task.notify_one();
     return true;
 }
 
