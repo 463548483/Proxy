@@ -11,6 +11,10 @@ public:
   Logger(const Logger &) = delete;
   Logger& operator = (const Logger &) = delete;
   Logger& operator << (const std::string & msg);
+  Logger& operator << (const int & msg);
+  Logger& operator << (const long long & msg);
+  Logger& operator << (const unsigned int  & msg);
+  Logger& operator << (const unsigned long long & msg);
   ~Logger();
 private:
   std::string file_name;

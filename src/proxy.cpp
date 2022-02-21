@@ -8,9 +8,34 @@
 #include <csignal>
 #include "http_parser.h"
 #include "threadpool.h"
+#include "log.h"
+#include "exceptions.h"
+#include "cache.h"
 
-void handle_request(void * ptr) {
-    int connfd = *((int *)ptr); 
+// global logger
+Logger LOG("log.txt");
+// global cache
+Cache cache;
+
+void handle_get(const HttpRequest & req, int connfd) {
+// 1. decide whether use cache
+// 2. if true, send back cache
+// 3. if need revalidate, construct revalidate_req
+// 4. if false, send the original reques
+// also need to LOG
+  if (req.get_method() != "GET") {
+    throw HttpRequestExc("A unexpected logical error happened at handle_get()");
+  }
+  const HttpResponse* rsp_ptr = cache.search_record(req.get_URI());
+  if (rsp_ptr == nullptr) { 
+    LOG << connfd << ": not in cache\n";
+  } else {
+    if (req.get_cache().no_cache || rsp_ptr->get_cache().no_cache){
+    }
+  }
+}
+
+void handle_request(int connfd) {
     //receive from client and parse
     Socket socket(connfd);
     pair<vector<char>,int> request_buffer=socket.recv_request(connfd); 
@@ -35,17 +60,16 @@ int main(int argc, char **argv) {
         fprintf(stderr, "usage: %s <port>\n", argv[0]); 
         exit(0);
     }
-    shared_ptr<Threadpool> pool(Threadpool::get_pool(),[](Threadpool * p){delete p;});
+    Threadpool thread_pool;
+    Threadpool* pool = thread_pool.get_pool();
     Serversocket server_socket;
     const char * port=argv[1];
     int listenfd;   
     listenfd = server_socket.init_server(port);
-    int * connfd_ptr;
     while (true) { 
-        connfd_ptr=(int *)malloc(sizeof(int)); 
-        unique_ptr<int> p(connfd_ptr);
-        *connfd_ptr= server_socket.server_accept(); 
-        pool->assign_task(bind(handle_request, connfd_ptr));
+        int connfd;
+        connfd = server_socket.server_accept(); 
+        pool->assign_task(bind(handle_request, connfd));
     } 
     close(listenfd);    
     return 0;

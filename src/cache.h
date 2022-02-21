@@ -4,8 +4,12 @@
 #include <iostream>
 #include <ctime>
 #include <unordered_map>
-using namespace std;
+#include <cassert>
+#include <cstring>
+#include <fstream>
+#include <string>
 #include "http_response.h"
+using namespace std;
 
 typedef struct tm tm;
 
@@ -37,7 +41,7 @@ public:
 
 public:
   Cache(){}
-  HttpResponse * search_record(string uri);
+  const HttpResponse * search_record(string uri);
   bool check_time_valid(string uri);//check if fresh/expire
   bool check_tag_valid(string uri);//check if has Etag/last_modify
   bool store_record(string uri,HttpResponse & rsp);//store single record

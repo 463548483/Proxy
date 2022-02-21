@@ -1,6 +1,6 @@
 #include "http_base.h"
 
-std::vector<char> HttpBase::reconstruct() {
+std::vector<char> HttpBase::reconstruct() const {
   std::vector<char> res;
   res.insert(res.end(), start_line.begin(), start_line.end());
   res.push_back('\r');

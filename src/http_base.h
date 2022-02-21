@@ -10,10 +10,10 @@ class HttpBase {
   friend class HttpParser;
 public:
   // request is the reconstructed request not raw request
-  std::vector<char> reconstruct();
-  std::vector<char> get_start_line() {return start_line;}
-  std::vector<std::vector<char>> get_header() {return header_fields;}
-  std::vector<char> get_message_body() {return message_body;}
+  std::vector<char> reconstruct() const;
+  std::vector<char> get_start_line() const {return start_line;}
+  std::vector<std::vector<char>> get_header() const {return header_fields;}
+  std::vector<char> get_message_body() const {return message_body;}
   // no sanity check, have to guarentee field have correct format
   // not change any field tags specific to request or response
   // Do not add \r\n in the end

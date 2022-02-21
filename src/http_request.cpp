@@ -1,7 +1,7 @@
 #include "http_request.h"
 
 std::vector<char> HttpRequest::get_revalidate_req(const std::string& URI, 
-    const std::string& etag, const std::string& last_modified) {
+    const std::string& etag, const std::string& last_modified) const {
   std::vector<char> res;
   std::string start_line = "GET " + URI + " HTTP/1.1";
   res.insert(res.end(), start_line.begin(), start_line.end());

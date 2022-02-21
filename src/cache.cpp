@@ -1,9 +1,5 @@
 #include "cache.h"
 
-#include <cassert>
-#include <cstring>
-#include <fstream>
-#include <string>
 using namespace std;
 
 Record::Record(string uri, HttpResponse response, time_t expire_time) {
@@ -21,7 +17,7 @@ time_t Record::get_expire() {
 }
 
 //return 0 if could not find, else check the status of record
-HttpResponse * Cache::search_record(string uri) {
+const HttpResponse * Cache::search_record(string uri) {
   unordered_map<string, Record>::iterator it;
   it = record_lib.find(uri);
   if (it != record_lib.end()) {
