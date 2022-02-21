@@ -13,7 +13,7 @@ void handle_request(void * ptr) {
     int connfd = *((int *)ptr); 
     //receive from client and parse
     Socket socket(connfd);
-    pair<vector<char>,int> request_buffer=socket.recv_buffer(connfd); 
+    pair<vector<char>,int> request_buffer=socket.recv_request(connfd); 
     //cout<<"request first"<<request_buffer.first.data()<<"second"<<request_buffer.second<<endl;
     HttpParser parser;
     HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
@@ -21,7 +21,7 @@ void handle_request(void * ptr) {
     Clientsocket client_socket;
     int webserver_fd=client_socket.init_client(req.get_host().c_str(),req.get_port().c_str());
     client_socket.send_buffer(webserver_fd,request_buffer.first.data(),request_buffer.second);
-    pair<vector<char>,int> response_buffer=client_socket.recv_buffer(webserver_fd);
+    pair<vector<char>,int> response_buffer=client_socket.recv_response(webserver_fd);
     //send back to web client
     socket.send_buffer(connfd,response_buffer.first.data(),response_buffer.second);
     close(webserver_fd); 

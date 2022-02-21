@@ -19,29 +19,30 @@ class Record {
 
   public:
   Record(string uri,HttpResponse response,time_t expire_time);
-  HttpResponse get_response();
+  HttpResponse * get_response();
   void replace();
   time_t get_expire();
+  void replace_response(HttpResponse rsp);
 
 };
 
 class Cache{
-  private:
+private:
   unordered_map<string,Record> record_lib;
-  private:
-
+public:
   void remove_record(string uri);
   HttpResponse send_response(string uri);
-  bool check_store_valid(RspCacheControl);
-  time_t parse_time(RspCacheControl cache);
-  public:
-  Cache();
+  bool check_store_valid(RspCacheControl & cache);
+  time_t parse_time(RspCacheControl & cache);
+
+public:
+  Cache(){}
   HttpResponse * search_record(string uri);
   bool check_time_valid(string uri);//check if fresh/expire
   bool check_tag_valid(string uri);//check if has Etag/last_modify
-  void store_record(string uri,HttpResponse);//store single record
-  void replace_header(string uri,HttpResponse);//only replace header file
-  void replace_response(string uri,HttpResponse);//replace the whole response
+  bool store_record(string uri,HttpResponse & rsp);//store single record
+  void revalidate(string uri,HttpResponse & rsp);//replace httpresponse and re-calculate time
+
 };
 
 
