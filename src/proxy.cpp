@@ -122,7 +122,7 @@ void handle_post(const HttpRequest & req, int connfd) {
 
 }
 
-void handle_connection(const HttpRequest & req, int connfd) {
+void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
     // send request to server
     Clientsocket client_socket;
     int webserver_fd=client_socket.init_client(req.get_host().c_str(),req.get_port().c_str());
@@ -169,14 +169,14 @@ void handle_connection(const HttpRequest & req, int connfd) {
 
 }
 
-void handle_request(int connfd) {
+void handle_request(int connfd, size_t rid) {
     //receive from client and parse
     Socket socket(connfd);
     pair<vector<char>,int> request_buffer=socket.recv_request(connfd); 
     //cout<<"request first"<<request_buffer.first.data()<<"second"<<request_buffer.second<<endl;
     HttpParser parser;
     HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
-    handle_connection(req,connfd);
+    handle_connection(req,connfd, rid);
     return;
 }
 
