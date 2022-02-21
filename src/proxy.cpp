@@ -14,7 +14,7 @@
 #include "cache.h"
 
 // global logger
-Logger LOG("log.txt");
+Logger LOG;
 // global cache
 Cache cache;
 
@@ -193,6 +193,7 @@ void handle_request(int connfd, size_t rid) {
 }
 
 int main(int argc, char **argv) {
+    LOG.open("log.txt", std::ofstream::out | std::ofstream::app);
     size_t rid = 0;
     if (argc != 2) {
         fprintf(stderr, "usage: %s <port>\n", argv[0]); 

@@ -2,7 +2,8 @@
 #include "log.h"
 
 TEST(logtest, test0) {
-  Logger log("test_log.txt");
+  Logger log;
+  log.open("test_log.txt");
   log << "test";
   log << "test again";
 }

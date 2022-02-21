@@ -4,11 +4,14 @@
 #include <string>
 #include <fstream>
 #include <mutex>
+#include <ios>
+
 // thread-save Logger class
 class Logger {
 public:
-  Logger(const std::string& fname): file_name(fname), fs(fname, std::ofstream::out | std::ofstream::app) {}
+  Logger() {}
   Logger(const Logger &) = delete;
+  void open(std::string f_name, std::ios_base::openmode mode = std::ios_base::out);
   Logger& operator = (const Logger &) = delete;
   Logger& operator << (const std::string & msg);
   Logger& operator << (const int & msg);
