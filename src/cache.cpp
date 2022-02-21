@@ -68,7 +68,7 @@ time_t Cache::parse_time(RspCacheControl & cache) {
   }
 }
 
-bool Cache::store_record(string uri, HttpResponse & response) {
+bool Cache::store_record(string uri, const HttpResponse & response) {
   RspCacheControl cache = response.get_cache();
   if (!check_store_valid(cache)) {
     return false;
@@ -106,7 +106,7 @@ bool Cache::check_tag_valid(string uri) {
   }
 }
 
-void Cache::revalidate(string uri, HttpResponse & rsp) {
+void Cache::revalidate(string uri, const HttpResponse & rsp) {
   std::lock_guard<std::mutex> lck(mtx);
   remove_record(uri);
   store_record(uri, rsp);
