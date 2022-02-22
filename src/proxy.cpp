@@ -173,13 +173,13 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
     // response HTTP/1.1 200 OK\r\n\r\n
     // log ID: Received "RESPONSE" from SERVER
     client_socket.send_buffer(connfd,"HTTP/1.1 200 OK\r\n\r\n",19);
-    LOG << rid << ": Responding "<<"HTTP/1.1 200 OK"<<"\n";
+    LOG << rid << ": Responding "<<"HTTP/1.1 200 OK\n";
     
     vector<int> fds={connfd,webserver_fd};
     int numfds=connfd>webserver_fd?connfd:webserver_fd;
     fd_set readfds;
-    struct timeval tv;
-    tv.tv_sec = 2;
+    //struct timeval tv;
+    //tv.tv_sec = 2;
     //int MAXLINE=65536;
     //std::unique_ptr<char> message(new char[MAXLINE]{0});
     while (true) {
@@ -187,35 +187,28 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
         for (int i = 0; i < 2; i++) {
         FD_SET(fds[i], &readfds);
         }
-        if (select(numfds + 1, &readfds, NULL, NULL, &tv)==0){
-          break;
-        }
-        else{
+        select(numfds + 1, &readfds, NULL, NULL, NULL);
 
-          int rv;
-          pair<vector<char>, size_t> received;
-          for (int i = 0; i < 2; i++) {
-              if (FD_ISSET(fds[i], &readfds)) {
-                  received=client_socket.recv_request(fds[i]);
-                  rv=received.second;
-                  if (rv>0){
-                    if (send(fds[1-i],received.first.data(),rv,0)<=0){
-                      LOG <<rid<< ": Tunnel closed\n";
-                      return;
-                    }
-                  }
-                  else{
+        int rv;
+        pair<vector<char>, size_t> received;
+        for (int i = 0; i < 2; i++) {
+            if (FD_ISSET(fds[i], &readfds)) {
+                received=client_socket.recv_request(fds[i]);
+                rv=received.second;
+                if (rv>0){
+                  if (send(fds[1-i],received.first.data(),rv,0)<=0){
                     LOG <<rid<< ": Tunnel closed\n";
                     return;
                   }
-                  break;
-              }
-          }
-          //client or server close
-          if (rv==0 ){
-              break;
-          }
+                }
+                else{
+                  LOG <<rid<< ": Tunnel closed\n";
+                  return;
+                }
+                break;
+            }
         }
+        
         
     }
     LOG <<rid<< ": Tunnel closed\n";
