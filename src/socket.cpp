@@ -121,7 +121,7 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
         //strcat(recv_buffer,buffer);
     }
     cout<<"socket receive: "<<endl;
-    cout<<recv_buffer.data()<<endl;
+    cout<<std::string(recv_buffer.data(), recv_buffer.size())<<endl;
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
@@ -141,7 +141,7 @@ pair<vector<char>, size_t> Socket::recv_request(int connfd){
     recv_buffer.insert(recv_buffer.end(),buffer.get(),buffer.get()+byte);
 
     cout<<"socket receive: "<<endl;
-    cout<<recv_buffer.data()<<endl;
+    cout<<std::string(recv_buffer.data(), recv_buffer.size())<<endl;
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
@@ -151,7 +151,7 @@ void Socket::send_buffer(int connfd,const char * buffer,int length){
         throw SocketExc("Error Send");
     }
     cout<<"socket send:"<<endl;
-    cout<<buffer<<endl;
+    cout<<std::string(buffer, length)<<endl;
 }
 
 
