@@ -4,6 +4,7 @@
 #include <sys/wait.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <memory>
 #include "socket.h"
 #include <csignal>
 #include "exceptions.h"
@@ -101,9 +102,9 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
     size_t total_byte=0;
     while(true){
         cout << "get a block, size: " ;
-        char * buffer=new char[MAXLINE]{0};
-        memset(buffer,0,sizeof(char)*MAXLINE);
-        int byte=recv(connfd,buffer,MAXLINE,0);
+        std::unique_ptr<char>  buffer(new char[MAXLINE]{0});
+        memset(buffer.get(),0,sizeof(char)*MAXLINE);
+        int byte=recv(connfd,buffer.get(),MAXLINE,0);
         cout << byte << endl;
         if (byte==-1){
             std::string err = std::to_string(errno);
@@ -111,8 +112,7 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
         }
         total_byte+=byte;
         recv_buffer.reserve(total_byte);
-        recv_buffer.insert(recv_buffer.end(),buffer,buffer+byte);
-        delete[] buffer;
+        recv_buffer.insert(recv_buffer.end(),buffer.get(),buffer.get()+byte);
         if (byte==0){ 
             break;
         }
@@ -130,16 +130,15 @@ pair<vector<char>, size_t> Socket::recv_request(int connfd){
     //char * recv_buffer=(char *)malloc(MAXLINE*sizeof(char));
     vector<char> recv_buffer;
     size_t total_byte=0;
-    char * buffer=new char[MAXLINE]{0};
-    memset(buffer,0,sizeof(char)*MAXLINE);
-    int byte=recv(connfd,buffer,MAXLINE,0);
+    std::unique_ptr<char>  buffer(new char[MAXLINE]{0});
+    memset(buffer.get(),0,sizeof(char)*MAXLINE);
+    int byte=recv(connfd,buffer.get(),MAXLINE,0);
     if (byte==-1){
         throw SocketExc("Error Receive");
     }
     total_byte+=byte;
     recv_buffer.reserve(recv_buffer.size()+byte-1);
-    recv_buffer.insert(recv_buffer.end(),buffer,buffer+byte);
-    delete[] buffer;
+    recv_buffer.insert(recv_buffer.end(),buffer.get(),buffer.get()+byte);
 
     cout<<"socket receive: "<<endl;
     cout<<recv_buffer.data()<<endl;
