@@ -176,21 +176,25 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
         for (int i = 0; i < 2; i++) {
         FD_SET(fds[i], &readfds);
         }
-        select(numfds + 1, &readfds, NULL, NULL, NULL);
-
-        int rv;
-        for (int i = 0; i < 2; i++) {
-            if (FD_ISSET(fds[i], &readfds)) {
-                rv=recv(fds[i], message.get(), MAXLINE, MSG_WAITALL);
-                if (rv!=0){
-                  client_socket.send_buffer(fds[1-i],message.get());
-                }
-                break;
-            }
+        if (select(numfds + 1, &readfds, NULL, NULL, NULL)==0){
+          break;
         }
-        //client or server close
-        if (rv==0 ){
-            break;
+        else{
+
+          int rv;
+          for (int i = 0; i < 2; i++) {
+              if (FD_ISSET(fds[i], &readfds)) {
+                  rv=recv(fds[i], message.get(), MAXLINE, MSG_WAITALL);
+                  if (rv!=0){
+                    client_socket.send_buffer(fds[1-i],message.get());
+                  }
+                  break;
+              }
+          }
+          //client or server close
+          if (rv==0 ){
+              break;
+          }
         }
         
     }
