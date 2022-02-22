@@ -96,14 +96,18 @@ int Serversocket::server_accept(){
 
 pair<vector<char>, size_t> Socket::recv_response(int connfd){
     //char * recv_buffer=(char *)malloc(MAXLINE*sizeof(char));
+    cout << "socket starting to receive" << endl;
     vector<char> recv_buffer;
     size_t total_byte=0;
     while(true){
+        cout << "get a block, size: " ;
         char * buffer=new char[MAXLINE]{0};
         memset(buffer,0,sizeof(char)*MAXLINE);
         int byte=recv(connfd,buffer,MAXLINE,0);
+        cout << byte << endl;
         if (byte==-1){
-            throw SocketExc("Error Receive");
+            std::string err = std::to_string(errno);
+            throw SocketExc("Error Receive, errno: " + err);
         }
         total_byte+=byte;
         recv_buffer.reserve(total_byte);
@@ -122,6 +126,7 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
 }
 
 pair<vector<char>, size_t> Socket::recv_request(int connfd){
+    cout << "socket starting to receive." << endl;
     //char * recv_buffer=(char *)malloc(MAXLINE*sizeof(char));
     vector<char> recv_buffer;
     size_t total_byte=0;

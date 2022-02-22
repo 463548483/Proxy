@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <csignal>
 #include <ctime>
+#include <memory>
 #include "socket.h"
 #include "http_parser.h"
 #include "threadpool.h"
@@ -19,26 +20,27 @@ Logger LOG;
 Cache cache;
 
 void handle_get(const HttpRequest & req, int connfd, size_t rid) {
-// 1. decide whether use cache
-// 2. if true, send back cache
-// 3. if need revalidate, construct revalidate_req
-// 4. if false, send the original reques
-// also need to LOG
   if (req.get_method() != "GET") {
     throw HttpRequestExc("A unexpected logical error happened at handle_get()");
   }
   HttpParser parser;
   const HttpResponse* rsp_ptr = cache.search_record(req.get_URI());
   HttpResponse rsp;
+  std::vector<char> rsp_vec;
+  try {
   if (rsp_ptr == nullptr) { 
     LOG << rid << ": not in cache\n";
     Clientsocket client_socket;
     int webserver_fd = client_socket.init_client(req.get_host().c_str(), req.get_port().c_str());
     std::vector<char> req_vec = req.reconstruct();
+    LOG << rid << ": Requesting \"" << std::string(req.get_start_line().begin(), req.get_start_line().end()) 
+        << "\" from " << req.get_host() << "\n";
     client_socket.send_buffer(webserver_fd, req_vec.data(), req_vec.size());
     pair<vector<char>, int> response_buffer = client_socket.recv_response(webserver_fd);
     close(webserver_fd);
     rsp = parser.parse_response(response_buffer.first.data(), response_buffer.second);
+    LOG << rid << ": Received \"" << std::string(rsp.get_start_line().begin(), rsp.get_start_line().end()) 
+        << "\" from " << req.get_host() << "\n";
     if (rsp.get_code() == "200") {
       cache.store_record(req.get_URI(), rsp,rid);
     }
@@ -55,12 +57,16 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
         std::vector<char> revalidate_req = req.get_revalidate_req(req.get_URI(), etag, last_modified);
         Clientsocket client_socket;
         int webserver_fd = client_socket.init_client(req.get_host().c_str(), req.get_port().c_str());
+        LOG << rid << ": Requesting \"" << std::string(req.get_start_line().begin(), req.get_start_line().end()) 
+            << "\" from " << req.get_host() << "\n";
         client_socket.send_buffer(webserver_fd, revalidate_req.data(), revalidate_req.size());
         pair<vector<char>, int> response_buffer = client_socket.recv_response(webserver_fd);
         close(webserver_fd);
         rsp = *rsp_ptr;
         HttpResponse revalidate_rsp;
         revalidate_rsp = parser.parse_response(response_buffer.first.data(), response_buffer.second);
+        LOG << rid << ": Received \"" << std::string(revalidate_rsp.get_start_line().begin(), revalidate_rsp.get_start_line().end()) 
+            << "\" from " << req.get_host() << "\n";
         // deal with revalidate response
         if (revalidate_rsp.get_code() == "304") { // replace header fields, store to cache
           rsp.replace_header_fields(&revalidate_rsp);
@@ -76,10 +82,14 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
         Clientsocket client_socket;
         int webserver_fd = client_socket.init_client(req.get_host().c_str(), req.get_port().c_str());
         std::vector<char> req_vec = req.reconstruct();
+        LOG << rid << ": Requesting \"" << std::string(req.get_start_line().begin(), req.get_start_line().end()) 
+            << "\" from " << req.get_host() << "\n";
         client_socket.send_buffer(webserver_fd, req_vec.data(), req_vec.size());
         pair<vector<char>, int> response_buffer = client_socket.recv_response(webserver_fd);
         close(webserver_fd);
         rsp = parser.parse_response(response_buffer.first.data(), response_buffer.second);
+        LOG << rid << ": Received \"" << std::string(rsp.get_start_line().begin(), rsp.get_start_line().end()) 
+            << "\" from " << req.get_host() << "\n";
         if (rsp.get_code() == "200") {
           cache.revalidate(req.get_URI(), rsp,rid);
         }
@@ -93,9 +103,19 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
       rsp.change_header_field("Age", new_time);
     }
   }
+  rsp_vec = rsp.reconstruct();
+  }
+  catch (HttpRequestExc &e) {
+    std::string str = "HTTP/1.1 400 Bad Request";
+    rsp_vec = std::vector<char>(str.begin(), str.end());
+  }
+  catch (HttpResponseExc &e) {
+    std::string str = "HTTP/1.1 502 Bad Gateway";
+    rsp_vec = std::vector<char>(str.begin(), str.end());
+  }
   // send rsp to client
-  std::vector<char> rsp_vec = rsp.reconstruct();
   Socket socket(connfd);
+  LOG << rid << ": Responding \"" << std::string(rsp.get_start_line().begin(), rsp.get_start_line().end());
   socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
   close(connfd);
 }
@@ -109,8 +129,23 @@ void handle_post(const HttpRequest & req, int connfd,size_t rid) {
     LOG << rid << ": Requesting "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
     // recv response from server
     pair<vector<char>,int> response_buffer=client_socket.recv_response(webserver_fd);
+    HttpResponse rsp;
+    try {
     HttpParser parse;
-    HttpResponse rsp=parse.parse_response(response_buffer.first.data(),response_buffer.second);
+    rsp=parse.parse_response(response_buffer.first.data(),response_buffer.second);
+    }
+    catch (HttpRequestExc &e) {
+      std::string str = "HTTP/1.1 400 Bad Request";
+      vector<char> rsp_vec = std::vector<char>(str.begin(), str.end());
+      response_buffer.first = rsp_vec;
+      response_buffer.second = rsp_vec.size();
+    }
+    catch (HttpResponseExc &e) {
+      std::string str = "HTTP/1.1 502 Bad Gateway";
+      vector<char>rsp_vec = std::vector<char>(str.begin(), str.end());
+      response_buffer.first = rsp_vec;
+      response_buffer.second = rsp_vec.size();
+    }
     // log ID: Received "RESPONSE" from SERVER
     LOG << rid << ": Received "<<rsp.get_start_line().data()<<" from "<<req.get_host().data()<<"\n";
     //send back to web client
@@ -125,10 +160,7 @@ void handle_post(const HttpRequest & req, int connfd,size_t rid) {
 void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
     // send request to server
     Clientsocket client_socket;
-    int webserver_fd=client_socket.init_client(req.get_host().c_str(),req.get_port().c_str());
-    client_socket.send_buffer(webserver_fd,req.reconstruct().data());
-    // log ID: Requesting "REQUEST" from SERVER
-    LOG << rid << ": Requesting "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
+    int webserver_fd=client_socket.init_client(req.get_host().c_str(), "443");
     // response HTTP/1.1 200 OK\r\n\r\n
     // log ID: Received "RESPONSE" from SERVER
     client_socket.send_buffer(connfd,"HTTP/1.1 200 OK\r\n\r\n");
@@ -138,7 +170,7 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
     int numfds=connfd>webserver_fd?connfd:webserver_fd;
     fd_set readfds;
     int MAXLINE=65536;
-    char * message=new char[MAXLINE]{0};
+    std::unique_ptr<char> message(new char[MAXLINE]{0});
     while (true) {
         FD_ZERO(&readfds);
         for (int i = 0; i < 2; i++) {
@@ -149,16 +181,15 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
         int rv;
         for (int i = 0; i < 2; i++) {
             if (FD_ISSET(fds[i], &readfds)) {
-                rv=recv(fds[i], message, MAXLINE, MSG_WAITALL);
+                rv=recv(fds[i], message.get(), MAXLINE, MSG_WAITALL);
                 if (rv!=0){
-                  client_socket.send_buffer(fds[1-i],message);
+                  client_socket.send_buffer(fds[1-i],message.get());
                 }
                 break;
             }
         }
         //client or server close
         if (rv==0 ){
-            delete[] message;
             break;
         }
         
@@ -171,23 +202,47 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
 
 void handle_request(int connfd, size_t rid) {
     //receive from client and parse
-    Socket socket(connfd);
-    pair<vector<char>,int> request_buffer=socket.recv_request(connfd); 
-    //cout<<"request first"<<request_buffer.first.data()<<"second"<<request_buffer.second<<endl;
-    HttpParser parser;
-    HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
-    string method=req.get_method();
-    if (method=="GET"){
-      handle_get(req,connfd,rid);
+    try {
+      try {
+        Socket socket(connfd);
+        pair<vector<char>,int> request_buffer=socket.recv_request(connfd); 
+        //cout<<"request first"<<request_buffer.first.data()<<"second"<<request_buffer.second<<endl;
+        HttpParser parser;
+        HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
+        string method=req.get_method();
+        if (method=="GET"){
+          handle_get(req,connfd,rid);
+        }
+        else if (method=="POST"){
+          handle_post(req,connfd,rid);
+        }
+        else if (method=="CONNECT"){
+          handle_connection(req,connfd, rid);
+        }
+        else {
+          LOG<<rid<<": ERROR Wrong HTTP Method\n";
+        }
+      }
+      catch (HttpRequestExc &e) {
+        std::string str = "HTTP/1.1 400 Bad Request";
+        vector<char> rsp_vec = std::vector<char>(str.begin(), str.end());
+        Socket socket(connfd);
+        LOG << rid << ": Responding \"" << std::string(rsp_vec.begin(), rsp_vec.end());
+        socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
+      }
+      catch (HttpResponseExc &e) {
+        std::string str = "HTTP/1.1 502 Bad Gateway";
+        vector<char>rsp_vec = std::vector<char>(str.begin(), str.end());
+        Socket socket(connfd);
+        LOG << rid << ": Responding \"" << std::string(rsp_vec.begin(), rsp_vec.end());
+        socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
+      }
     }
-    else if (method=="POST"){
-      handle_post(req,connfd,rid);
+    catch (SocketExc &e) {
+      std::cerr << "An error occurs in socket connection when handling request\n"; 
     }
-    else if (method=="CONNECT"){
-      handle_connection(req,connfd, rid);
-    }
-    else {
-      LOG<<rid<<": ERROR HTTP Method\n";
+    catch (std::exception &e) {
+      std::cerr << "An unexpected error occurs when handling request\n"; 
     }
     return;
 }
@@ -199,11 +254,12 @@ int main(int argc, char **argv) {
         fprintf(stderr, "usage: %s <port>\n", argv[0]); 
         exit(0);
     }
+    int listenfd;   
+    try {
     Threadpool thread_pool;
     Threadpool* pool = thread_pool.get_pool();
     Serversocket server_socket;
     const char * port=argv[1];
-    int listenfd;   
     listenfd = server_socket.init_server(port);
     while (true) { 
         int connfd;
@@ -211,7 +267,14 @@ int main(int argc, char **argv) {
         pool->assign_task(bind(handle_request, connfd, rid));
         ++rid;
     } 
-    close(listenfd);    
+    close(listenfd);
+    }
+    catch (SocketExc &e) {
+      std::cerr << "An error occurs in socket connection when receiving request\n"; 
+    }
+    catch (std::exception &e) {
+      std::cerr << "An unexpected error occurs when receiving request\n"; 
+    }
     return 0;
 }
 
