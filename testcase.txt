@@ -1,23 +1,8 @@
-POST http://httpbin.org/post HTTP/1.1
-Host: httpbin.org:80
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate
-Referer: http://httpbin.org/forms/post
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 50
-Origin: http://httpbin.org
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
+POST http://httpbin.org/post 
+GET http://go.com
+chunked GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+chunked GET http://info.cern.ch/hypertext/WWW/LineMode/Defaults/QuickGuide.html
+max-age GET http://www.artsci.utoronto.ca/futurestudents
+connection www.baidu.com
+connection www.youtube.com
 
-custname=1&custtel=&custemail=&delivery=&comments=��te��B
-                                                         ��KE
-socket starting to receive
-get a block, size: 1387
-get a block, size: 0
-socket receive: 1387
-Invalid http response, should reply with 502
-HttpParser::parse_response_headers: invalid content size or doesn't match message body size.
-
-An unexpected error occurs when handling request
