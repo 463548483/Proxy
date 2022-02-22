@@ -29,21 +29,27 @@ HttpResponse Cache::send_response(string uri) {
 
 void Cache::remove_record(string uri) {
   unordered_map<string, Record>::iterator it;
-  shared_lock lck(mtx);
+  unique_lock lck(mtx);
+  //cout<<"find this record"<<endl;
   it = record_lib.find(uri);
-  if (it != record_lib.end()) {
-    unique_lock lck(mtx);
+  if (it != record_lib.end()) {   
+    cout<<"remove"<<endl;
     record_lib.erase(it);
   }
 }
 
-bool Cache::check_store_valid(RspCacheControl & cache) {
-  if (cache.is_private == true or cache.no_store == true or
-      (cache.max_age == -1 and cache.has_expires == true and cache.expires == -1)) {
-    return false;
+string Cache::check_store_valid(RspCacheControl & cache) {
+  if (cache.is_private == true){
+    return "cache-control: private";
+  }
+  else if (cache.no_store==true){
+    return "cache-control: no-store";
+  }
+  else if (cache.max_age == -1 and cache.has_expires == true and cache.expires == -1) {
+    return "cache with expire time but expire time is not valid";
   }
   else {
-    return true;
+    return "";
   }
 }
 
@@ -55,7 +61,7 @@ time_t Cache::parse_time(RspCacheControl & cache) {
     return 2147483647;
   }
   else if (cache.max_age > 0) {
-    return time(0) + ((uint64_t)cache.max_age - cache.age);
+    return time(0);// + ((uint64_t)cache.max_age - cache.age);
   }
   else {
     return cache.expires;
@@ -64,8 +70,9 @@ time_t Cache::parse_time(RspCacheControl & cache) {
 
 bool Cache::store_record(string uri, const HttpResponse & response,size_t rid) {
   RspCacheControl cache = response.get_cache();
-  if (!check_store_valid(cache)) {
-    LOG<<rid<<": not cacheable because no" ;
+  //cout<<"check store valid"<<endl;
+  if (check_store_valid(cache)!="") {
+    LOG<<rid<<": not cacheable because "<<check_store_valid(cache)<<"\n" ;
     return false;
   }
   else {
@@ -74,9 +81,11 @@ bool Cache::store_record(string uri, const HttpResponse & response,size_t rid) {
     if (record_lib.size() == 1000) {
       record_lib.erase(record_lib.begin());
     }
+    //cout<<"insert"<<endl;
     record_lib.insert(pair<string, Record>(uri, new_record));
+    lck.unlock();
     if (new_record.expire_time<=time(0)){
-      LOG<<rid<<": cached, but requires re-validation";
+      LOG<<rid<<": cached, but requires re-validation\n";
     }
     else{
       LOG<<rid<<": cached, expires at "<<ctime(&new_record.expire_time);
@@ -110,8 +119,9 @@ bool Cache::check_tag_valid(string uri) {
 }
 
 void Cache::revalidate(string uri, const HttpResponse & rsp,size_t rid) {
-  unique_lock lck(mtx);
+  //cout<<"start remove"<<endl;
   remove_record(uri);
+  //cout<<"start store"<<endl;
   store_record(uri, rsp,rid);
 }
 

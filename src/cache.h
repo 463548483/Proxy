@@ -39,7 +39,7 @@ private:
 public:
   void remove_record(string uri);
   HttpResponse send_response(string uri);
-  bool check_store_valid(RspCacheControl & cache);
+  string check_store_valid(RspCacheControl & cache);//return ""=valid, return REASON=not valid
   time_t parse_time(RspCacheControl & cache);
 
 public:
