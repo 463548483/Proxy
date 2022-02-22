@@ -61,7 +61,7 @@ time_t Cache::parse_time(RspCacheControl & cache) {
     return 2147483647;
   }
   else if (cache.max_age > 0) {
-    return time(0);// + ((uint64_t)cache.max_age - cache.age);
+    return time(0) + ((uint64_t)cache.max_age - cache.age);
   }
   else {
     return cache.expires;

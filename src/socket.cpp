@@ -108,7 +108,9 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
         cout << byte << endl;
         if (byte==-1){
             std::string err = std::to_string(errno);
-            throw SocketExc("Error Receive, errno: " + err);
+            cout<<"error recv"<<err<<endl;
+            break;
+            //throw SocketExc("Error Receive, errno: " + err);
         }
         total_byte+=byte;
         recv_buffer.reserve(total_byte);
@@ -120,8 +122,8 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
         //recv_buffer=(char *)realloc(recv_buffer,(total_byte+1)*sizeof(char));
         //strcat(recv_buffer,buffer);
     }
-    cout<<"socket receive: "<<endl;
-    cout<<std::string(recv_buffer.data(), recv_buffer.size())<<endl;
+    cout<<"socket receive: "<<total_byte<<endl;
+    //cout<<std::string(recv_buffer.data(), recv_buffer.size())<<endl;
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
@@ -134,24 +136,25 @@ pair<vector<char>, size_t> Socket::recv_request(int connfd){
     memset(buffer.get(),0,sizeof(char)*MAXLINE);
     int byte=recv(connfd,buffer.get(),MAXLINE,0);
     if (byte==-1){
-        throw SocketExc("Error Receive");
+        std::string err = std::to_string(errno);
+        cout<<"error recv"<<err<<endl;            
     }
     total_byte+=byte;
-    recv_buffer.reserve(recv_buffer.size()+byte-1);
+    recv_buffer.reserve(total_byte);
     recv_buffer.insert(recv_buffer.end(),buffer.get(),buffer.get()+byte);
 
-    cout<<"socket receive: "<<endl;
-    cout<<std::string(recv_buffer.data(), recv_buffer.size())<<endl;
+    cout<<"socket receive: "<<total_byte<<endl;
+    //cout<<std::string(recv_buffer.data(), recv_buffer.size())<<endl;
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
 void Socket::send_buffer(int connfd,const char * buffer,int length){
-    int byte=send(connfd,buffer,length,0);
+    int byte=send(connfd,buffer,length,MSG_NOSIGNAL);
     if (byte==-1){
         throw SocketExc("Error Send");
     }
     cout<<"socket send:"<<endl;
-    cout<<std::string(buffer, length)<<endl;
+    cout<<buffer<<endl;
 }
 
 

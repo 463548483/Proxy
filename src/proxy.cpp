@@ -13,6 +13,7 @@
 #include "log.h"
 #include "exceptions.h"
 #include "cache.h"
+#include <signal.h>
 
 // global logger
 Logger LOG;
@@ -133,7 +134,7 @@ void handle_post(const HttpRequest & req, int connfd,size_t rid) {
     int webserver_fd=client_socket.init_client(req.get_host().c_str(),req.get_port().c_str());
     client_socket.send_buffer(webserver_fd,req.reconstruct().data());
     // log ID: Requesting "REQUEST" from SERVER
-    LOG << rid << ": Requesting "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
+    LOG << rid << ": Requesting Post "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
     // recv response from server
     pair<vector<char>,int> response_buffer=client_socket.recv_response(webserver_fd);
     HttpResponse rsp;
@@ -167,33 +168,45 @@ void handle_post(const HttpRequest & req, int connfd,size_t rid) {
 void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
     // send request to server
     Clientsocket client_socket;
+    LOG << rid << ": Requesting Connection to " <<req.get_host().data()<<"\n";
     int webserver_fd=client_socket.init_client(req.get_host().c_str(), "443");
     // response HTTP/1.1 200 OK\r\n\r\n
     // log ID: Received "RESPONSE" from SERVER
-    client_socket.send_buffer(connfd,"HTTP/1.1 200 OK\r\n\r\n");
+    client_socket.send_buffer(connfd,"HTTP/1.1 200 OK\r\n\r\n",19);
     LOG << rid << ": Responding "<<"HTTP/1.1 200 OK"<<"\n";
     
     vector<int> fds={connfd,webserver_fd};
     int numfds=connfd>webserver_fd?connfd:webserver_fd;
     fd_set readfds;
-    int MAXLINE=65536;
-    std::unique_ptr<char> message(new char[MAXLINE]{0});
+    struct timeval tv;
+    tv.tv_sec = 2;
+    //int MAXLINE=65536;
+    //std::unique_ptr<char> message(new char[MAXLINE]{0});
     while (true) {
         FD_ZERO(&readfds);
         for (int i = 0; i < 2; i++) {
         FD_SET(fds[i], &readfds);
         }
-        if (select(numfds + 1, &readfds, NULL, NULL, NULL)==0){
+        if (select(numfds + 1, &readfds, NULL, NULL, &tv)==0){
           break;
         }
         else{
 
           int rv;
+          pair<vector<char>, size_t> received;
           for (int i = 0; i < 2; i++) {
               if (FD_ISSET(fds[i], &readfds)) {
-                  rv=recv(fds[i], message.get(), MAXLINE, MSG_WAITALL);
-                  if (rv!=0){
-                    client_socket.send_buffer(fds[1-i],message.get());
+                  received=client_socket.recv_request(fds[i]);
+                  rv=received.second;
+                  if (rv>0){
+                    if (send(fds[1-i],received.first.data(),rv,0)<=0){
+                      LOG <<rid<< ": Tunnel closed\n";
+                      return;
+                    }
+                  }
+                  else{
+                    LOG <<rid<< ": Tunnel closed\n";
+                    return;
                   }
                   break;
               }
@@ -235,18 +248,18 @@ void handle_request(int connfd, size_t rid) {
         }
       }
       catch (HttpRequestExc &e) {
-        std::string str = "HTTP/1.1 400 Bad Request";
+        std::string str = "HTTP/1.1 400 Bad Request\r\n\r\n";
         vector<char> rsp_vec = std::vector<char>(str.begin(), str.end());
         Socket socket(connfd);
-        LOG << rid << ": Responding \"" << std::string(rsp_vec.begin(), rsp_vec.end());
-        socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
+        LOG << rid << ": Responding \"" << std::string(rsp_vec.begin(), rsp_vec.end())<<"\n";
+        socket.send_buffer(connfd, rsp_vec.data(), 29);
       }
       catch (HttpResponseExc &e) {
-        std::string str = "HTTP/1.1 502 Bad Gateway";
+        std::string str = "HTTP/1.1 502 Bad Gateway\r\n\r\n";
         vector<char>rsp_vec = std::vector<char>(str.begin(), str.end());
         Socket socket(connfd);
-        LOG << rid << ": Responding \"" << std::string(rsp_vec.begin(), rsp_vec.end());
-        socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
+        LOG << rid << ": Responding \"" << std::string(rsp_vec.begin(), rsp_vec.end())<<"\n";
+        socket.send_buffer(connfd, rsp_vec.data(), 29);
       }
     }
     catch (SocketExc &e) {

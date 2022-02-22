@@ -1,0 +1,2088 @@
+0: not in cache
+0: cached, expires at Mon Feb 21 18:36:18 2022
+1: not in cache
+2: not in cache
+2: cached, expires at Tue Feb 22 11:55:16 2022
+3: not in cache
+0: not in cache
+0: cached, expires at Mon Feb 21 19:06:31 2022
+1: Requesting POST http://h2020.myspecies.info/ HTTP/1.1 from h2020.myspecies.info
+1: Received HTTP/1.0 302 Redirect from h2020.myspecies.info
+1: Responding HTTP/1.0 302 Redirect
+2: not in cache
+3: not in cache
+3: cached, expires at Mon Jan 18 22:14:07 2038
+2: cached, expires at Tue Feb 22 11:55:17 2022
+4: in cache, requires validation
+0: not in cache
+0: cached, expires at Mon Feb 21 21:41:05 2022
+1: in cache, valid
+2: in cache, requires validation
+0: not in cache
+0: cached, but requires re-validation1: in cache, requires validation
+0: not in cache
+0: cached, expires at Mon Jan 18 22:14:07 2038
+
+1: in cache, requires validation
+0: not in cache
+0: cached, expires at Mon Jan 18 22:14:07 2038
+
+1: in cache, requires validation
+1: cached, expires at Mon Jan 18 22:14:07 2038
+
+2: not in cache
+2: cached, but requires re-validation
+3: Requesting POST http://rest-api.io/items HTTP/1.1 from rest-api.io
+0: not in cache
+1: not in cache
+1: cached, expires at Mon Jan 18 22:14:07 2038
+
+2: in cache, requires validation
+2: cached, expires at Mon Jan 18 22:14:07 2038
+
+0: cached, but requires re-validation
+3: Requesting CONNECT jsonplaceholder.typicode.com:443 HTTP/1.1 from jsonplaceholder.typicode.com
+3: Responding HTTP/1.1 200 OK
+0: Requesting CONNECT jsonplaceholder.typicode.com:443 HTTP/1.1 from jsonplaceholder.typicode.com
+0: Responding HTTP/1.1 200 OK
+0: Requesting CONNECT jsonplaceholder.typicode.com:443 HTTP/1.1 from jsonplaceholder.typicode.com
+0: Responding HTTP/1.1 200 OK
+0: not in cache
+1: Requesting CONNECT contile.services.mozilla.com:443 HTTP/1.1 from contile.services.mozilla.com
+1: Responding HTTP/1.1 200 OK
+2: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1… from content-signature-2.cdn.mozilla.net
+2: Responding HTTP/1.1 200 OK
+1: Tunnel closed
+2: Tunnel closed
+3: Requesting CONNECT spocs.getpocket.com:443 HTTP/1.1å from spocs.getpocket.com
+3: Responding HTTP/1.1 200 OK
+3: Tunnel closed
+4: Requesting CONNECT firefox.settings.services.mozilla.com:443 HTTP/1.1 from firefox.settings.services.mozilla.com
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+0: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+1: not in cache
+3: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+3: Responding HTTP/1.1 200 OK
+3: Tunnel closed
+4: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+5: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+5: Responding HTTP/1.1 200 OK
+5: Tunnel closed
+6: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+2: not in cache
+7: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+10: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+10: Responding HTTP/1.1 200 OK
+9: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+9: Responding HTTP/1.1 200 OK
+10: Tunnel closed
+9: Tunnel closed
+11: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+13: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+14: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+15: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+15: Responding HTTP/1.1 200 OK
+15: Tunnel closed
+16: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+16: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+17: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from img-getpocket.cdn.mozilla.net
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+0: Requesting CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1 from incoming.telemetry.mozilla.org
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+1: Requesting CONNECT baidu.com:443 HTTP/1.1 from baidu.com
+1: Responding HTTP/1.1 200 OK
+1: Tunnel closed
+4: not in cache
+2: Requesting CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.17: Requesting CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1 from incoming.telemetry.mozilla.org
+ from img-getpocket.cdn.mozilla.net
+7: Responding HTTP/1.1 200 OK
+2: Responding HTTP/1.1 200 OK
+5: Requesting CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1 from incoming.telemetry.mozilla.org
+6: Requesting CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1 from incoming.telemetry.mozilla.org
+5: Responding HTTP/1.1 200 OK
+6: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+6: Tunnel closed
+5: Tunnel closed
+0: not in cache
+1: not in cache
+2: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+2: Responding HTTP/1.1 200 OK
+2: Tunnel closed
+3: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+3: Responding HTTP/1.1 200 OK
+3: Tunnel closed
+4: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+5: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+5: Responding HTTP/1.1 200 OK
+5: Tunnel closed
+6: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+7: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+9: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+9: Responding HTTP/1.1 200 OK
+9: Tunnel closed
+10: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+10: Responding HTTP/1.1 200 OK
+10: Tunnel closed
+11: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+13: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+15: not in cache
+14: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+16: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+16: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+17: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+0: not in cache
+1: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+1: Responding HTTP/1.1 200 OK
+1: Tunnel closed
+3: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+3: Responding HTTP/1.1 200 OK
+3: Tunnel closed
+4: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+5: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+5: Responding HTTP/1.1 200 OK
+5: Tunnel closed
+2: not in cache
+6: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+7: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+9: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+9: Responding HTTP/1.1 200 OK
+9: Tunnel closed
+10: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+10: Responding HTTP/1.1 200 OK
+10: Tunnel closed
+11: Requesting CONNECT spocs.getpocket.com:443 HTTP/1.1 from spocs.getpocket.com
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Requesting CONNECT getpocket.cdn.mozilla.net:443 HTTP/1.1 from getpocket.cdn.mozilla.net
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+13: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+16: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+16: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+17: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Requesting CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from content-signature-2.cdn.mozilla.net
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+0: Requesting CONNECT jsonplaceholder.typicode.com:443 HTTP/1.1 from jsonplaceholder.typicode.com
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+1: not in cache
+1: not cacheable because cache-control: private
+0: not in cache
+0: Requesting "0: not in cache
+0: Requesting "GET http://go.com/ HTTP/1.1" from go.com
+1: not in cache
+1: Requesting "GET http://www.google.com/ HTTP/1.1" from www.google.com
+1: Received "HTTP/1.0 400 Bad Request" from www.google.com
+1: Responding "HTTP/1.0 400 Bad Request"
+0: Received "HTTP/1.1 200 OK" from go.com
+0: cached, expires at Tue Feb 22 06:58:33 2022
+0: Responding "HTTP/1.1 200 OK"
+2: not in cache
+2: Requesting "GET http://www.baidu.com/ HTTP/1.1" from www.baidu.com
+2: Received "HTTP/1.1 200 OK" from www.baidu.com
+2: not cacheable because cache-control: private
+2: Responding "HTTP/1.1 200 OK"
+3: not in cache
+3: Requesting "GET http://www.google.com/ HTTP/1.1" from www.google.com
+4: in cache, valid
+4: Responding "HTTP/1.1 200 OK"
+3: Received "HTTP/1.1 200 OK" from www.google.com
+3: not cacheable because cache-control: private
+3: Responding "HTTP/1.1 200 OK"
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+1: Responding HTTP/1.1 200 OK
+1: Tunnel closed
+2: not in cache
+2: Requesting "GET http://google.com/ HTTP/1.1" from google.com
+3: not in cache
+3: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+5: Responding HTTP/1.1 200 OK
+5: Tunnel closed
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+7: Responding "HTTP/1.1 400 Bad Request8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+9: Responding "HTTP/1.1 400 Bad Request10: Responding HTTP/1.1 200 OK
+10: Tunnel closed
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Responding HTTP/1.1 200 OK
+13: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+13: Tunnel closed
+14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+15: Responding HTTP/1.1 200 OK
+15: Tunnel closed
+16: Responding HTTP/1.1 200 OK
+17: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+17: Tunnel closed
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+19: Responding HTTP/1.1 200 OK
+19: Tunnel closed
+20: Responding HTTP/1.1 200 OK
+20: Tunnel closed
+21: Responding HTTP/1.1 200 OK
+21: Tunnel closed
+23: Responding HTTP/1.1 200 OK
+23: Tunnel closed
+22: Responding HTTP/1.1 200 OK
+22: Tunnel closed
+24: Responding HTTP/1.1 200 OK
+24: Tunnel closed
+25: Responding HTTP/1.1 200 OK
+25: Tunnel closed
+30: not in cache
+30: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+26: Responding HTTP/1.1 200 OK
+26: Tunnel closed
+28: Responding HTTP/1.1 200 OK
+27: Responding HTTP/1.1 200 OK
+27: Tunnel closed
+28: Tunnel closed
+31: Responding HTTP/1.1 200 OK
+29: Responding HTTP/1.1 200 OK
+31: Tunnel closed
+29: Tunnel closed
+33: Responding HTTP/1.1 200 OK
+32: Responding HTTP/1.1 200 OK
+33: Tunnel closed
+32: Tunnel closed
+34: Responding HTTP/1.1 200 OK
+34: Tunnel closed
+35: Responding HTTP/1.1 200 OK
+35: Tunnel closed
+36: Responding "HTTP/1.1 400 Bad Request37: Responding "HTTP/1.1 400 Bad Request39: Responding HTTP/1.1 200 OK
+39: Tunnel closed
+42: Responding HTTP/1.1 200 OK
+38: Responding HTTP/1.1 200 OK
+38: Tunnel closed
+40: Responding HTTP/1.1 200 OK
+41: Responding HTTP/1.1 200 OK
+42: Tunnel closed
+40: Tunnel closed
+41: Tunnel closed
+43: Responding HTTP/1.1 200 OK
+43: Tunnel closed
+44: Responding HTTP/1.1 200 OK
+45: Responding HTTP/1.1 200 OK
+46: Responding HTTP/1.1 200 OK
+44: Tunnel closed
+45: Tunnel closed
+46: Tunnel closed
+47: Responding HTTP/1.1 200 OK
+47: Tunnel closed
+48: not in cache
+48: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+54: Responding HTTP/1.1 200 OK
+53: Responding HTTP/1.1 200 OK
+52: Responding HTTP/1.1 200 OK
+51: Responding 50: Responding HTTP/1.1 200 OK
+HTTP/1.1 200 OK
+49: Responding HTTP/1.1 200 OK
+54: Tunnel closed
+53: Tunnel closed
+49: Tunnel closed
+52: Tunnel closed
+51: Tunnel closed
+50: Tunnel closed
+55: Responding HTTP/1.1 200 OK
+55: Tunnel closed
+56: Responding HTTP/1.1 200 OK
+56: Tunnel closed
+57: not in cache
+57: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+58: Responding HTTP/1.1 200 OK
+59: Responding HTTP/1.1 200 OK
+59: Tunnel closed
+58: Tunnel closed
+60: Responding HTTP/1.1 200 OK
+60: Tunnel closed
+61: Responding HTTP/1.1 200 OK
+61: Tunnel closed
+62: Responding HTTP/1.1 200 OK
+62: Tunnel closed
+63: Responding HTTP/1.1 200 OK
+67: Responding HTTP/1.1 200 OK
+66: Responding HTTP/1.1 200 OK
+64: Responding HTTP/1.1 200 OK
+65: Responding HTTP/1.1 200 OK
+63: Tunnel closed
+67: Tunnel closed
+66: Tunnel closed
+64: Tunnel closed
+65: Tunnel closed
+69: not in cache
+69: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+68: Responding HTTP/1.1 200 OK
+68: Tunnel closed
+70: Responding HTTP/1.1 200 OK
+71: Responding HTTP/1.1 200 OK
+70: Tunnel closed
+71: Tunnel closed
+72: Responding HTTP/1.1 200 OK
+73: Responding HTTP/1.1 200 OK
+72: Tunnel closed
+73: Tunnel closed
+74: Responding HTTP/1.1 200 OK
+74: Tunnel closed
+75: Responding "HTTP/1.1 400 Bad Request76: Responding "HTTP/1.1 400 Bad Request77: not in cache
+77: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+2: Received "HTTP/1.1 301 Moved Permanently" from google.com
+2: Responding "HTTP/1.1 301 Moved Permanently"
+78: not in cache
+78: Requesting "GET http://www.google.com/ HTTP/1.1" from www.google.com
+79: Responding "HTTP/1.1 400 Bad Request80: Responding "HTTP/1.1 400 Bad Request81: not in cache
+81: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+82: Responding "HTTP/1.1 400 Bad Request83: Responding "HTTP/1.1 400 Bad Request84: not in cache
+84: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+85: not in cache
+85: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+78: Received "HTTP/1.1 200 OK" from www.google.com
+78: not cacheable because cache-control: private
+78: Responding "HTTP/1.1 200 OK"
+86: not in cache
+86: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+3: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+3: cached, but requires re-validation
+3: Responding "HTTP/1.1 200 OK"
+0: not in cache
+0: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+2: Responding HTTP/1.1 200 OK
+2: Tunnel closed
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+5: Responding HTTP/1.1 200 OK
+5: Tunnel closed
+1: not in cache
+1: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+9: Responding HTTP/1.1 200 OK
+9: Tunnel closed
+10: Responding HTTP/1.1 200 OK
+10: Tunnel closed
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+3: Responding "HTTP/1.1 400 Bad Request16: not in cache
+15: Responding HTTP/1.1 200 OK
+15: Tunnel closed
+16: Requesting "GET http://www.baidu.com/ HTTP/1.1" from www.baidu.com
+17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+19: not in cache
+20: Responding HTTP/1.1 200 OK
+19: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+20: Tunnel closed
+21: Responding HTTP/1.1 200 OK
+21: Tunnel closed
+22: Responding HTTP/1.1 200 OK
+22: Tunnel closed
+23: Responding HTTP/1.1 200 OK
+23: Tunnel closed
+24: Responding HTTP/1.1 200 OK
+24: Tunnel closed
+25: Responding HTTP/1.1 200 OK
+25: Tunnel closed
+26: Responding HTTP/1.1 200 OK
+26: Tunnel closed
+27: Responding HTTP/1.1 200 OK
+27: Tunnel closed
+28: Responding HTTP/1.1 200 OK
+28: Tunnel closed
+29: Responding HTTP/1.1 200 OK
+29: Tunnel closed
+30: Responding HTTP/1.1 200 OK
+30: Tunnel closed
+32: not in cache
+31: Responding HTTP/1.1 200 OK
+31: Tunnel closed
+32: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+33: Responding HTTP/1.1 200 OK
+33: Tunnel closed
+34: Responding HTTP/1.1 200 OK
+34: Tunnel closed
+35: Responding HTTP/1.1 200 OK
+35: Tunnel closed
+36: Responding HTTP/1.1 200 OK
+36: Tunnel closed
+37: Responding HTTP/1.1 200 OK
+37: Tunnel closed
+38: Responding HTTP/1.1 200 OK
+38: Tunnel closed
+39: Responding HTTP/1.1 200 OK
+39: Tunnel closed
+40: Responding HTTP/1.1 200 OK
+40: Tunnel closed
+41: Responding HTTP/1.1 200 OK
+41: Tunnel closed
+42: Responding HTTP/1.1 200 OK
+42: Tunnel closed
+43: Responding HTTP/1.1 200 OK
+43: Tunnel closed
+44: not in cache
+44: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+45: not in cache
+45: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+46: not in cache
+46: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+47: not in cache
+47: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+48: not in cache
+48: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+16: Received "HTTP/1.1 200 OK" from www.baidu.com
+16: not cacheable because cache-control: private
+16: Responding "HTTP/1.1 200 OK"
+49: not in cache
+49: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+0: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+0: cached, but requires re-validation
+0: Responding "HTTP/1.1 200 OK"
+0: not in cache
+0: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+1: not in cache
+1: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+3: Responding HTTP/1.1 200 OK
+3: Tunnel closed
+2: Responding HTTP/1.1 200 OK
+2: Tunnel closed
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+6: Responding HTTP/1.1 200 OK
+5: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+5: Tunnel closed
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+9: Responding HTTP/1.1 200 OK
+109: Tunnel closed
+: Responding HTTP/1.1 200 OK
+10: Tunnel closed
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+16: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+15: Responding HTTP/1.1 200 OK
+15: Tunnel closed
+17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+20: Responding HTTP/1.1 200 OK
+20: Tunnel closed
+19: Responding HTTP/1.1 200 OK
+19: Tunnel closed
+21: not in cache
+21: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+0: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+0: cached, but requires re-validation
+0: Responding "HTTP/1.1 200 OK"
+0: not in cache
+0: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+1: Responding HTTP/1.1 200 OK
+1: Tunnel closed
+2: Responding HTTP/1.1 200 OK
+2: Tunnel closed
+3: Responding HTTP/1.1 200 OK
+3: Tunnel closed
+4: Responding "HTTP/1.1 400 Bad Request5: Responding HTTP/1.1 200 OK
+5: Tunnel closed
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+9: Responding HTTP/1.1 200 OK
+11: Responding HTTP/1.1 200 OK
+10: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+9: Tunnel closed
+10: Tunnel closed
+12: Responding "HTTP/1.1 400 Bad Request13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+15: Responding HTTP/1.1 200 OK
+14: Responding HTTP/1.1 200 OK
+15: Tunnel closed
+14: Tunnel closed
+16: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+19: Responding HTTP/1.1 200 OK
+19: Tunnel closed
+20: Responding HTTP/1.1 200 OK
+20: Tunnel closed
+21: Responding HTTP/1.1 200 OK
+21: Tunnel closed
+22: Responding HTTP/1.1 200 OK
+22: Tunnel closed
+23: Responding HTTP/1.1 200 OK
+23: Tunnel closed
+24: Responding HTTP/1.1 200 OK
+25: Responding HTTP/1.1 200 OK
+24: Tunnel closed
+25: Tunnel closed
+26: Responding HTTP/1.1 200 OK
+26: Tunnel closed
+27: Responding HTTP/1.1 200 OK
+27: Tunnel closed
+28: not in cache
+28: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+29: Responding HTTP/1.1 200 OK
+29: Tunnel closed
+30: Responding HTTP/1.1 200 OK
+30: Tunnel closed
+31: Responding HTTP/1.1 200 OK
+31: Tunnel closed
+33: Responding "HTTP/1.1 400 Bad Request32: Responding HTTP/1.1 200 OK
+32: Tunnel closed
+34: Responding HTTP/1.1 200 OK
+34: Tunnel closed
+35: Responding "HTTP/1.1 400 Bad Request36: Responding HTTP/1.1 200 OK
+36: Tunnel closed
+37: Responding HTTP/1.1 200 OK
+37: Tunnel closed
+38: Responding HTTP/1.1 200 OK
+38: Tunnel closed
+39: Responding HTTP/1.1 200 OK
+40: Responding HTTP/1.1 200 OK
+39: Tunnel closed
+40: Tunnel closed
+41: Responding HTTP/1.1 200 OK
+41: Tunnel closed
+42: Responding HTTP/1.1 200 OK
+42: Tunnel closed
+43: Responding HTTP/1.1 200 OK
+43: Tunnel closed
+44: Responding HTTP/1.1 200 OK
+45: Responding HTTP/1.1 200 OK
+44: Tunnel closed
+45: Tunnel closed
+49: not in cache
+49: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+48: Responding HTTP/1.1 200 OK
+46: Responding HTTP/1.1 200 OK
+47: Responding HTTP/1.1 200 OK
+48: Tunnel closed
+46: Tunnel closed
+47: Tunnel closed
+50: Responding HTTP/1.1 200 OK
+52: Responding HTTP/1.1 200 OK
+54: Responding HTTP/1.1 200 OK
+51: Responding HTTP/1.1 200 OK
+53: Responding HTTP/1.1 200 OK
+54: Tunnel closed
+51: Tunnel closed
+52: Tunnel closed
+50: Tunnel closed
+53: Tunnel closed
+55: Responding HTTP/1.1 200 OK
+55: Tunnel closed
+56: not in cache
+56: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+57: Responding HTTP/1.1 200 OK
+57: Tunnel closed
+59: Responding HTTP/1.1 200 OK
+58: Responding HTTP/1.1 200 OK
+58: Tunnel closed
+59: Tunnel closed
+60: Responding HTTP/1.1 200 OK
+61: Responding HTTP/1.1 200 OK
+60: Tunnel closed
+61: Tunnel closed
+62: Responding HTTP/1.1 200 OK
+62: Tunnel closed
+63: Responding HTTP/1.1 200 OK
+64: Responding HTTP/1.1 200 OK
+65: Responding HTTP/1.1 200 OK
+64: Tunnel closed
+65: Tunnel closed
+63: Tunnel closed
+66: Responding HTTP/1.1 200 OK
+68: Responding HTTP/1.1 200 OK
+67: Responding HTTP/1.1 200 OK
+68: Tunnel closed
+67: Tunnel closed
+66: Tunnel closed
+69: not in cache
+70: Responding "HTTP/1.1 400 Bad Request71: Responding "HTTP/1.1 400 Bad Request69: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+72: Responding HTTP/1.1 200 OK
+72: Tunnel closed
+73: Responding HTTP/1.1 200 OK
+73: Tunnel closed
+74: Responding HTTP/1.1 200 OK
+74: Tunnel closed
+75: not in cache
+75: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+76: Responding "HTTP/1.1 400 Bad Request77: Responding "HTTP/1.1 400 Bad Request0: Requesting POST http://httpbin.org/forms/post HTTP/1.1 from httpbin.org
+0: Received 1: Requesting POST http://httpbin.org/forms/post HTTP/1.1 from httpbin.org
+1: Received 2: not in cache
+2: Requesting "GET http://www.artsci.utoronto.ca/futurestudents HTTP/1.1" from www.artsci.utoronto.ca
+2: Received "HTTP/1.1 301 Moved Permanently" from www.artsci.utoronto.ca
+2: Responding "HTTP/1.1 301 Moved Permanently"
+3: not in cache
+3: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+4: Responding HTTP/1.1 200 OK
+5: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+5: Tunnel closed
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+9: Responding HTTP/1.1 200 OK
+9: Tunnel closed
+10: Responding HTTP/1.1 200 OK
+10: Tunnel closed
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+13: Responding "HTTP/1.1 400 Bad Request14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+15: Responding "HTTP/1.1 400 Bad Request16: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+19: Responding HTTP/1.1 200 OK
+20: Responding HTTP/1.1 200 OK
+19: Tunnel closed
+20: Tunnel closed
+21: Responding HTTP/1.1 200 OK
+21: Tunnel closed
+22: Responding HTTP/1.1 200 OK
+22: Tunnel closed
+23: Responding HTTP/1.1 200 OK
+23: Tunnel closed
+24: Responding HTTP/1.1 200 OK
+24: Tunnel closed
+25: Responding HTTP/1.1 200 OK
+25: Tunnel closed
+26: Responding HTTP/1.1 200 OK
+26: Tunnel closed
+27: Responding HTTP/1.1 200 OK
+27: Tunnel closed
+28: Responding HTTP/1.1 200 OK
+28: Tunnel closed
+29: Responding HTTP/1.1 200 OK
+29: Tunnel closed
+30: Responding HTTP/1.1 200 OK
+30: Tunnel closed
+31: not in cache
+31: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+32: Responding HTTP/1.1 200 OK
+32: Tunnel closed
+34: Responding HTTP/1.1 200 OK
+33: Responding HTTP/1.1 200 OK
+33: Tunnel closed
+34: Tunnel closed
+35: Responding HTTP/1.1 200 OK
+35: Tunnel closed
+36: Responding HTTP/1.1 200 OK
+36: Tunnel closed
+37: Responding HTTP/1.1 200 OK
+37: Tunnel closed
+38: Responding HTTP/1.1 200 OK
+39: Responding HTTP/1.1 200 OK
+39: Tunnel closed
+38: Tunnel closed
+40: Responding "HTTP/1.1 400 Bad Request41: Responding "HTTP/1.1 400 Bad Request42: Responding HTTP/1.1 200 OK
+42: Tunnel closed
+43: not in cache
+43: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+45: Responding HTTP/1.1 200 OK
+44: Responding HTTP/1.1 200 OK
+46: Responding HTTP/1.1 200 OK
+46: Tunnel closed
+45: Tunnel closed
+44: Tunnel closed
+47: Responding HTTP/1.1 200 OK
+48: Responding HTTP/1.1 200 OK
+47: Tunnel closed
+48: Tunnel closed
+49: Responding HTTP/1.1 200 OK
+49: Tunnel closed
+50: Responding HTTP/1.1 200 OK
+51: Responding HTTP/1.1 200 OK
+52: Responding HTTP/1.1 200 OK
+53: Responding HTTP/1.1 200 OK
+54: Responding HTTP/1.1 200 OK
+51: Tunnel closed
+53: Tunnel closed
+54: Tunnel closed
+50: Tunnel closed
+52: Tunnel closed
+56: not in cache
+55: Responding HTTP/1.1 200 OK
+56: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+57: Responding HTTP/1.1 200 OK
+58: Responding HTTP/1.1 200 OK
+57: Tunnel closed
+55: Tunnel closed
+58: Tunnel closed
+59: Responding HTTP/1.1 200 OK
+60: Responding HTTP/1.1 200 OK
+61: Responding HTTP/1.1 200 OK
+62: Responding HTTP/1.1 200 OK
+63: Responding HTTP/1.1 200 OK
+64: Responding HTTP/1.1 200 OK
+59: Tunnel closed
+61: Tunnel closed
+64: Tunnel closed
+60: Tunnel closed
+62: Tunnel closed
+63: Tunnel closed
+65: Responding HTTP/1.1 200 OK
+66: Responding HTTP/1.1 200 OK
+67: Responding HTTP/1.1 200 OK
+68: Responding HTTP/1.1 200 OK
+69: Responding HTTP/1.1 200 OK
+70: Responding HTTP/1.1 200 OK
+65: Tunnel closed
+71: not in cache
+68: Tunnel closed
+71: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+66: Tunnel closed
+69: Tunnel closed
+67: Tunnel closed
+70: Tunnel closed
+72: Responding HTTP/1.1 200 OK
+73: Responding HTTP/1.1 200 OK
+74: Responding HTTP/1.1 200 OK
+75: Responding HTTP/1.1 200 OK
+76: Responding HTTP/1.1 200 OK
+72: Tunnel closed
+77: Responding HTTP/1.1 200 OK
+76: Tunnel closed
+75: Tunnel closed
+74: Tunnel closed
+73: Tunnel closed
+77: Tunnel closed
+78: Responding "HTTP/1.1 400 Bad Request79: Responding "HTTP/1.1 400 Bad Request80: not in cache
+82: Responding HTTP/1.1 200 OK
+83: Responding HTTP/1.1 200 OK
+81: Responding HTTP/1.1 200 OK
+80: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+81: Tunnel closed
+82: Tunnel closed
+83: Tunnel closed
+84: not in cache
+84: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+85: Responding "HTTP/1.1 400 Bad Request86: Responding "HTTP/1.1 400 Bad Request8988: Responding HTTP/1.1 200 OK
+: Responding HTTP/1.1 200 OK
+87: Responding HTTP/1.1 200 OK
+88: Tunnel closed
+87: Tunnel closed
+89: Tunnel closed
+90: not in cache
+90: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+91: not in cache
+91: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+92: not in cache
+92: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+80: Received "HTTP/1.1 200 OK" from httpbin.org
+80: cached, expires at Mon Jan 18 22:14:07 2038
+80: Responding "HTTP/1.1 200 OK"
+93: not in cache
+93: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+3: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+3: cached, but requires re-validation
+3: Responding "HTTP/1.1 200 OK"
+0: not in cache
+0: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+1: not in cache
+1: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+2: not in cache
+2: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+3: not in cache
+3: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+4: not in cache
+4: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+5: not in cache
+5: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+6: not in cache
+6: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+7: not in cache
+7: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+8: not in cache
+8: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+9: not in cache
+9: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+0: not in cache
+0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+1: not in cache
+1: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+2: not in cache
+2: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+3: not in cache
+3: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+4: not in cache
+4: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+5: not in cache
+5: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+6: not in cache
+6: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+0: not in cache
+0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+0: not in cache
+0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+0: not in cache
+0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+0: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+0: not cacheable because cache-control: no-store
+0: Responding "HTTP/1.1 200 OK"
+0: not in cache
+0: Requesting "GET http://google.com/ HTTP/1.1" from google.com
+1: Responding HTTP/1.1 200 OK
+1: Tunnel closed
+0: Received "HTTP/1.1 301 Moved Permanently" from google.com
+0: Responding "HTTP/1.1 301 Moved Permanently"
+2: not in cache
+2: Requesting "GET http://funwholeinnermelody.neverssl.com/online HTTP/1.1" from funwholeinnermelody.neverssl.com
+3: not in cache
+3: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+5: Responding HTTP/1.1 200 OK
+5: Tunnel closed
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Responding "HTTP/1.1 400 Bad Request9: Responding HTTP/1.1 200 OK
+9: Tunnel closed
+10: Responding HTTP/1.1 200 OK
+10: Tunnel closed
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+15: Responding HTTP/1.1 200 OK
+15: Tunnel closed
+16: Responding "HTTP/1.1 400 Bad Request17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+19: Responding HTTP/1.1 200 OK
+19: Tunnel closed
+20: Responding HTTP/1.1 200 OK
+20: Tunnel closed
+21: Responding HTTP/1.1 200 OK
+21: Tunnel closed
+22: Responding HTTP/1.1 200 OK
+22: Tunnel closed
+23: Responding HTTP/1.1 200 OK
+23: Tunnel closed
+24: Responding HTTP/1.1 200 OK
+24: Tunnel closed
+25: Responding HTTP/1.1 200 OK
+26: Responding HTTP/1.1 200 OK
+25: Tunnel closed
+26: Tunnel closed
+27: Responding HTTP/1.1 200 OK
+27: Tunnel closed
+28: Responding HTTP/1.1 200 OK
+28: Tunnel closed
+30: not in cache
+30: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+31: Responding HTTP/1.1 200 OK
+31: Tunnel closed
+29: Responding HTTP/1.1 200 OK
+29: Tunnel closed
+33: Responding HTTP/1.1 200 OK
+32: Responding HTTP/1.1 200 OK
+32: Tunnel closed
+33: Tunnel closed
+34: Responding HTTP/1.1 200 OK
+34: Tunnel closed
+36: Responding HTTP/1.1 200 OK
+35: Responding HTTP/1.1 200 OK
+36: Tunnel closed
+35: Tunnel closed
+37: Responding "HTTP/1.1 400 Bad Request38: Responding "HTTP/1.1 400 Bad Request39: Responding HTTP/1.1 200 OK
+40: Responding HTTP/1.1 200 OK
+39: Tunnel closed
+40: Tunnel closed
+41: Responding HTTP/1.1 200 OK
+42: Responding HTTP/1.1 200 OK
+41: Tunnel closed
+42: Tunnel closed
+43: not in cache
+43: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+44: Responding HTTP/1.1 200 OK
+44: Tunnel closed
+45: Responding HTTP/1.1 200 OK
+45: Tunnel closed
+46: Responding HTTP/1.1 200 OK
+46: Tunnel closed
+47: Responding HTTP/1.1 200 OK
+48: Responding HTTP/1.1 200 OK
+49: Responding HTTP/1.1 200 OK
+48: Tunnel closed
+47: Tunnel closed
+49: Tunnel closed
+50: Responding HTTP/1.1 200 OK
+51: Responding HTTP/1.1 200 OK
+52: Responding HTTP/1.1 200 OK
+53: Responding HTTP/1.1 200 OK
+54: Responding HTTP/1.1 200 OK
+55: Responding HTTP/1.1 200 OK
+50: Tunnel closed
+56: not in cache
+56: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+52: Tunnel closed
+53: Tunnel closed
+51: Tunnel closed
+54: Tunnel closed
+55: Tunnel closed
+57: Responding HTTP/1.1 200 OK
+58: Responding HTTP/1.1 200 OK
+59: Responding HTTP/1.1 200 OK
+60: Responding HTTP/1.1 200 OK
+61: Responding HTTP/1.1 200 OK
+57: Tunnel closed
+62: Responding HTTP/1.1 200 OK
+59: Tunnel closed
+58: Tunnel closed
+60: Tunnel closed
+61: Tunnel closed
+62: Tunnel closed
+65: Responding HTTP/1.1 200 OK
+63: Responding HTTP/1.1 200 OK
+66: Responding HTTP/1.1 200 OK
+64: Responding HTTP/1.1 200 OK
+67: Responding HTTP/1.1 200 OK
+67: Tunnel closed
+68: Responding HTTP/1.1 200 OK
+63: Tunnel closed
+65: Tunnel closed
+66: Tunnel closed
+64: Tunnel closed
+70: Responding HTTP/1.1 200 OK
+69: Responding HTTP/1.1 200 OK
+71: Responding HTTP/1.1 200 OK
+68: Tunnel closed
+72: Responding HTTP/1.1 200 OK
+69: Tunnel closed
+70: Tunnel closed
+71: Tunnel closed
+72: Tunnel closed
+73: not in cache
+73: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+74: Responding "HTTP/1.1 400 Bad Request75: Responding "HTTP/1.1 400 Bad Request76: Responding HTTP/1.1 200 OK
+77: Responding HTTP/1.1 200 OK
+78: Responding HTTP/1.1 200 OK
+79: Responding HTTP/1.1 200 OK
+76: Tunnel closed
+77: Tunnel closed
+79: Tunnel closed
+80: Responding HTTP/1.1 200 OK
+81: Responding HTTP/1.1 200 OK
+78: Tunnel closed
+80: Tunnel closed
+81: Tunnel closed
+83: Responding HTTP/1.1 200 OK
+82: Responding HTTP/1.1 200 OK
+84: Responding HTTP/1.1 200 OK
+85: Responding HTTP/1.1 200 OK
+82: Tunnel closed
+83: Tunnel closed
+87: not in cache
+86: Responding HTTP/1.1 200 OK
+84: Tunnel closed
+87: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+85: Tunnel closed
+86: Tunnel closed
+88: Responding HTTP/1.1 200 OK
+88: Tunnel closed
+2: Received "HTTP/1.1 200 OK" from funwholeinnermelody.neverssl.com
+2: cached, expires at Tue Feb 22 11:55:16 2022
+2: Responding "HTTP/1.1 200 OK"
+89: Responding "HTTP/1.1 400 Bad Request90: Responding "HTTP/1.1 400 Bad Request91: Responding "92: Responding "HTTP/1.1 400 Bad RequestHTTP/1.1 400 Bad Request93: not in cache
+93: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+94: not in cache
+94: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+95: not in cache
+95: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+96: not in cache
+96: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+3: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+3: cached, but requires re-validation
+3: Responding "HTTP/1.1 200 OK"
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+1: Responding HTTP/1.1 200 OK
+1: Tunnel closed
+2: not in cache
+2: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+0: Requesting POST http://httpbin.org/forms/post HTTP/1.1 from httpbin.org
+0: Received 1: not in cache
+1: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+2: Responding HTTP/1.1 200 OK
+2: Tunnel closed
+3: Responding HTTP/1.1 200 OK
+3: Tunnel closed
+4: Responding HTTP/1.1 200 OK
+4: Tunnel closed
+5: Responding HTTP/1.1 200 OK
+5: Tunnel closed
+6: Responding HTTP/1.1 200 OK
+6: Tunnel closed
+7: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+9: Responding HTTP/1.1 200 OK
+10: Responding HTTP/1.1 200 OK
+9: Tunnel closed
+10: Tunnel closed
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+12: Responding "HTTP/1.1 400 Bad Request13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+15: Responding HTTP/1.1 200 OK
+15: Tunnel closed
+16: Responding "HTTP/1.1 400 Bad Request17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+19: Responding HTTP/1.1 200 OK
+19: Tunnel closed
+20: Responding HTTP/1.1 200 OK
+20: Tunnel closed
+21: Responding HTTP/1.1 200 OK
+21: Tunnel closed
+22: Responding HTTP/1.1 200 OK
+22: Tunnel closed
+23: Responding HTTP/1.1 200 OK
+23: Tunnel closed
+24: Responding HTTP/1.1 200 OK
+24: Tunnel closed
+25: Responding HTTP/1.1 200 OK
+25: Tunnel closed
+26: Responding HTTP/1.1 200 OK
+26: Tunnel closed
+27: Responding HTTP/1.1 200 OK
+27: Tunnel closed
+28: not in cache
+28: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+29: Responding HTTP/1.1 200 OK
+29: Tunnel closed
+30: not in cache
+30: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+31: Responding HTTP/1.1 200 OK
+31: Tunnel closed
+32: Responding HTTP/1.1 200 OK
+32: Tunnel closed
+33: Responding HTTP/1.1 200 OK
+33: Tunnel closed
+34: Responding HTTP/1.1 200 OK
+35: Responding HTTP/1.1 200 OK
+34: Tunnel closed
+35: Tunnel closed
+36: Responding HTTP/1.1 200 OK
+36: Tunnel closed
+37: Responding "HTTP/1.1 400 Bad Request38: Responding "HTTP/1.1 400 Bad Request39: Responding HTTP/1.1 200 OK
+40: Responding HTTP/1.1 200 OK
+39: Tunnel closed
+40: Tunnel closed
+41: not in cache
+41: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+42: Responding HTTP/1.1 200 OK
+43: Responding HTTP/1.1 200 OK
+44: Responding HTTP/1.1 200 OK
+43: Tunnel closed
+42: Tunnel closed
+44: Tunnel closed
+45: Responding HTTP/1.1 200 OK
+45: Tunnel closed
+46: Responding HTTP/1.1 200 OK
+47: Responding HTTP/1.1 200 OK
+46: Tunnel closed
+47: Tunnel closed
+48: Responding HTTP/1.1 200 OK
+48: Tunnel closed
+49: Responding HTTP/1.1 200 OK
+49: Tunnel closed
+50: Responding HTTP/1.1 200 OK
+51: Responding HTTP/1.1 200 OK
+50: Tunnel closed
+51: Tunnel closed
+52: Responding HTTP/1.1 200 OK
+52: Tunnel closed
+56: not in cache
+53: Responding HTTP/1.1 200 OK
+55: Responding HTTP/1.1 200 OK
+54: Responding HTTP/1.1 200 OK
+57: Responding HTTP/1.1 200 OK
+58: Responding HTTP/1.1 200 OK
+56: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+54: Tunnel closed
+59: Responding HTTP/1.1 200 OK
+55: Tunnel closed
+58: Tunnel closed
+53: Tunnel closed
+57: Tunnel closed
+59: Tunnel closed
+61: Responding HTTP/1.1 200 OK
+60: Responding HTTP/1.1 200 OK
+60: Tunnel closed
+61: Tunnel closed
+62: not in cache
+62: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+63: Responding "HTTP/1.1 400 Bad Request64: Responding "HTTP/1.1 400 Bad Request65: not in cache
+65: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+66: Responding "HTTP/1.1 400 Bad Request67: Responding "HTTP/1.1 400 Bad Request30: Received "HTTP/1.1 200 OK" from httpbin.org
+30: cached, expires at Mon Jan 18 22:14:07 2038
+30: Responding "HTTP/1.1 200 OK"
+71: not in cache
+71: Requesting "GET http://httpbin.org/favicon.ico HTTP/1.1" from httpbin.org
+6970: Responding HTTP/1.1 200 OK
+: Responding HTTP/1.1 200 OK
+68: Responding HTTP/1.1 200 OK
+69: Tunnel closed
+70: Tunnel closed
+68: Tunnel closed
+72: not in cache
+72: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+73: not in cache
+73: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+74: not in cache
+74: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+71: Received "HTTP/1.1 404 NOT FOUND" from httpbin.org
+71: Responding "HTTP/1.1 404 NOT FOUND"
+75: Responding "HTTP/1.1 400 Bad Request76: Responding "HTTP/1.1 400 Bad Request77: Requesting POST http://httpbin.org/post HTTP/1.1 from httpbin.org
+77: Received 78: not in cache
+78: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+1: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+1: cached, but requires re-validation
+1: Responding "HTTP/1.1 200 OK"
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+1: Responding HTTP/1.1 200 OK
+1: Tunnel closed
+0: Responding HTTP/1.1 200 OK
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+0: Responding HTTP/1.1 200 OK
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+0: Responding HTTP/1.1 200 OK
+0: Responding HTTP/1.1 200 OK
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+1: not in cache
+1: Requesting "GET http://go.com/ HTTP/1.1" from go.com
+1: Received "HTTP/1.1 200 OK" from go.com
+1: cached, expires at Tue Feb 22 12:33:24 2022
+1: Responding "HTTP/1.1 200 OK"
+2: not in cache
+2: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+3: Responding HTTP/1.1 200 OK
+4: Responding HTTP/1.1 200 OK
+5: Responding HTTP/1.1 200 OK
+6: Responding "HTTP/1.1 400 Bad Request
+7: Responding HTTP/1.1 200 OK
+8: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+3: Tunnel closed
+9: Responding HTTP/1.1 200 OK
+9: Tunnel closed
+4: Tunnel closed
+10: Responding HTTP/1.1 200 OK
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+5: Tunnel closed
+10: Tunnel closed
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+8: Tunnel closed
+13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+14: Responding "HTTP/1.1 400 Bad Request
+16: Responding HTTP/1.1 200 OK
+18: Responding HTTP/1.1 200 OK
+15: Responding HTTP/1.1 200 OK
+17: Responding HTTP/1.1 200 OK
+19: Responding HTTP/1.1 200 OK
+19: Tunnel closed
+16: Tunnel closed
+18: Tunnel closed
+15: Tunnel closed
+17: Tunnel closed
+22: Responding "HTTP/1.1 400 Bad Request
+26: not in cache
+28: Responding "HTTP/1.1 400 Bad Request
+29: Responding "HTTP/1.1 400 Bad Request
+27: Responding HTTP/1.1 200 OK
+26: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+31: Responding HTTP/1.1 200 OK
+20: Responding HTTP/1.1 200 OK
+23: Responding HTTP/1.1 200 OK
+24: Responding HTTP/1.1 200 OK
+21: Responding HTTP/1.1 200 OK
+25: Responding HTTP/1.1 200 OK
+30: Responding HTTP/1.1 200 OK
+20: Tunnel closed
+23: Tunnel closed
+24: Tunnel closed
+25: Tunnel closed
+31: Tunnel closed
+27: Tunnel closed
+21: Tunnel closed
+33: not in cache
+33: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+34: Responding HTTP/1.1 200 OK
+32: Responding HTTP/1.1 200 OK
+30: Tunnel closed
+35: Responding HTTP/1.1 200 OK
+37: Responding HTTP/1.1 200 OK
+34: Tunnel closed
+32: Tunnel closed
+36: Responding HTTP/1.1 200 OK
+35: Tunnel closed
+38: Responding HTTP/1.1 200 OK
+39: Responding HTTP/1.1 200 OK
+38: Tunnel closed
+40: Responding HTTP/1.1 200 OK
+40: Tunnel closed
+42: Responding HTTP/1.1 200 OK
+37: Tunnel closed
+41: Responding HTTP/1.1 200 OK
+42: Tunnel closed
+36: Tunnel closed
+39: Tunnel closed
+43: Responding HTTP/1.1 200 OK
+44: Responding HTTP/1.1 200 OK
+43: Tunnel closed
+48: not in cache
+48: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+47: Responding HTTP/1.1 200 OK
+44: Tunnel closed
+46: Responding HTTP/1.1 200 OK
+46: Tunnel closed
+45: Responding HTTP/1.1 200 OK
+41: Tunnel closed
+52: Responding HTTP/1.1 200 OK
+51: Responding HTTP/1.1 200 OK
+50: Responding HTTP/1.1 200 OK
+47: Tunnel closed
+53: Responding HTTP/1.1 200 OK
+49: Responding HTTP/1.1 200 OK
+45: Tunnel closed
+51: Tunnel closed
+54: Responding HTTP/1.1 200 OK
+52: Tunnel closed
+50: Tunnel closed
+53: Tunnel closed
+49: Tunnel closed
+56: Responding "HTTP/1.1 400 Bad Request
+59: Responding "HTTP/1.1 400 Bad Request
+60: not in cache
+60: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+57: Responding HTTP/1.1 200 OK
+54: Tunnel closed
+55: Responding HTTP/1.1 200 OK
+58: Responding HTTP/1.1 200 OK
+61: Responding HTTP/1.1 200 OK
+57: Tunnel closed
+55: Tunnel closed
+58: Tunnel closed
+61: Tunnel closed
+62: not in cache
+62: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+63: not in cache
+63: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+64: Responding "HTTP/1.1 400 Bad Request
+65: Responding "HTTP/1.1 400 Bad Request
+66: not in cache
+66: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+67: not in cache
+67: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+68: not in cache
+68: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+63: Received "HTTP/1.1 200 OK" from httpbin.org
+63: cached, expires at Mon Jan 18 22:14:07 2038
+63: Responding "HTTP/1.1 200 OK"
+69: not in cache
+69: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+2: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+2: cached, but requires re-validation
+2: Responding "HTTP/1.1 200 OK"
+0: Requesting Connection toincoming.telemetry.mozilla.org
+0: Responding HTTP/1.1 200 OK
+1: not in cache
+1: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+2: Requesting Connection tospocs.getpocket.com
+2: Responding HTTP/1.1 200 OK
+3: Requesting Connection toimg-getpocket.cdn.mozilla.net
+3: Responding HTTP/1.1 200 OK
+4: not in cache
+4: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+5: Requesting POST http://httpbin.org/post HTTP/1.1 from httpbin.org
+5: Received 6: not in cache
+6: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+7: not in cache
+7: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+8: Requesting Connection toss0.baidu.com
+9: Requesting Connection toss1.baidu.com
+10: Requesting Connection toss3.baidu.com
+8: Responding HTTP/1.1 200 OK
+9: Responding HTTP/1.1 200 OK
+10: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+11: Requesting Connection toss2.baidu.com
+9: Tunnel closed
+12: Requesting Connection topss.bdstatic.com
+10: Tunnel closed
+13: Requesting Connection topss.bdstatic.com
+11: Responding HTTP/1.1 200 OK
+11: Tunnel closed
+14: Requesting Connection towww.baidu.com
+14: Responding HTTP/1.1 200 OK
+14: Tunnel closed
+15: Requesting Connection towww.baidu.com
+15: Responding HTTP/1.1 200 OK
+15: Tunnel closed
+16: Requesting Connection towww.baidu.com
+16: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+17: not in cache
+17: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+12: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+18: Requesting Connection tosp1.baidu.com
+13: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+19: not in cache
+19: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+20: Requesting Connection towww.baidu.com
+20: Responding HTTP/1.1 200 OK
+20: Tunnel closed
+21: Requesting Connection topss.bdstatic.com
+21: Responding HTTP/1.1 200 OK
+21: Tunnel closed
+22: Requesting Connection topss.bdstatic.com
+22: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+23: Requesting Connection tosafebrowsing.googleapis.com
+23: Responding HTTP/1.1 200 OK
+23: Tunnel closed
+24: Requesting POST http://httpbin.org/post HTTP/1.1 from httpbin.org
+24: Received 2: Tunnel closed
+3: Tunnel closed
+22: Tunnel closed
+25: not in cache
+25: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+26: not in cache
+26: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+27: not in cache
+27: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+28: not in cache
+28: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+1: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+1: cached, but requires re-validation
+1: Responding "HTTP/1.1 200 OK"
+29: in cache, but expired at Tue Feb 22 13:10:45 2022
+
+29: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+4: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+4: cached, but requires re-validation
+4: Responding "HTTP/1.1 200 OK"
+30: in cache, but expired at Tue Feb 22 13:10:45 2022
+
+30: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+6: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+6: cached, but requires re-validation
+6: Responding "HTTP/1.1 200 OK"
+31: Requesting Connection toincoming.telemetry.mozilla.org
+31: Responding HTTP/1.1 200 OK
+7: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+7: cached, but requires re-validation
+7: Responding "HTTP/1.1 200 OK"
+17: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+17: cached, but requires re-validation
+17: Responding "HTTP/1.1 200 OK"
+19: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+19: cached, but requires re-validation
+19: Responding "HTTP/1.1 200 OK"
+0: Requesting POST http://httpbin.org/post HTTP/1.1 from httpbin.org
+0: Received 1: Responding "HTTP/1.1 400 Bad Request
+
+
+2: Requesting POST http://httpbin.org/post HTTP/1.1 from httpbin.org
+2: Received 0: Requesting Connection to firefox.settings.services.mozilla.com
+0: Responding HTTP/1.1 200 OK
+2: Requesting Connection to incoming.telemetry.mozilla.org
+2: Responding HTTP/1.1 200 OK
+3: Requesting Post POST http://httpbin.org/post HTTP/1.1 from httpbin.org
+3: Received 1: Responding "HTTP/1.1 400 Bad Request
+
+
+4: Responding "HTTP/1.1 400 Bad Request
+
+
+5: Requesting Connection to getpocket.cdn.mozilla.net
+5: Responding HTTP/1.1 200 OK
+6: Requesting Connection to contile.services.mozilla.com
+6: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+2: Tunnel closed
+5: Tunnel closed
+6: Tunnel closed
+7: Requesting Connection to normandy.cdn.mozilla.net
+7: Responding HTTP/1.1 200 OK
+8: Requesting Connection to classify-client.services.mozilla.com
+8: Responding HTTP/1.1 200 OK
+9: Requesting Connection to content-signature-2.cdn.mozilla.net
+9: Responding HTTP/1.1 200 OK
+7: Tunnel closed
+8: Tunnel closed
+9: Tunnel closed
+10: not in cache
+10: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+10: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+10: not cacheable because cache-control: no-store
+10: Responding "HTTP/1.1 200 OK"
+11: not in cache
+11: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+12: Requesting Connection to contile.services.mozilla.com
+12: Responding HTTP/1.1 200 OK
+13: Requesting Connection to incoming.telemetry.mozilla.org
+13: Responding HTTP/1.1 200 OK
+14: Responding "HTTP/1.1 400 Bad Request
+
+
+15: Requesting Connection to img-getpocket.cdn.mozilla.net
+15: Responding HTTP/1.1 200 OK
+16: Requesting Connection to img-getpocket.cdn.mozilla.net
+16: Responding HTTP/1.1 200 OK
+16: Tunnel closed
+17: Requesting Connection to safebrowsing.googleapis.com
+17: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Requesting Connection to img-getpocket.cdn.mozilla.net
+18: Responding HTTP/1.1 200 OK
+18: Tunnel closed
+19: Requesting Connection to img-getpocket.cdn.mozilla.net
+19: Responding HTTP/1.1 200 OK
+19: Tunnel closed
+20: Requesting Connection to img-getpocket.cdn.mozilla.net
+21: Requesting Connection to img-getpocket.cdn.mozilla.net
+22: Responding "HTTP/1.1 400 Bad Request
+
+
+20: Responding HTTP/1.1 200 OK
+21: Responding HTTP/1.1 200 OK
+20: Tunnel closed
+21: Tunnel closed
+23: Requesting Connection to incoming.telemetry.mozilla.org
+23: Responding HTTP/1.1 200 OK
+24: Requesting Connection to contile-images.services.mozilla.com
+25: Requesting Connection to contile-images.services.mozilla.com
+24: Responding HTTP/1.1 200 OK
+25: Responding HTTP/1.1 200 OK
+25: Tunnel closed
+26: not in cache
+26: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+27: Responding "HTTP/1.1 400 Bad Request
+
+
+28: Responding "HTTP/1.1 400 Bad Request
+
+
+29: not in cache
+29: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+30: not in cache
+30: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+31: not in cache
+31: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+30: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+30: not cacheable because cache-control: no-store
+30: Responding "HTTP/1.1 200 OK"
+32: Responding "HTTP/1.1 400 Bad Request
+
+
+33: Responding "HTTP/1.1 400 Bad Request
+
+
+34: not in cache
+34: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+12: Tunnel closed
+35: not in cache
+35: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+23: Tunnel closed
+36: Responding "HTTP/1.1 400 Bad Request
+
+
+37: Responding "HTTP/1.1 400 Bad Request
+
+
+38: not in cache
+38: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+24: Tunnel closed
+39: not in cache
+39: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+15: Tunnel closed
+40: not in cache
+40: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+11: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+11: cached, but requires re-validation
+11: Responding "HTTP/1.1 200 OK"
+41: in cache, but expired at Tue Feb 22 13:39:13 2022
+
+41: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+26: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+26: cached, but requires re-validation
+26: Responding "HTTP/1.1 200 OK"
+42: in cache, but expired at Tue Feb 22 13:39:13 2022
+
+42: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+13: Tunnel closed
+43: in cache, but expired at Tue Feb 22 13:39:13 2022
+
+43: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+29: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+29: cached, but requires re-validation
+29: Responding "HTTP/1.1 200 OK"
+44: Responding "HTTP/1.1 400 Bad Request
+
+
+45: Responding "HTTP/1.1 400 Bad Request
+
+
+46: in cache, but expired at Tue Feb 22 13:39:13 2022
+
+46: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+31: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+31: cached, but requires re-validation
+31: Responding "HTTP/1.1 200 OK"
+47: in cache, but expired at Tue Feb 22 13:39:13 2022
+
+47: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+0: Requesting Connection to baidu.com
+0: Responding HTTP/1.1 200 OK
+1: Responding "HTTP/1.1 400 Bad Request
+
+
+2: Requesting Connection to www.baidu.com
+2: Responding HTTP/1.1 200 OK
+3: Responding "HTTP/1.1 400 Bad Request
+
+
+4: Requesting Connection to dss0.bdstatic.com
+5: Requesting Connection to dss0.bdstatic.com
+6: Requesting Connection to dss0.bdstatic.com
+5: Responding HTTP/1.1 200 OK
+4: Responding HTTP/1.1 200 OK
+6: Responding HTTP/1.1 200 OK
+7: Requesting Connection to dss0.bdstatic.com
+7: Responding HTTP/1.1 200 OK
+8: Requesting Connection to dss0.bdstatic.com
+6: Tunnel closed
+5: Tunnel closed
+8: Responding HTTP/1.1 200 OK
+9: Requesting Connection to dss0.bdstatic.com
+7: Tunnel closed
+9: Responding HTTP/1.1 200 OK
+8: Tunnel closed
+10: Requesting Connection to www.baidu.com
+10: Responding HTTP/1.1 200 OK
+9: Tunnel closed
+11: Requesting Connection to pss.bdstatic.com
+12: Requesting Connection to www.baidu.com
+12: Responding HTTP/1.1 200 OK
+13: Requesting Connection to www.baidu.com
+13: Responding HTTP/1.1 200 OK
+11: Responding HTTP/1.1 200 OK
+14: Requesting Connection to pss.bdstatic.com
+14: Responding HTTP/1.1 200 OK
+15: Requesting Connection to www.baidu.com
+15: Responding HTTP/1.1 200 OK
+16: Requesting Connection to hectorstatic.baidu.com
+14: Tunnel closed
+17: Requesting Connection to pss.bdstatic.com
+17: Responding HTTP/1.1 200 OK
+16: Responding HTTP/1.1 200 OK
+17: Tunnel closed
+18: Requesting Connection to sp2.baidu.com
+18: Responding HTTP/1.1 200 OK
+2: Tunnel closed
+19: Requesting Connection to sp1.baidu.com
+19: Responding HTTP/1.1 200 OK
+13: Tunnel closed
+20: Requesting Connection to passport.baidu.com
+20: Responding HTTP/1.1 200 OK
+12: Tunnel closed
+21: Requesting Connection to pc-index-static.cdn.bcebos.com
+20: Tunnel closed
+22: Requesting Connection to sp3.baidu.com
+15: Tunnel closed
+23: Requesting Connection to pic.rmb.bdstatic.com
+22: Responding HTTP/1.1 200 OK
+22: Tunnel closed
+24: Requesting Connection to t9.baidu.com
+10: Tunnel closed
+25: Requesting Connection to t13.baidu.com
+16: Tunnel closed
+21: Responding HTTP/1.1 200 OK
+21: Tunnel closed
+26: Requesting Connection to gimg3.baidu.com
+27: Requesting Connection to t13.baidu.com
+23: Responding HTTP/1.1 200 OK
+23: Tunnel closed
+28: Requesting Connection to t13.baidu.com
+24: Responding HTTP/1.1 200 OK
+24: Tunnel closed
+25: Responding HTTP/1.1 200 OK
+25: Tunnel closed
+28: Responding HTTP/1.1 200 OK
+28: Tunnel closed
+27: Responding HTTP/1.1 200 OK
+27: Tunnel closed
+29: Requesting Connection to t10.baidu.com
+30: Requesting Connection to pic.rmb.bdstatic.com
+31: Requesting Connection to pic.rmb.bdstatic.com
+32: Requesting Connection to pic.rmb.bdstatic.com
+26: Responding HTTP/1.1 200 OK
+26: Tunnel closed
+31: Responding HTTP/1.1 200 OK
+31: Tunnel closed
+30: Responding HTTP/1.1 200 OK
+30: Tunnel closed
+32: Responding HTTP/1.1 200 OK
+32: Tunnel closed
+33: Requesting Connection to t10.baidu.com
+0: Tunnel closed
+34: Requesting Connection to b.bdstatic.com
+33: Responding HTTP/1.1 200 OK
+33: Tunnel closed
+29: Responding HTTP/1.1 200 OK
+29: Tunnel closed
+35: Requesting Connection to t13.baidu.com
+36: Requesting Connection to safebrowsing.googleapis.com
+36: Responding HTTP/1.1 200 OK
+36: Tunnel closed
+35: Responding HTTP/1.1 200 OK
+35: Tunnel closed
+34: Responding HTTP/1.1 200 OK
+34: Tunnel closed
+37: Requesting Connection to pic.rmb.bdstatic.com
+38: Requesting Connection to t10.baidu.com
+37: Responding HTTP/1.1 200 OK
+37: Tunnel closed
+38: Responding HTTP/1.1 200 OK
+38: Tunnel closed
+40: Requesting Connection to pic.rmb.bdstatic.com
+41: Requesting Connection to sp1.baidu.com
+43: Requesting Connection to ug.baidu.com
+42: Responding "HTTP/1.1 400 Bad Request
+
+
+39: Requesting Connection to t9.baidu.com
+41: Responding HTTP/1.1 200 OK
+41: Tunnel closed
+40: Responding HTTP/1.1 200 OK
+40: Tunnel closed
+39: Responding HTTP/1.1 200 OK
+39: Tunnel closed
+43: Responding HTTP/1.1 200 OK
+43: Tunnel closed
+44: Requesting Connection to ss1.baidu.com
+45: Requesting Connection to ss3.baidu.com
+44: Responding HTTP/1.1 200 OK
+44: Tunnel closed
+45: Responding HTTP/1.1 200 OK
+45: Tunnel closed
+46: Requesting Connection to ss0.baidu.com
+47: Requesting Connection to ss2.baidu.com
+46: Responding HTTP/1.1 200 OK
+46: Tunnel closed
+47: Responding HTTP/1.1 200 OK
+47: Tunnel closed
+48: Requesting Connection to ms.bdimg.com
+49: not in cache
+49: Requesting "GET http://t8.baidu.com/it/u=4172055753,779852513&fm=74&app=80&f=JPEG&size=f121,121?sec=1880279984&t=81934a1b7c0b50917821edbddb5a9bc4 HTTP/1.1" from t8.baidu.com
+50: not in cache
+50: Requesting "GET http://t9.baidu.com/it/u=870488751,2739708777&fm=74&app=80&f=JPEG&size=f121,121?sec=1880279984&t=abd1c75c79b73b5c9d7e140d58cb935b HTTP/1.1" from t9.baidu.com
+48: Responding HTTP/1.1 200 OK
+48: Tunnel closed
+51: Requesting Connection to ms.bdimg.com
+52: Requesting Connection to ms.bdimg.com
+51: Responding HTTP/1.1 200 OK
+52: Responding HTTP/1.1 200 OK
+51: Tunnel closed
+52: Tunnel closed
+53: Requesting Connection to ms.bdimg.com
+54: not in cache
+55: Requesting Connection to ms.bdimg.com
+56: Requesting Connection to ms.bdimg.com
+53: Responding HTTP/1.1 200 OK
+56: Responding HTTP/1.1 200 OK
+53: Tunnel closed
+56: Tunnel closed
+55: Responding HTTP/1.1 200 OK
+55: Tunnel closed
+57: Requesting Connection to fc-ccimage.baidu.com
+54: Requesting "GET http://baikebcs.bdimg.com/baike-icon.png HTTP/1.1" from baikebcs.bdimg.com
+57: Responding HTTP/1.1 200 OK
+57: Tunnel closed
+58: Requesting Connection to t7.baidu.com
+59: Requesting Connection to t8.baidu.com
+60: Requesting Connection to zhengxin-pub.bj.bcebos.com
+59: Responding HTTP/1.1 200 OK
+59: Tunnel closed
+61: Requesting Connection to xinpub.bj.bcebos.com
+60: Responding HTTP/1.1 200 OK
+60: Tunnel closed
+62: Requesting Connection to fc1tn.baidu.com
+61: Responding HTTP/1.1 200 OK
+61: Tunnel closed
+63: Requesting Connection to bkssl.bdimg.com
+58: Responding HTTP/1.1 200 OK
+58: Tunnel closed
+64: Requesting Connection to baikebcs.bdimg.com
+64: Responding HTTP/1.1 200 OK
+64: Tunnel closed
+65: Requesting Connection to nv00.cdn.bcebos.com
+63: Responding HTTP/1.1 200 OK
+63: Tunnel closed
+66: Requesting Connection to fclick.baidu.com
+62: Responding HTTP/1.1 200 OK
+62: Tunnel closed
+67: Requesting Connection to fclick.baidu.com
+65: Responding HTTP/1.1 200 OK
+65: Tunnel closed
+68: Requesting Connection to fclick.baidu.com
+68: Responding HTTP/1.1 200 OK
+68: Tunnel closed
+69: Requesting Connection to sp1.baidu.com
+66: Responding HTTP/1.1 200 OK
+66: Tunnel closed
+70: Requesting Connection to hectorstatic.baidu.com
+67: Responding HTTP/1.1 200 OK
+67: Tunnel closed
+71: Requesting Connection to www.baidu.com
+69: Responding HTTP/1.1 200 OK
+69: Tunnel closed
+72: Requesting Connection to fclick.baidu.com
+70: Responding HTTP/1.1 200 OK
+70: Tunnel closed
+73: Responding "HTTP/1.1 400 Bad Request
+
+
+74: Requesting Connection to ug.baidu.com
+71: Responding HTTP/1.1 200 OK
+71: Tunnel closed
+75: Requesting Connection to sp3.baidu.com
+72: Responding HTTP/1.1 200 OK
+72: Tunnel closed
+76: not in cache
+76: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+75: Responding HTTP/1.1 200 OK
+75: Tunnel closed
+77: not in cache
+77: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+74: Responding HTTP/1.1 200 OK
+74: Tunnel closed
+78: Requesting Connection to www.kaggle.com
+78: Responding HTTP/1.1 200 OK
+78: Tunnel closed
+79: not in cache
+79: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+4: Tunnel closed
+80: not in cache
+80: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+18: Tunnel closed
+81: not in cache
+81: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+49: Received "HTTP/1.1 200 OK" from t8.baidu.com
+49: cached, expires at Thu Mar 10 14:34:56 2022
+49: Responding "HTTP/1.1 200 OK"
+82: not in cache
+82: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+50: Received "HTTP/1.1 200 OK" from t9.baidu.com
+50: cached, expires at Thu Mar 10 14:40:26 2022
+50: Responding "HTTP/1.1 200 OK"
+83: Requesting Connection to incoming.telemetry.mozilla.org
+83: Responding HTTP/1.1 200 OK
+83: Tunnel closed
+84: Requesting Connection to contile-images.services.mozilla.com
+84: Responding HTTP/1.1 200 OK
+84: Tunnel closed
+85: Requesting Connection to img-getpocket.cdn.mozilla.net
+85: Responding HTTP/1.1 200 OK
+85: Tunnel closed
+86: Requesting Connection to ms.bdimg.com
+86: Responding HTTP/1.1 200 OK
+86: Tunnel closed
+87: Requesting Connection to ms.bdimg.com
+87: Responding HTTP/1.1 200 OK
+87: Tunnel closed
+88: Requesting Connection to ms.bdimg.com
+88: Responding HTTP/1.1 200 OK
+88: Tunnel closed
+89: Requesting Connection to ms.bdimg.com
+89: Responding HTTP/1.1 200 OK
+89: Tunnel closed
+90: Requesting Connection to fclick.baidu.com
+90: Responding HTTP/1.1 200 OK
+90: Tunnel closed
+91: Requesting Connection to fclick.baidu.com
+91: Responding HTTP/1.1 200 OK
+91: Tunnel closed
+92: Requesting Connection to fclick.baidu.com
+92: Responding HTTP/1.1 200 OK
+92: Tunnel closed
+93: Requesting Connection to fclick.baidu.com
+93: Responding HTTP/1.1 200 OK
+93: Tunnel closed
+94: Requesting Connection to www.google.com
+94: Responding HTTP/1.1 200 OK
+94: Tunnel closed
+95: Requesting Connection to www.baidu.com
+95: Responding HTTP/1.1 200 OK
+95: Tunnel closed
+96: Requesting Connection to www.baidu.com
+96: Responding HTTP/1.1 200 OK
+96: Tunnel closed
+97: Requesting Connection to www.baidu.com
+97: Responding HTTP/1.1 200 OK
+97: Tunnel closed
+98: Requesting Connection to www.baidu.com
+98: Responding HTTP/1.1 200 OK
+98: Tunnel closed
+99: Requesting Connection to www.baidu.com
+54: Received "HTTP/1.1 200 OK" from baikebcs.bdimg.com
+54: cached, but requires re-validation
+54: Responding "HTTP/1.1 200 OK"
+100: Requesting Connection to www.baidu.com
+99: Responding HTTP/1.1 200 OK
+99: Tunnel closed
+101: Requesting Connection to www.baidu.com
+101: Responding HTTP/1.1 200 OK
+100: Responding HTTP/1.1 200 OK
+101: Tunnel closed
+102: Requesting Connection to www.baidu.com
+100: Tunnel closed
+103: Requesting Connection to www.baidu.com
+102103: Responding HTTP/1.1 200 OK
+: Responding HTTP/1.1 200 OK
+103: Tunnel closed
+104: Requesting Connection to www.baidu.com
+102: Tunnel closed
+105: Requesting Connection to www.baidu.com
+105: Responding HTTP/1.1 200 OK
+104: Responding HTTP/1.1 200 OK
+105: Tunnel closed
+104: Tunnel closed
+106: Requesting Connection to www.baidu.com
+107: Requesting Connection to www.baidu.com
+106: Responding HTTP/1.1 200 OK
+107: Responding HTTP/1.1 200 OK
+106: Tunnel closed
+108: Requesting Connection to www.baidu.com
+107: Tunnel closed
+109: Requesting Connection to www.baidu.com
+108: Responding HTTP/1.1 200 OK
+109: Responding HTTP/1.1 200 OK
+108: Tunnel closed
+109: Tunnel closed
+110: Requesting Connection to www.baidu.com
+111: Requesting Connection to www.baidu.com
+111: Responding HTTP/1.1 200 OK
+110: Responding HTTP/1.1 200 OK
+111: Tunnel closed
+110: Tunnel closed
+112: Requesting Connection to www.baidu.com
+113: Requesting Connection to www.baidu.com
+113: Responding HTTP/1.1 200 OK
+112: Responding HTTP/1.1 200 OK
+113: Tunnel closed
+112: Tunnel closed
+114: Requesting Connection to www.baidu.com
+115: Requesting Connection to www.baidu.com
+114: Responding HTTP/1.1 200 OK
+115: Responding 114: Tunnel closed
+HTTP/1.1 200 OK
+116: Requesting Connection to www.baidu.com
+115: Tunnel closed
+117: Requesting Connection to www.baidu.com
+117: Responding HTTP/1.1 200 OK
+117: Tunnel closed
+118: Requesting Connection to 116www.baidu.com
+: Responding HTTP/1.1 200 OK
+116: Tunnel closed
+119: Requesting Connection to www.baidu.com
+118: Responding HTTP/1.1 200 OK
+118: Tunnel closed
+120: Requesting Connection to www.baidu.com
+119: Responding HTTP/1.1 200 OK
+119: Tunnel closed
+121: Requesting Connection to www.baidu.com
+121: Responding HTTP/1.1 200 OK
+120: Responding HTTP/1.1 200 OK
+120: Tunnel closed
+121: Tunnel closed
+122: Requesting Connection to www.baidu.com
+123: Requesting Connection to www.baidu.com
+122: Responding HTTP/1.1 200 OK
+123: Responding HTTP/1.1 200 OK
+122: Tunnel closed
+123: Tunnel closed
+124: Requesting Connection to www.baidu.com
+125: Requesting Connection to www.baidu.com
+124: Responding HTTP/1.1 200 OK125: Responding HTTP/1.1 200 OK
+
+125: Tunnel closed
+126: Requesting Connection to www.baidu.com
+124: Tunnel closed
+127: Requesting Connection to www.baidu.com
+126: Responding HTTP/1.1 200 OK
+126: Tunnel closed
+127: Responding HTTP/1.1 200 OK
+128: Requesting Connection to 127: Tunnel closed
+www.baidu.com
+129: Requesting Connection to www.baidu.com
+128: Responding HTTP/1.1 200 OK
+128: Tunnel closed
+130: Requesting Connection to www.baidu.com
+129: Responding HTTP/1.1 200 OK
+129: Tunnel closed
+131: Requesting Connection to www.baidu.com
+131: Responding HTTP/1.1 200 OK
+131: Tunnel closed
+130: Responding HTTP/1.1 200 OK
+132: Requesting Connection to www.baidu.com
+130: Tunnel closed
+133: Requesting Connection to www.baidu.com
+132: Responding HTTP/1.1 200 OK
+132: Tunnel closed
+134: Requesting Connection to www.baidu.com
+133: Responding HTTP/1.1 200 OK
+133: Tunnel closed
+135: Requesting Connection to www.baidu.com
+135134: Responding HTTP/1.1 200 OK: Responding 
+HTTP/1.1 200 OK
+134: Tunnel closed
+136: Requesting Connection to www.baidu.com
+135: Tunnel closed
+137: Requesting Connection to www.baidu.com
+137: Responding HTTP/1.1 200 OK
+136: Responding HTTP/1.1 200 OK
+137: Tunnel closed
+136: Tunnel closed
+138: Requesting Connection to www.baidu.com
+139: Requesting Connection to www.google.com
+139: Responding HTTP/1.1 200 OK
+139: Tunnel closed
+140: not in cache
+140: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
+138: Responding HTTP/1.1 200 OK
+138: Tunnel closed
+141: Requesting Connection to img-getpocket.cdn.mozilla.net
+141: Responding HTTP/1.1 200 OK
