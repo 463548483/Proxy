@@ -3,10 +3,8 @@ make clean
 
 make
 
-./proxy
-
-
 while true
 do 
+	./proxy 12345
 	sleep 1 
 done
