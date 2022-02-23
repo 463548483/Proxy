@@ -1,11 +1,29 @@
-Exception guarantees:
-	1. Socket Exception: catch exception in handle_request
-	2. Parse Request Exception
-	3. Parse Response Exception
+--------------------------
+Exception Guarantees:
+--------------------------
+1. Socket: 
+    We have basic exception guarentee for all methods in the Socket class. Methods in this class will only throw SocketExc, if they throw an exception, the data in the object might change.
+2. Parser:
+    We have basic exception guarentee for all methods in the HttpParser class. Methods in this class might throw HttpRequestExc or HttpResponseExc, the former one indicate an error happened when parsing request and the latter one indicate an error happend when parsing response.
+3. Others:
+    For other functions in our program, most of them has no-throw guarentee except for some functions in proxy.cpp that might also throw SocketExc, HttpRequestExc or HttpResponseExc. All functions have at least basic guarentee, and no exceptions will propogate outside of main.
 
-Robust to external failures:
+-----------------------------------------------------------------------
+Robust to External Failures:
 What failures did you handle in your code? how do you handle them? 	
-	
+-----------------------------------------------------------------------
+Our proxy is very robust to external failures, it will not crush because of external failures.
+If the client send us an invalid request (e.g. a request without proper format, a request our parser can not parse...), we will send back a 400 response to client right away.
+If the server send us an invalid request, we will instead send back a 502 response to our client.
+If we can not sucessfully connected to server, we will also send a 502 response to client to inform this situation.
+
+RAII
+We use lock_guard, shared_lock or unque_lock to protect every mutex we use to ensure that not mutex will be left unlock when exception is thrown.
+We use unique_ptr to protect the memory we mallc which also ensure that there will not have any memory leak.
+
+--------------------------------------------------
+Some Specific Failures or Problems We Solved:
+--------------------------------------------------
 1. One failure is client close connection. When client shutdown its socket and we send to client, it will have Segmentation Fault and crush the program
 
 Solution: we modify to ignore SIGPIPE error throw in the process and close this thread.
@@ -16,11 +34,31 @@ Solution: The -1 is actually errno 104(Connection reset by peer). Based on the e
 
 3. When multi-threading working, the log file will have mismatch id vs record because of the data race. After we debugged it, we update the lock in Log class to avoid the conflict.
 
+4. When trying to send request to the original server, it might be unable to connect to the server, in this case, we will send a 502 response to our client to inform this situation.
 
- 
-
-
-
-
-
+------------------
+Cache Policy
+------------------
+1. If cache-control include private or no store, not stored in Cache
+2. If response does not have max-age or expire time, regarded as never expired and assgin max time_t
+3. Get directly from cache
+    - method=GET
+    - without "no cache" label both in request and response
+    - fresh(not expired)
+4. How to decide fresh/not expired
+    - Suppose client,proxy,server have the same time, ignore the time cost in the process of send/receive/parse
+    - a) If without max-age, expire time > system time (expire time must be TMT/UTC time)
+    - b) If only with max-age, current age < max-age
+    - c) If has both max-age and Age, current age+ Age < max-age   
+    - d) not max-age, no expire time
+5. not fresh, revalide:
+    - provide Etag and last modify(if any) and send revalid request to server, log "in cache, requires validation"
+    - if none of Etag/last modify, log "in cache, but expired at EXPIREDTIME"
+6. received revalide:
+    - a) get 304: replace header file
+    - b) get 5xx: send response to client, no update cache
+    - c) get 200: replace whole response
+7. Cache evication:
+    - cache no more than 1000 responses
+    - remove the first cache record in queue when the cache is full
 
