@@ -8,6 +8,8 @@
 #include "socket.h"
 #include <csignal>
 #include "exceptions.h"
+#include <arpa/inet.h>
+#include <string.h>
 
 
 using namespace std;
@@ -90,9 +92,16 @@ int Serversocket::server_accept(){
     service, MAXLINE, 0);
 
     //memcpy(client_hostname,host,MAXLINE);
+    struct  sockaddr_in * addr = (struct sockaddr_in *)&clientaddr;
+    client_ip = inet_ntoa(addr->sin_addr);
+
     this->connfd=connfd;
     return connfd;
     
+}
+
+string Serversocket::get_client_ip(){
+    return client_ip;
 }
 
 pair<vector<char>, size_t> Socket::recv_response(int connfd){
