@@ -6,17 +6,19 @@ GET:
         private: http://ptsv2.com/t/zpwjd-1645628789/post
         no-store: http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
         no-cache: http://www.artsci.utoronto.ca/future
-        max-age=0, revalidate: https://run.mocky.io/v3/a4b11042-20fd-444b-bd76-f1c9718043ac
-        max-age=20,age=5, revalidate: https://run.mocky.io/v3/2c659414-18a9-4cf8-b26a-e44e98bc64ad
+        max-age=xxx, age=xxx: http://go.com/
+            not in cache, cached, expires at Wed Feb 23 20:31:57 2022
+            in cache, valid
+            in cache, requires validation
         no Max-age, no Expires: http://www.gov.cn/
     chunked: http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
     host not exist: http://www.aruhgoa.com/
-    404: http://people.duke.edu/~bmr23/ece568/class.html
+    302: http://people.duke.edu/~bmr23/ece568/class.html
     502: https://run.mocky.io/v3/21acc4af-38c4-426d-87f7-ced0319e7b0a
 
 POST:
     
-    http://ptsv2.com/t/zpwjd-1645628789/post
+    200 ok: http://ptsv2.com/t/zpwjd-1645628789/post
     200 ok: http://httpbin.org/forms/post
     400: https://run.mocky.io/v3/0d4cb740-c034-498d-bff5-ee641676c65e
     502: https://run.mocky.io/v3/21acc4af-38c4-426d-87f7-ced0319e7b0a
