@@ -274,20 +274,19 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
     close(connfd);
 }
 
-void handle_request(int connfd, size_t rid) {
+void handle_request(int connfd, size_t rid,string client_ip) {
     //receive from client and parse
     try {
       try {
-        Serversocket socket(connfd);
+        Socket socket(connfd);
         pair<vector<char>,int> request_buffer=socket.recv_request(connfd); 
         //cout<<"request first "<<request_buffer.first.size()<<"second "<<request_buffer.second<<endl;
         HttpParser parser;
         HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
         time_t cur_time = time(0); 
         std::unique_lock<std::mutex> lck (LOG.mtx);
-        std::string ipfrom = socket.get_client_ip();
         std::vector<char> s_line = req.get_start_line();
-        LOG << rid << ": \"" << std::string(s_line.begin(), s_line.end()) << "\" from " << ipfrom << " @ " << asctime(gmtime(&cur_time)); 
+        LOG << rid << ": \"" << std::string(s_line.begin(), s_line.end()) << "\" from " << client_ip << " @ " << asctime(gmtime(&cur_time)); 
         lck.unlock();
         string method=req.get_method();
         if (method=="GET"){
@@ -350,8 +349,10 @@ int main(int argc, char **argv) {
     listenfd = server_socket.init_server(port);
     while (true) {
         int connfd;
-        connfd = server_socket.server_accept(); 
-        pool->assign_task(bind(handle_request, connfd, rid));
+        string client_ip;
+        connfd = server_socket.server_accept();
+        client_ip=server_socket.get_client_ip(); 
+        pool->assign_task(bind(handle_request, connfd, rid,client_ip));
         ++rid;
     } 
     close(listenfd);
