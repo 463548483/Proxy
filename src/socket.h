@@ -26,10 +26,12 @@ class Serversocket:public Socket{
     int listenfd;
     const char *server_host;//the host of web server
     const char *server_port;//the port of web server
+    string client_ip;
     public:
     Serversocket():Socket(0),listenfd(0),server_host(NULL),server_port(NULL){}
     int init_server(const char * self_port);
     int server_accept();
+    string get_client_ip();
     //~Serversocket();
 };
 
