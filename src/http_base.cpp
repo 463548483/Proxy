@@ -15,6 +15,8 @@ std::vector<char> HttpBase::reconstruct() const {
   if (message_body.size() != 0) {
     res.insert(res.end(), message_body.begin(), message_body.end());
   }
+  //std::string temp_res(res.begin(), res.end());
+  //std::cout << "Reconstructed request: \n" << temp_res << std::endl;
   return res;
 }
 

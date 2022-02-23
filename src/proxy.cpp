@@ -268,8 +268,6 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
                 break;
             }
         }
-        
-        
     }
     lck.lock();
     LOG <<rid<< ": Tunnel closed\n";
@@ -284,6 +282,8 @@ void handle_request(int connfd, size_t rid,string client_ip) {
       try {
         Socket socket(connfd);
         pair<vector<char>,int> request_buffer=socket.recv_request(connfd); 
+        // std::string ori_req(request_buffer.first.begin(), request_buffer.first.begin() + request_buffer.second);
+        // std::cout << "original request: \n" << ori_req << std::endl;
         //cout<<"request first "<<request_buffer.first.size()<<"second "<<request_buffer.second<<endl;
         HttpParser parser;
         HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
@@ -315,7 +315,8 @@ void handle_request(int connfd, size_t rid,string client_ip) {
         std::unique_lock<std::mutex> lck (LOG.mtx);
         LOG << rid << ": Responding \"" << "HTTP/1.1 400 Bad Request" <<"\n";
         lck.unlock();
-        socket.send_buffer(connfd, rsp_vec.data(), 29);
+        socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
+        close(connfd);
       }
       catch (HttpResponseExc &e) {
         std::string str = "HTTP/1.1 502 Bad Gateway\r\n\r\n";
@@ -324,15 +325,25 @@ void handle_request(int connfd, size_t rid,string client_ip) {
         std::unique_lock<std::mutex> lck (LOG.mtx);
         LOG << rid << ": Responding \"" << "HTTP/1.1 502 Bad Gateway" <<"\n";
         lck.unlock();
-        socket.send_buffer(connfd, rsp_vec.data(), 29);
+        socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
+        close(connfd);
       }
     }
     catch (SocketExc &e) {
       std::cerr << "An error occurs in socket connection when handling request\n"; 
+      std::string str = "HTTP/1.1 502 Bad Gateway\r\n\r\n";
+      vector<char> rsp_vec = std::vector<char>(str.begin(), str.end());
+      Socket socket(connfd);
+      std::unique_lock<std::mutex> lck (LOG.mtx);
+      LOG << rid << ": Responding \"" << "HTTP/1.1 502 Bad Gateway" <<"\n";
+      lck.unlock();
+      socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
+      close(connfd);
     }
     catch (std::exception &e) {
       std::cerr << "An unexpected error occurs when handling request\n"; 
       std::cerr << e.what() << std::endl;
+      close(connfd);
     }
     return;
 }

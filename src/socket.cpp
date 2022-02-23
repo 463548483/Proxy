@@ -65,7 +65,7 @@ int Serversocket::init_server(const char * port){
         exit(EXIT_FAILURE);
     } 
 
-    cout << "Waiting for connection on port " << port << endl;
+    //cout << "Waiting for connection on port " << port << endl;
 
     freeaddrinfo(host_info_list);
     listenfd=socket_fd;
@@ -84,7 +84,7 @@ int Serversocket::server_accept(){
         throw SocketExc("Error: cannot accept connection on socket");
         exit(EXIT_FAILURE);
     }
-    cout<<"Accept listenfd"<<endl;
+    //cout<<"Accept listenfd"<<endl;
     char * host=NULL;
     char * service=NULL;
 
@@ -106,18 +106,20 @@ string Serversocket::get_client_ip(){
 
 pair<vector<char>, size_t> Socket::recv_response(int connfd){
     //char * recv_buffer=(char *)malloc(MAXLINE*sizeof(char));
-    cout << "socket starting to receive" << endl;
+    //cout << "socket starting to receive" << endl;
     vector<char> recv_buffer;
     size_t total_byte=0;
     while(true){
-        cout << "get a block, size: " ;
+        //cout << "get a block, size: " ;
         std::unique_ptr<char>  buffer(new char[MAXLINE]{0});
         memset(buffer.get(),0,sizeof(char)*MAXLINE);
         int byte=recv(connfd,buffer.get(),MAXLINE,0);
-        cout << byte << endl;
+        //cout << byte << endl;
         if (byte==-1){
             std::string err = std::to_string(errno);
-            cout<<"error recv"<<err<<endl;
+            cout<<"Socket Error when receiving request, recieve -1 bytes, errno:  "<<err<<endl;            
+            //std::string err = std::to_string(errno);
+            //cout<<"error recv"<<err<<endl;
             break;
             //throw SocketExc("Error Receive, errno: " + err);
         }
@@ -131,13 +133,13 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
         //recv_buffer=(char *)realloc(recv_buffer,(total_byte+1)*sizeof(char));
         //strcat(recv_buffer,buffer);
     }
-    cout<<"socket receive: "<<total_byte<<endl;
-    cout<<std::string(recv_buffer.begin(), recv_buffer.end())<<endl;
+    //cout<<"socket receive: "<<total_byte<<endl;
+    //cout<<std::string(recv_buffer.begin(), recv_buffer.end())<<endl;
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
 pair<vector<char>, size_t> Socket::recv_request(int connfd){
-    cout << "socket starting to receive." << endl;
+    //cout << "socket starting to receive." << endl;
     //char * recv_buffer=(char *)malloc(MAXLINE*sizeof(char));
     vector<char> recv_buffer;
     size_t total_byte=0;
@@ -146,14 +148,14 @@ pair<vector<char>, size_t> Socket::recv_request(int connfd){
     int byte=recv(connfd,buffer.get(),MAXLINE,0);
     if (byte==-1){
         std::string err = std::to_string(errno);
-        cout<<"error recv"<<err<<endl;            
+        cout<<"Socket Error when receiving request, recieve -1 bytes, errno:  "<<err<<endl;            
     }
     total_byte+=byte;
     recv_buffer.reserve(total_byte);
     recv_buffer.insert(recv_buffer.end(),buffer.get(),buffer.get()+byte);
 
-    cout<<"socket receive: "<<total_byte<<endl;
-    cout<<std::string(recv_buffer.begin(), recv_buffer.end())<<endl;
+    //cout<<"socket receive: "<<total_byte<<endl;
+    //cout<<std::string(recv_buffer.begin(), recv_buffer.end())<<endl;
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
@@ -162,8 +164,8 @@ void Socket::send_buffer(int connfd,const char * buffer,int length){
     if (byte==-1){
         throw SocketExc("Error Send");
     }
-    cout<<"socket send:"<<endl;
-    cout<<buffer<<endl;
+    //cout<<"socket send:"<<endl;
+    //cout<<buffer<<endl;
 }
 
 
@@ -193,7 +195,7 @@ int Clientsocket::init_client(const char * hostname, const char * port) {
         exit(EXIT_FAILURE);;
     }  
 
-    cout << "Connecting to " << hostname << " on port " << port << "..." << endl;
+    //cout << "Connecting to " << hostname << " on port " << port << "..." << endl;
 
     status = connect(socket_fd, host_info_list->ai_addr, host_info_list->ai_addrlen);
     if (status == -1) {
