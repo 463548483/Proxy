@@ -5,7 +5,7 @@ GET:
     RSP:
         private: http://ptsv2.com/t/zpwjd-1645628789/post
         no-store: http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
-        no-cache: http://www.artsci.utoronto.ca/future
+        no-cache: http://www.artsci.utoronto.ca/futurestudents
         max-age=xxx, age=xxx: http://go.com/
             not in cache, cached, expires at Wed Feb 23 20:31:57 2022
             in cache, valid
