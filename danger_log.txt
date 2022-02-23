@@ -1,0 +1,26 @@
+Exception guarantees:
+	1. Socket Exception: catch exception in handle_request
+	2. Parse Request Exception
+	3. Parse Response Exception
+
+Robust to external failures:
+What failures did you handle in your code? how do you handle them? 	
+	
+1. One failure is client close connection. When client shutdown its socket and we send to client, it will have Segmentation Fault and crush the program
+
+Solution: we modify to ignore SIGPIPE error throw in the process and close this thread.
+
+2. When testing chunked website: http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx, it is really different compared to other chunked website that we will receive a block sized 5, then wait for a long time receive -1. For other website, we could receive 0 Byte in the end of received.
+
+Solution: The -1 is actually errno 104(Connection reset by peer). Based on the error code and message, it is resaonable to not throw exception for this error. So for this situation, we just print the error log and continue to deal with the data we already received.
+
+3. When multi-threading working, the log file will have mismatch id vs record because of the data race. After we debugged it, we update the lock in Log class to avoid the conflict.
+
+
+ 
+
+
+
+
+
+
