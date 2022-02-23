@@ -349,7 +349,7 @@ void handle_request(int connfd, size_t rid,string client_ip) {
 }
 
 int main(int argc, char **argv) {
-    LOG.open("/var/log/erss/proxy.log", std::ofstream::out | std::ofstream::app);
+    LOG.open("log.txt", std::ofstream::out | std::ofstream::app);
     size_t rid = 0;
     if (argc != 2) {
         fprintf(stderr, "usage: %s <port>\n", argv[0]); 
