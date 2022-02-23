@@ -1,64 +1,61 @@
-0: "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:23 2022
-0: not in cache
-0: Requesting "GET http://detectportal.firefox.com/canonical.html HTTP/1.1" from detectportal.firefox.com
-1: "CONNECT contile.services.mozilla.com:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:23 2022
-1: Requesting Connection to contile.services.mozilla.com
-2: "CONNECT spocs.getpocket.com:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:23 2022
-2: Requesting Connection to spocs.getpocket.com
-1: Responding HTTP/1.1 200 OK
-2: Responding HTTP/1.1 200 OK
-3: "CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:23 2022
-3: Requesting Connection to content-signature-2.cdn.mozilla.net
-3: Responding HTTP/1.1 200 OK
-4: "CONNECT firefox.settings.services.mozilla.com:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:24 2022
-4: Requesting Connection to firefox.settings.services.mozilla.com
-4: Responding HTTP/1.1 200 OK
-5: Responding "HTTP/1.1 400 Bad Request
-6: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:24 2022
-6: Requesting Connection to safebrowsing.googleapis.com
-6: Responding HTTP/1.1 200 OK
-6: Tunnel closed
-7: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:25 2022
-7: Requesting Connection to img-getpocket.cdn.mozilla.net
-7: Responding HTTP/1.1 200 OK
-8: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:25 2022
-8: Requesting Connection to img-getpocket.cdn.mozilla.net
-8: Responding HTTP/1.1 200 OK
-8: Tunnel closed
-9: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:26 2022
-9: Requesting Connection to img-getpocket.cdn.mozilla.net
-10: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:26 2022
-10: Requesting Connection to img-getpocket.cdn.mozilla.net
-11: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:26 2022
-11: Requesting Connection to img-getpocket.cdn.mozilla.net
-9: Responding HTTP/1.1 200 OK
-11: Responding HTTP/1.1 200 OK
+0: "POST http://ptsv2.com/t/zpwjd-1645628789/post HTTP/1.1" from 10.197.2.209 @ Wed Feb 23 16:56:40 2022
+0: Requesting "POST http://ptsv2.com/t/zpwjd-1645628789/post HTTP/1.1" from ptsv2.com
+0: Received HTTP/1.1 200 OK from ptsv2.com
+0: Responding HTTP/1.1 200 OK
+1: "POST http://httpbin.orghttps/post HTTP/1.1" from 10.197.2.209 @ Wed Feb 23 16:57:45 2022
+2: "GET http://info.cern.ch/hypertext/WWW/LineMode/Defaults/QuickGuide.html HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:57:47 2022
+2: not in cache
+2: Requesting "GET http://info.cern.ch/hypertext/WWW/LineMode/Defaults/QuickGuide.html HTTP/1.1" from info.cern.ch
+2: Received "HTTP/1.1 200 OK" from info.cern.ch
+2: cached, expires at Tue Jan 19 03:14:07 2038
+2: Responding "HTTP/1.1 200 OK"
+3: "GET http://info.cern.ch/hypertext/WWW/LineMode/Defaults/QuickGuide.html HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:57:55 2022
+3: in cache, requires validation
+3: Requesting "GET http://info.cern.ch/hypertext/WWW/LineMode/Defaults/QuickGuide.html HTTP/1.1" from info.cern.ch
+3: Received "HTTP/1.1 304 Not Modified" from info.cern.ch
+3: cached, expires at Tue Jan 19 03:14:07 2038
+3: Responding "HTTP/1.1 200 OK"
+4: "GET http://ptsv2.com/t/zpwjd-1645628789/post HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:58:11 2022
+4: not in cache
+4: Requesting "GET http://ptsv2.com/t/zpwjd-1645628789/post HTTP/1.1" from ptsv2.com
+5: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:58:32 2022
+5: not in cache
+5: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+6: "GET http://www.artsci.utoronto.ca/futurestudents HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:59:10 2022
+6: not in cache
+6: Requesting "GET http://www.artsci.utoronto.ca/futurestudents HTTP/1.1" from www.artsci.utoronto.ca
+6: Received "HTTP/1.1 301 Moved Permanently" from www.artsci.utoronto.ca
+6: Responding "HTTP/1.1 301 Moved Permanently"
+7: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 10.197.2.209 @ Wed Feb 23 16:59:54 2022
+7: not in cache
+7: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+8: "GET http://www.aruhgoa.com/ HTTP/1.1" from 10.197.2.209 @ Wed Feb 23 17:00:05 2022
+8: not in cache
+9: "GET http://people.duke.edu/~bmr23/ece568/class.html HTTP/1.1" from 10.197.2.209 @ Wed Feb 23 17:00:17 2022
+9: not in cache
+9: Requesting "GET http://people.duke.edu/~bmr23/ece568/class.html HTTP/1.1" from people.duke.edu
+9: Received "HTTP/1.1 302 Found" from people.duke.edu
+9: Responding "HTTP/1.1 302 Found"
+10: "CONNECT run.mocky.io:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 17:00:40 2022
+10: Requesting Connection to run.mocky.io
+5: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+5: not cacheable because cache-control: no-store
+5: Responding "HTTP/1.1 200 OK"
 10: Responding HTTP/1.1 200 OK
 10: Tunnel closed
-12: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:28 2022
-12: Requesting Connection to img-getpocket.cdn.mozilla.net
-9: Tunnel closed
-11: Tunnel closed
+11: "GET http://www.gov.cn/ HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 17:01:17 2022
+11: not in cache
+11: Requesting "GET http://www.gov.cn/ HTTP/1.1" from www.gov.cn
+11: Received "HTTP/1.1 200 OK" from www.gov.cn
+11: cached, expires at Tue Jan 19 03:14:07 2038
+11: Responding "HTTP/1.1 200 OK"
+7: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+7: not cacheable because cache-control: no-store
+7: Responding "HTTP/1.1 200 OK"
+4: Received "HTTP/1.1 200 OK" from ptsv2.com
+4: not cacheable because cache-control: private
+4: Responding "HTTP/1.1 200 OK"
+12: "POST http://httpbin.org/post HTTP/1.1" from 10.197.2.209 @ Wed Feb 23 17:02:23 2022
+12: Requesting "POST http://httpbin.org/post HTTP/1.1" from httpbin.org
+12: Received HTTP/1.1 200 OK from httpbin.org
 12: Responding HTTP/1.1 200 OK
-12: Tunnel closed
-13: Responding "HTTP/1.1 400 Bad Request
-14: "CONNECT firefox.settings.services.mozilla.com:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:29 2022
-14: Requesting Connection to firefox.settings.services.mozilla.com
-14: Responding HTTP/1.1 200 OK
-14: Tunnel closed
-15: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:30 2022
-15: Requesting Connection to incoming.telemetry.mozilla.org
-15: Responding HTTP/1.1 200 OK
-16: "CONNECT getpocket.cdn.mozilla.net:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:30 2022
-16: Requesting Connection to getpocket.cdn.mozilla.net
-16: Responding HTTP/1.1 200 OK
-17: "CONNECT contile-images.services.mozilla.com:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:30 2022
-17: Requesting Connection to contile-images.services.mozilla.com
-18: "CONNECT contile-images.services.mozilla.com:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:30 2022
-18: Requesting Connection to contile-images.services.mozilla.com
-17: Responding HTTP/1.1 200 OK
-18: Responding HTTP/1.1 200 OK
-17: Tunnel closed
-19: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.197.35.212 @ Wed Feb 23 16:38:31 2022
-19: Requesting Connection to incoming.telemetry.mozilla.org
-19: Responding HTTP/1.1 200 OK
