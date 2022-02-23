@@ -7,7 +7,7 @@
 
 ## Cache Rule
 1. If cache-control include private or no store, not stored in Cache
-2. If response does not have max-age or expire time, regarded as never expired!!
+2. If response does not have max-age or expire time, regarded as never expired and assgin max time_t
 3. Get directly from cache
     - method=GET
     - without "no cache" label both in request and response
@@ -15,7 +15,7 @@
 4. How to decide fresh/not expired
     - Suppose client,proxy,server have the same time, ignore the time cost in the process of send/receive/parse
     - a) If without max-age, expire time > system time (expire time must be TMT/UTC time)
-    - b) If only with max-age, current age< max-age
+    - b) If only with max-age, current age < max-age
     - c) If has both max-age and Age, current age+ Age < max-age   
     - d) not max-age, no expire time
 5. not fresh, revalide:
