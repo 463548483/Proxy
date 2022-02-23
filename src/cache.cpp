@@ -72,7 +72,9 @@ bool Cache::store_record(string uri, const HttpResponse & response,size_t rid) {
   RspCacheControl cache = response.get_cache();
   //cout<<"check store valid"<<endl;
   if (check_store_valid(cache)!="") {
+    std::unique_lock<std::mutex> lck (LOG.mtx);
     LOG<<rid<<": not cacheable because "<<check_store_valid(cache)<<"\n" ;
+    lck.unlock();
     return false;
   }
   else {
@@ -85,10 +87,14 @@ bool Cache::store_record(string uri, const HttpResponse & response,size_t rid) {
     record_lib.insert(pair<string, Record>(uri, new_record));
     lck.unlock();
     if (new_record.expire_time<=time(0)){
+      std::unique_lock<std::mutex> lck (LOG.mtx);
       LOG<<rid<<": cached, but requires re-validation\n";
+      lck.unlock();
     }
     else{
+      std::unique_lock<std::mutex> lck (LOG.mtx);
       LOG<<rid<<": cached, expires at "<<ctime(&new_record.expire_time);
+      lck.unlock();
     }
     return true;
   }
