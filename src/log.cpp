@@ -11,7 +11,6 @@ void Logger::open(std::string f_name, std::ios_base::openmode mode) {
 
 Logger& Logger::operator << (const std::string& msg) {
   if (fs.is_open()) {
-    std::lock_guard<std::mutex> lck(mtx);
     fs << msg;
     fs.flush();
   }
@@ -20,7 +19,6 @@ Logger& Logger::operator << (const std::string& msg) {
 
 Logger& Logger::operator << (const long long & msg) {
   if (fs.is_open()) {
-    std::lock_guard<std::mutex> lck(mtx);
     fs << msg;
     fs.flush();
   }
@@ -29,7 +27,6 @@ Logger& Logger::operator << (const long long & msg) {
 
 Logger& Logger::operator << (const int & msg) {
   if (fs.is_open()) {
-    std::lock_guard<std::mutex> lck(mtx);
     fs << msg;
     fs.flush();
   }
@@ -38,7 +35,6 @@ Logger& Logger::operator << (const int & msg) {
 
 Logger& Logger::operator << (const unsigned long long & msg) {
   if (fs.is_open()) {
-    std::lock_guard<std::mutex> lck(mtx);
     fs << msg;
     fs.flush();
   }
@@ -47,7 +43,6 @@ Logger& Logger::operator << (const unsigned long long & msg) {
 
 Logger& Logger::operator << (const unsigned int & msg) {
   if (fs.is_open()) {
-    std::lock_guard<std::mutex> lck(mtx);
     fs << msg;
     fs.flush();
   }
@@ -56,7 +51,6 @@ Logger& Logger::operator << (const unsigned int & msg) {
 
 Logger& Logger::operator << (const size_t & msg) {
   if (fs.is_open()) {
-    std::lock_guard<std::mutex> lck(mtx);
     fs << msg;
     fs.flush();
   }

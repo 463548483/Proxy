@@ -123,7 +123,7 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
         //strcat(recv_buffer,buffer);
     }
     cout<<"socket receive: "<<total_byte<<endl;
-    //cout<<std::string(recv_buffer.data(), recv_buffer.size())<<endl;
+    cout<<std::string(recv_buffer.begin(), recv_buffer.end())<<endl;
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 
@@ -144,7 +144,7 @@ pair<vector<char>, size_t> Socket::recv_request(int connfd){
     recv_buffer.insert(recv_buffer.end(),buffer.get(),buffer.get()+byte);
 
     cout<<"socket receive: "<<total_byte<<endl;
-    //cout<<std::string(recv_buffer.data(), recv_buffer.size())<<endl;
+    cout<<std::string(recv_buffer.begin(), recv_buffer.end())<<endl;
     return pair<vector<char>, size_t>(recv_buffer,total_byte);  
 }
 

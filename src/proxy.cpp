@@ -30,20 +30,26 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
   std::vector<char> rsp_vec;
   try {
   if (rsp_ptr == nullptr) { 
+    std::unique_lock<std::mutex> lck (LOG.mtx);
     LOG << rid << ": not in cache\n";
+    lck.unlock();
     Clientsocket client_socket;
     int webserver_fd = client_socket.init_client(req.get_host().c_str(), req.get_port().c_str());
     std::vector<char> req_vec = req.reconstruct();
     std::vector<char> s_line = req.get_start_line();
+    lck.lock();
     LOG << rid << ": Requesting \"" << std::string(s_line.begin(), s_line.end()) 
         << "\" from " << req.get_host() << "\n";
+    lck.unlock();
     client_socket.send_buffer(webserver_fd, req_vec.data(), req_vec.size());
     pair<vector<char>, int> response_buffer = client_socket.recv_response(webserver_fd);
     close(webserver_fd);
     rsp = parser.parse_response(response_buffer.first.data(), response_buffer.second);
     s_line = rsp.get_start_line();
+    lck.lock();
     LOG << rid << ": Received \"" << std::string(s_line.begin(), s_line.end()) 
         << "\" from " << req.get_host() << "\n";
+    lck.unlock();
     if (rsp.get_code() == "200") {
       cache.store_record(req.get_URI(), rsp,rid);
     }
@@ -54,15 +60,19 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
     if (req.get_cache().no_cache || rsp_ptr->get_cache().no_cache ||
         cache.check_time_valid(req.get_URI()) == false){
       if (cache.check_tag_valid(req.get_URI())) {
+        std::unique_lock<std::mutex> lck (LOG.mtx);
         LOG << rid << ": in cache, requires validation\n";
+        lck.unlock();
         std::string etag = rsp_ptr->get_cache().etag;
         std::string last_modified = rsp_ptr->get_cache().last_modified;
         std::vector<char> revalidate_req = req.get_revalidate_req(req.get_URI(), etag, last_modified);
         Clientsocket client_socket;
         int webserver_fd = client_socket.init_client(req.get_host().c_str(), req.get_port().c_str());
         std::vector<char> s_line = req.get_start_line();
+        lck.lock();
         LOG << rid << ": Requesting \"" << std::string(s_line.begin(), s_line.end()) 
             << "\" from " << req.get_host() << "\n";
+        lck.unlock();
         client_socket.send_buffer(webserver_fd, revalidate_req.data(), revalidate_req.size());
         pair<vector<char>, int> response_buffer = client_socket.recv_response(webserver_fd);
         close(webserver_fd);
@@ -70,8 +80,10 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
         HttpResponse revalidate_rsp;
         revalidate_rsp = parser.parse_response(response_buffer.first.data(), response_buffer.second);
         s_line = revalidate_rsp.get_start_line();
+        lck.lock();
         LOG << rid << ": Received \"" << std::string(s_line.begin(), s_line.end()) 
             << "\" from " << req.get_host() << "\n";
+        lck.unlock();
         // deal with revalidate response
         if (revalidate_rsp.get_code() == "304") { // replace header fields, store to cache
           rsp.replace_header_fields(&revalidate_rsp);
@@ -83,26 +95,34 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
       } else {
         time_t expire_time = cache.get_expire_time(req.get_URI());
         std::string expire_time_str(ctime(&expire_time)); 
+        std::unique_lock<std::mutex> lck (LOG.mtx);
         LOG << rid << ": in cache, but expired at " << expire_time_str << "\n"; 
+        lck.unlock();
         Clientsocket client_socket;
         int webserver_fd = client_socket.init_client(req.get_host().c_str(), req.get_port().c_str());
         std::vector<char> req_vec = req.reconstruct();
         std::vector<char> s_line = req.get_start_line();
+        lck.lock();
         LOG << rid << ": Requesting \"" << std::string(s_line.begin(), s_line.end()) 
             << "\" from " << req.get_host() << "\n";
+        lck.unlock();
         client_socket.send_buffer(webserver_fd, req_vec.data(), req_vec.size());
         pair<vector<char>, int> response_buffer = client_socket.recv_response(webserver_fd);
         close(webserver_fd);
         rsp = parser.parse_response(response_buffer.first.data(), response_buffer.second);
         s_line = rsp.get_start_line();
+        lck.lock();
         LOG << rid << ": Received \"" << std::string(s_line.begin(), s_line.end()) 
             << "\" from " << req.get_host() << "\n";
+        lck.unlock();
         if (rsp.get_code() == "200") {
           cache.revalidate(req.get_URI(), rsp,rid);
         }
       }    
     } else {
+      std::unique_lock<std::mutex> lck (LOG.mtx);
       LOG << rid << ": in cache, valid\n";
+      lck.unlock();
       rsp = *rsp_ptr;
       int64_t old_time = rsp.get_cache().age;
       time_t store_time = cache.get_store_time(req.get_URI());
@@ -113,17 +133,29 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
   rsp_vec = rsp.reconstruct();
   }
   catch (HttpRequestExc &e) {
-    std::string str = "HTTP/1.1 400 Bad Request";
+    std::string str = "HTTP/1.1 400 Bad Request\r\n\r\n";
     rsp_vec = std::vector<char>(str.begin(), str.end());
+    std::unique_lock<std::mutex> lck (LOG.mtx);
+    LOG << rid << ": NOTE recieved an invaild request from client\n";
+    LOG << rid << ": Responding \"" << "HTTP/1.1 400 Bad Request" << "\"\n";
+    lck.unlock();
   }
   catch (HttpResponseExc &e) {
-    std::string str = "HTTP/1.1 502 Bad Gateway";
+    std::string str = "HTTP/1.1 502 Bad Gateway\r\n\r\n";
     rsp_vec = std::vector<char>(str.begin(), str.end());
+    std::unique_lock<std::mutex> lck (LOG.mtx);
+    LOG << rid << ": NOTE recieved an invaild response from server\n";
+    LOG << rid << ": Responding \"" << "HTTP/1.1 502 Bad Gateway" << "\"\n";
+    lck.unlock();
   }
   // send rsp to client
   Socket socket(connfd);
   std::vector<char> s_line = rsp.get_start_line();
-  LOG << rid << ": Responding \"" << std::string(s_line.begin(), s_line.end()) << "\"\n";
+  if (s_line.size() != 0) {
+    std::unique_lock<std::mutex> lck (LOG.mtx);
+    LOG << rid << ": Responding \"" << std::string(s_line.begin(), s_line.end()) << "\"\n";
+    lck.unlock();
+  }
   socket.send_buffer(connfd, rsp_vec.data(), rsp_vec.size());
   close(connfd);
 }
@@ -134,7 +166,9 @@ void handle_post(const HttpRequest & req, int connfd,size_t rid) {
     int webserver_fd=client_socket.init_client(req.get_host().c_str(),req.get_port().c_str());
     client_socket.send_buffer(webserver_fd,req.reconstruct().data());
     // log ID: Requesting "REQUEST" from SERVER
-    LOG << rid << ": Requesting Post "<<req.get_start_line().data()<< " from "<<req.get_host().data()<<"\n";
+    std::unique_lock<std::mutex> lck (LOG.mtx);
+    LOG << rid << ": Requesting \""<<req.get_start_line().data()<< "\" from "<<req.get_host().data()<<"\n";
+    lck.unlock();
     // recv response from server
     pair<vector<char>,int> response_buffer=client_socket.recv_response(webserver_fd);
     HttpResponse rsp;
@@ -143,38 +177,56 @@ void handle_post(const HttpRequest & req, int connfd,size_t rid) {
     rsp=parse.parse_response(response_buffer.first.data(),response_buffer.second);
     }
     catch (HttpRequestExc &e) {
-      std::string str = "HTTP/1.1 400 Bad Request";
+      std::string str = "HTTP/1.1 400 Bad Request\r\n\r\n";
       vector<char> rsp_vec = std::vector<char>(str.begin(), str.end());
       response_buffer.first = rsp_vec;
       response_buffer.second = rsp_vec.size();
+      lck.lock();
+      LOG << rid << ": NOTE recieved an invaild request from client\n";
+      LOG << rid << ": Responding \"" << "HTTP/1.1 400 Bad Request" << "\"\n";
+      lck.unlock();
     }
     catch (HttpResponseExc &e) {
-      std::string str = "HTTP/1.1 502 Bad Gateway";
+      std::string str = "HTTP/1.1 502 Bad Gateway\r\n\r\n";
       vector<char>rsp_vec = std::vector<char>(str.begin(), str.end());
       response_buffer.first = rsp_vec;
       response_buffer.second = rsp_vec.size();
+      lck.lock();
+      LOG << rid << ": NOTE recieved an invaild response from server\n";
+      LOG << rid << ": Responding \"" << "HTTP/1.1 502 Bad Gateway" << "\"\n";
+      lck.unlock();
     }
     // log ID: Received "RESPONSE" from SERVER
-    LOG << rid << ": Received "<<rsp.get_start_line().data()<<" from "<<req.get_host().data()<<"\n";
+    if (rsp.get_start_line().size() != 0 ) {
+      lck.lock();
+      LOG << rid << ": Received "<<rsp.get_start_line().data()<<" from "<<req.get_host().data()<<"\n";
+      lck.unlock();
+    }
     //send back to web client
     client_socket.send_buffer(connfd,response_buffer.first.data(),response_buffer.second);
     //log responding
-    LOG << rid << ": Responding "<<rsp.get_start_line().data()<<"\n";
+    if (rsp.get_start_line().size() != 0 ) {
+      lck.lock();
+      LOG << rid << ": Responding "<<rsp.get_start_line().data()<<"\n";
+      lck.unlock();
+    }
     close(webserver_fd); 
     close(connfd);
-
 }
 
 void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
     // send request to server
     Clientsocket client_socket;
+    std::unique_lock<std::mutex> lck (LOG.mtx);
     LOG << rid << ": Requesting Connection to " <<req.get_host().data()<<"\n";
+    lck.unlock();
     int webserver_fd=client_socket.init_client(req.get_host().c_str(), "443");
     // response HTTP/1.1 200 OK\r\n\r\n
     // log ID: Received "RESPONSE" from SERVER
     client_socket.send_buffer(connfd,"HTTP/1.1 200 OK\r\n\r\n",19);
-    LOG << rid << ": Responding "<<"HTTP/1.1 200 OK\n";
-    
+    lck.lock();
+    LOG << rid << ": Responding "<< "HTTP/1.1 200 OK\n";
+    lck.unlock();
     vector<int> fds={connfd,webserver_fd};
     int numfds=connfd>webserver_fd?connfd:webserver_fd;
     fd_set readfds;
@@ -197,12 +249,16 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
                 rv=received.second;
                 if (rv>0){
                   if (send(fds[1-i],received.first.data(),rv,0)<=0){
+                    lck.lock();
                     LOG <<rid<< ": Tunnel closed\n";
+                    lck.unlock();
                     return;
                   }
                 }
                 else{
+                  lck.lock();
                   LOG <<rid<< ": Tunnel closed\n";
+                  lck.unlock();
                   return;
                 }
                 break;
@@ -211,10 +267,11 @@ void handle_connection(const HttpRequest & req, int connfd, size_t rid) {
         
         
     }
+    lck.lock();
     LOG <<rid<< ": Tunnel closed\n";
+    lck.unlock();
     close(webserver_fd); 
     close(connfd);
-
 }
 
 void handle_request(int connfd, size_t rid) {
@@ -226,6 +283,12 @@ void handle_request(int connfd, size_t rid) {
         //cout<<"request first "<<request_buffer.first.size()<<"second "<<request_buffer.second<<endl;
         HttpParser parser;
         HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
+        time_t cur_time = time(0); 
+        std::unique_lock<std::mutex> lck (LOG.mtx);
+        std::string ipfrom = "1.2.3.4";
+        std::vector<char> s_line = req.get_start_line();
+        LOG << rid << ": \"" << std::string(s_line.begin(), s_line.end()) << "\" from " << ipfrom << " @ " << ctime(&cur_time) << "\n"; 
+        lck.unlock();
         string method=req.get_method();
         if (method=="GET"){
           handle_get(req,connfd,rid);
@@ -237,21 +300,27 @@ void handle_request(int connfd, size_t rid) {
           handle_connection(req,connfd, rid);
         }
         else {
+          std::unique_lock<std::mutex> lck (LOG.mtx);
           LOG<<rid<<": ERROR Wrong HTTP Method\n";
+          lck.unlock();
         }
       }
       catch (HttpRequestExc &e) {
         std::string str = "HTTP/1.1 400 Bad Request\r\n\r\n";
         vector<char> rsp_vec = std::vector<char>(str.begin(), str.end());
         Socket socket(connfd);
-        LOG << rid << ": Responding \"" << std::string(rsp_vec.begin(), rsp_vec.end())<<"\n";
+        std::unique_lock<std::mutex> lck (LOG.mtx);
+        LOG << rid << ": Responding \"" << "HTTP/1.1 400 Bad Request" <<"\n";
+        lck.unlock();
         socket.send_buffer(connfd, rsp_vec.data(), 29);
       }
       catch (HttpResponseExc &e) {
         std::string str = "HTTP/1.1 502 Bad Gateway\r\n\r\n";
         vector<char>rsp_vec = std::vector<char>(str.begin(), str.end());
         Socket socket(connfd);
-        LOG << rid << ": Responding \"" << std::string(rsp_vec.begin(), rsp_vec.end())<<"\n";
+        std::unique_lock<std::mutex> lck (LOG.mtx);
+        LOG << rid << ": Responding \"" << "HTTP/1.1 502 Bad Gateway" <<"\n";
+        lck.unlock();
         socket.send_buffer(connfd, rsp_vec.data(), 29);
       }
     }
@@ -260,6 +329,7 @@ void handle_request(int connfd, size_t rid) {
     }
     catch (std::exception &e) {
       std::cerr << "An unexpected error occurs when handling request\n"; 
+      std::cerr << e.what() << std::endl;
     }
     return;
 }

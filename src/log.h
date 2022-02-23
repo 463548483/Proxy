@@ -20,10 +20,10 @@ public:
   Logger& operator << (const unsigned long long & msg);
   Logger& operator << (const size_t & msg);
   ~Logger();
+  std::mutex mtx;
 private:
   std::string file_name;
   std::ofstream fs;
-  std::mutex mtx;
 };
 
 #endif
