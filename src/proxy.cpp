@@ -50,8 +50,8 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
     LOG << rid << ": Received \"" << std::string(s_line.begin(), s_line.end()) 
         << "\" from " << req.get_host() << "\n";
     lck.unlock();
-    if (rsp.get_code() == "200") {
-      cache.store_record(req.get_URI(), rsp,rid);
+    if (rsp.get_code() == "200" && req.get_cache().no_store == false) {
+      cache.store_record(req.get_URI(), rsp, rid);
     }
   } else {
     if (rsp_ptr->get_code() != "200") {
@@ -87,10 +87,14 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
         // deal with revalidate response
         if (revalidate_rsp.get_code() == "304") { // replace header fields, store to cache
           rsp.replace_header_fields(&revalidate_rsp);
-          cache.revalidate(req.get_URI(), rsp,rid);
+          if (req.get_cache().no_store == false) {
+            cache.revalidate(req.get_URI(), rsp,rid);
+          }
         } else if (revalidate_rsp.get_code() == "200") { // replace all, store to cache     
           rsp = revalidate_rsp;
-          cache.revalidate(req.get_URI(), rsp,rid);
+          if (req.get_cache().no_store == false) {
+            cache.revalidate(req.get_URI(), rsp,rid);
+          }
         }
       } else {
         time_t expire_time = cache.get_expire_time(req.get_URI());
@@ -115,7 +119,7 @@ void handle_get(const HttpRequest & req, int connfd, size_t rid) {
         LOG << rid << ": Received \"" << std::string(s_line.begin(), s_line.end()) 
             << "\" from " << req.get_host() << "\n";
         lck.unlock();
-        if (rsp.get_code() == "200") {
+        if (rsp.get_code() == "200" && req.get_cache().no_store == false) {
           cache.revalidate(req.get_URI(), rsp,rid);
         }
       }    
