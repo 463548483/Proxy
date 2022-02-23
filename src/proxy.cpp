@@ -278,14 +278,14 @@ void handle_request(int connfd, size_t rid) {
     //receive from client and parse
     try {
       try {
-        Socket socket(connfd);
+        Serversocket socket(connfd);
         pair<vector<char>,int> request_buffer=socket.recv_request(connfd); 
         //cout<<"request first "<<request_buffer.first.size()<<"second "<<request_buffer.second<<endl;
         HttpParser parser;
         HttpRequest req=parser.parse_request(request_buffer.first.data(),request_buffer.second);
         time_t cur_time = time(0); 
         std::unique_lock<std::mutex> lck (LOG.mtx);
-        std::string ipfrom = "1.2.3.4";
+        std::string ipfrom = socket.get_client_ip();
         std::vector<char> s_line = req.get_start_line();
         LOG << rid << ": \"" << std::string(s_line.begin(), s_line.end()) << "\" from " << ipfrom << " @ " << asctime(gmtime(&cur_time)); 
         lck.unlock();

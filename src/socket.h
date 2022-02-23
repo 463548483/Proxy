@@ -29,6 +29,7 @@ class Serversocket:public Socket{
     string client_ip;
     public:
     Serversocket():Socket(0),listenfd(0),server_host(NULL),server_port(NULL){}
+    Serversocket(int connfd):Socket(connfd),listenfd(0),server_host(NULL),server_port(NULL){}
     int init_server(const char * self_port);
     int server_accept();
     string get_client_ip();
