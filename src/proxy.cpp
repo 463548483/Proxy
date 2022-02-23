@@ -287,7 +287,7 @@ void handle_request(int connfd, size_t rid) {
         std::unique_lock<std::mutex> lck (LOG.mtx);
         std::string ipfrom = "1.2.3.4";
         std::vector<char> s_line = req.get_start_line();
-        LOG << rid << ": \"" << std::string(s_line.begin(), s_line.end()) << "\" from " << ipfrom << " @ " << ctime(&cur_time) << "\n"; 
+        LOG << rid << ": \"" << std::string(s_line.begin(), s_line.end()) << "\" from " << ipfrom << " @ " << asctime(gmtime(&cur_time)); 
         lck.unlock();
         string method=req.get_method();
         if (method=="GET"){

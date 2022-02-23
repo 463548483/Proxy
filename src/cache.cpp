@@ -93,7 +93,7 @@ bool Cache::store_record(string uri, const HttpResponse & response,size_t rid) {
     }
     else{
       std::unique_lock<std::mutex> lck (LOG.mtx);
-      LOG<<rid<<": cached, expires at "<<ctime(&new_record.expire_time);
+      LOG<<rid<<": cached, expires at "<< asctime(gmtime(&new_record.expire_time));
       lck.unlock();
     }
     return true;

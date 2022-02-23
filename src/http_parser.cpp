@@ -226,9 +226,13 @@ void HttpParser::parse_response_headers(HttpResponse* response) {
         catch (std::exception &e) {
           throw HttpResponseExc("HttpParser::parse_response_headers: have error when trying to convert the content size.");
         }
-        if (content_size < 0 || (unsigned int)content_size != response->message_body.size()) {
-          throw HttpResponseExc("HttpParser::parse_response_headers: invalid content size or doesn't match message body size.");
+        //if (content_size < 0 || (unsigned int)content_size != response->message_body.size()) {
+        if (content_size < 0 || (unsigned int)content_size > response->message_body.size()) {
+          std::string msg = "HttpParser::parse_response_headers: invalid content size or doesn't match message body size. content size: "
+              + std::to_string(content_size) + " body real size: " + std::to_string(response->message_body.size());
+          throw HttpResponseExc(msg);
         }
+        response->resize_message_body(content_size);
         field->resize(15);
         field->push_back(' ');
         std::string content_size_new = std::to_string(content_size);

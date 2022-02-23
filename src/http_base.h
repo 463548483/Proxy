@@ -11,6 +11,7 @@ class HttpParser;
 class HttpBase {
   friend class HttpParser;
 public:
+  void resize_message_body(long long size);
   // request is the reconstructed request not raw request
   std::vector<char> reconstruct() const;
   std::vector<char> get_start_line() const {return start_line;}

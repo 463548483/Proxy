@@ -22,3 +22,9 @@ void HttpBase::add_header_field(const std::string & field) {
   header_fields.push_back(std::vector<char>(field.begin(), field.end()));
 }
 
+void HttpBase::resize_message_body(long long size) {
+  if (size < 0 || size > (long long )message_body.size()) {
+    return;
+  }
+  message_body.resize(size);
+}
