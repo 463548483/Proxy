@@ -20,7 +20,7 @@ POST:
     
     200 ok: http://ptsv2.com/t/zpwjd-1645628789/post
     200 ok: http://httpbin.org/forms/post
-    400: https://run.mocky.io/v3/0d4cb740-c034-498d-bff5-ee641676c65e
+    400: http://run.mocky.io/v3/0d4cb740-c034-498d-bff5-ee641676c65e
     502: https://run.mocky.io/v3/21acc4af-38c4-426d-87f7-ced0319e7b0a
 
 CONNECTION:
