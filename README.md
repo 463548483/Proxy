@@ -2,7 +2,7 @@
 
 ## Thread pool
     - Pre-create threads to take the request from client
-    - max 10 threads
+    - max 100 threads
     - max 100 tasks in queue for threads to taken
 
 ## Cache Rule
