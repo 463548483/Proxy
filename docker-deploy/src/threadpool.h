@@ -23,7 +23,7 @@ private:
     // use to determine whether recieved a task or the treadpool is destructed
     bool run_flag;
 public:
-    Threadpool(int max_threads=10, int max_tasks=100);
+    Threadpool(int max_threads=100, int max_tasks=300);
     bool init_pool(function<void()> t);
     Threadpool * get_pool();
     bool assign_task(function<void()> task);

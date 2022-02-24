@@ -59,3 +59,18 @@
 12: Requesting "POST http://httpbin.org/post HTTP/1.1" from httpbin.org
 12: Received HTTP/1.1 200 OK from httpbin.org
 12: Responding HTTP/1.1 200 OK
+0: "CONNECT getpocket.cdn.mozilla.net:443 HTTP/1.1" from 24.163.80.149 @ Wed Feb 23 23:54:13 2022
+0: Requesting Connection to getpocket.cdn.mozilla.net
+0: Responding HTTP/1.1 200 OK
+1: "CONNECT spocs.getpocket.com:443 HTTP/1.1" from 24.163.80.149 @ Wed Feb 23 23:54:13 2022
+1: Requesting Connection to spocs.getpocket.com
+1: Responding HTTP/1.1 200 OK
+2: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 24.163.80.149 @ Wed Feb 23 23:54:14 2022
+2: Requesting Connection to img-getpocket.cdn.mozilla.net
+2: Responding HTTP/1.1 200 OK
+0: "CONNECT contile.services.mozilla.com:443 HTTP/1.1" from 24.163.80.149 @ Wed Feb 23 23:58:58 2022
+0: Requesting Connection to contile.services.mozilla.com
+0: Responding HTTP/1.1 200 OK
+0: Tunnel closed
+1: Responding "HTTP/1.1 400 Bad Request
+2: Responding "HTTP/1.1 400 Bad Request
