@@ -3,7 +3,7 @@
 // need to change both header_fields and cache control
 void HttpResponse::replace_header_fields(const HttpResponse* rsp) {
   header_fields = rsp->header_fields;
-  code = rsp->code;
+  cache = rsp->cache;
 }
 
 bool HttpResponse::change_header_field(const std::string & field_name, const std::string & field_value) {

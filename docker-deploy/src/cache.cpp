@@ -33,7 +33,7 @@ void Cache::remove_record(string uri) {
   //cout<<"find this record"<<endl;
   it = record_lib.find(uri);
   if (it != record_lib.end()) {   
-    cout<<"remove"<<endl;
+    //cout<<"remove"<<endl;
     record_lib.erase(it);
   }
 }
