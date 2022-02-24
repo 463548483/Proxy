@@ -32,7 +32,7 @@ private:
 class HttpParserExc: public std::exception {
 public:
   HttpParserExc(std::string msg) {
-    err_msg = "Encounter an error when parsing headers fields in http\n" + msg + "\n";
+    err_msg = "Invalid format for request or response\n" + msg + "\n";
   }
   virtual const char * what() const throw() {
     return err_msg.c_str();
