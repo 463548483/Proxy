@@ -4,6 +4,7 @@ GET:
         no-cache: Postman send no-cache to http://info.cern.ch/hypertext/WWW/LineMode/Defaults/QuickGuide.html
     RSP:
         private: http://ptsv2.com/t/zpwjd-1645628789/post
+                 http://www.google.com/
         no-store: http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
         no-cache: http://www.artsci.utoronto.ca/futurestudents
         max-age=xxx, age=xxx: http://go.com/
