@@ -202,7 +202,7 @@ void handle_post(const HttpRequest & req, int connfd,size_t rid) {
     }
     // log ID: Received "RESPONSE" from SERVER
     if (rsp.get_start_line().size() != 0 ) {
-      std::vector<char> s_line = req.get_start_line();
+      std::vector<char> s_line = rsp.get_start_line();
       lck.lock();
       LOG << rid << ": Received \""<< std::string(s_line.begin(), s_line.end()) <<"\" from "<<req.get_host()<<"\n";
       lck.unlock();
@@ -211,7 +211,7 @@ void handle_post(const HttpRequest & req, int connfd,size_t rid) {
     client_socket.send_buffer(connfd,response_buffer.first.data(),response_buffer.second);
     //log responding
     if (rsp.get_start_line().size() != 0 ) {
-      std::vector<char> s_line = req.get_start_line();
+      std::vector<char> s_line = rsp.get_start_line();
       lck.lock();
       LOG << rid << ": Responding \""<< std::string(s_line.begin(), s_line.end())<<"\"\n";
       lck.unlock();
