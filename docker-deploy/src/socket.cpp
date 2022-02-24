@@ -117,7 +117,7 @@ pair<vector<char>, size_t> Socket::recv_response(int connfd){
         //cout << byte << endl;
         if (byte==-1){
             std::string err = std::to_string(errno);
-            cout<<"Socket Error when receiving request, recieve -1 bytes, errno:  "<<err<<endl;            
+            cout<<"Socket Error when receiving response, recieve -1 bytes, errno:  "<<err<<endl;            
             //std::string err = std::to_string(errno);
             //cout<<"error recv"<<err<<endl;
             break;
@@ -149,6 +149,7 @@ pair<vector<char>, size_t> Socket::recv_request(int connfd){
     if (byte==-1){
         std::string err = std::to_string(errno);
         cout<<"Socket Error when receiving request, recieve -1 bytes, errno:  "<<err<<endl;            
+        throw SocketExc("Error Receiving Request, errno: " + err);
     }
     total_byte+=byte;
     recv_buffer.reserve(total_byte);
